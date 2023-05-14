@@ -2,12 +2,12 @@
 #define GAME_H
 #include "window.h"
 #include "tile_manager.h"
-#include "mario.h"
+#include "ferdek.h"
 class Game
 {
     private:
         Window window;
-        Mario mario;
+        Ferdek ferdek;
         TileManager tile_manager;
         bool is_done;
     public:
@@ -16,7 +16,7 @@ class Game
         void GameSetup();
         void GameUpdate();
         void EndGame();
-        void ManageMarioCollisionsAndGravity();
+        void ManagePlayerCollisionsAndGravity();
         bool IsDone();
 };
 

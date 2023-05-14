@@ -1,7 +1,7 @@
-#ifndef MARIO_H
-#define MARIO_H
+#ifndef FERDEK_H
+#define FERDEK_H
 #include "SFML/Graphics.hpp"
-class Mario
+class Ferdek
 {
     private:
         sf::Texture texture_sheet;
@@ -15,8 +15,8 @@ class Mario
         bool faced_forward;
 
     public:
-        Mario();
-        ~Mario();
+        Ferdek();
+        ~Ferdek();
         void Update();
         const sf::Sprite& GetSprite() const;
         const sf::Vector2f& GetPosition() const;

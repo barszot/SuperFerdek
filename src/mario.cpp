@@ -1,6 +1,6 @@
-#include "mario.h"
+#include "ferdek.h"
 
-Mario::Mario() : position(sf::Vector2f(64.f, 480.f)), min_horizontal_warp(2),
+Ferdek::Ferdek() : position(sf::Vector2f(64.f, 480.f)), min_horizontal_warp(2),
 max_horizontal_warp(6), acceleration_warp(0.01)
 {
     texture_sheet.loadFromFile("src/imgs/mario.png");
@@ -18,12 +18,12 @@ max_horizontal_warp(6), acceleration_warp(0.01)
     bottom_collision = false;
 }
 
-Mario::~Mario()
+Ferdek::~Ferdek()
 {
 
 }
 
-void Mario::Update()
+void Ferdek::Update()
 {
     if (((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && position.x>left_warp+64) && !left_collision)
     {   
@@ -55,11 +55,11 @@ void Mario::Update()
 }
 
 
-const sf::Sprite& Mario::GetSprite() const
+const sf::Sprite& Ferdek::GetSprite() const
 {
     return sprite;
 }
-const sf::Vector2f& Mario::GetPosition() const
+const sf::Vector2f& Ferdek::GetPosition() const
 {
     return position;
 }
