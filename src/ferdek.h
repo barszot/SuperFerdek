@@ -10,10 +10,15 @@ class Ferdek
         const float min_horizontal_warp;
         const float max_horizontal_warp;
         const float acceleration_warp;
-        const float gravity_warp;
+        const int max_mini_jumps;
+        const float mini_jump_height;
         float left_warp;
         float right_warp;
         bool faced_forward;
+        
+        bool is_jumping;
+        int mini_jumps;
+
 
     public:
         Ferdek();
@@ -25,6 +30,13 @@ class Ferdek
         bool right_collision;
         bool top_collision;
         bool bottom_collision;
+        void SetY(const float& new_y);
+        bool IsJumping() const;
+        float GetMiniJump() const;
+        int GetNumberOfMiniJumps() const;
+        void DecrementMiniJumps();
+        void StartJumping();
+
 };
 
 #endif

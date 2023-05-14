@@ -10,6 +10,7 @@ class Game
         Ferdek ferdek;
         TileManager tile_manager;
         bool is_done;
+        float gravity_warp;
     public:
         Game();
         ~Game();
