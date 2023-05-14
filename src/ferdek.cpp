@@ -1,7 +1,7 @@
 #include "ferdek.h"
 #include <iostream>
-Ferdek::Ferdek() : position(sf::Vector2f(160.f, 480.f-64.f)), min_horizontal_warp(2),
-max_horizontal_warp(6), acceleration_warp(0.01),  max_mini_jumps(45), mini_jump_height(2.01)
+Ferdek::Ferdek() : position(sf::Vector2f(160.f, 480.f-128.f)), min_horizontal_warp(2),
+max_horizontal_warp(6), acceleration_warp(0.01),  max_mini_jumps(15), mini_jump_height(5.f)
 {
     texture_sheet.loadFromFile("src/imgs/mario.png");
     left_warp = min_horizontal_warp;
@@ -9,7 +9,7 @@ max_horizontal_warp(6), acceleration_warp(0.01),  max_mini_jumps(45), mini_jump_
     faced_forward = true;
     sprite.setTexture(texture_sheet);
     sprite.setTextureRect(sf::IntRect(211, 0, 13, 16));
-    sprite.setOrigin(32, 32);
+    sprite.setOrigin(0, 32);
     sprite.setPosition(position);
     sprite.setScale(sf::Vector2f(2.f, 2.f));
     left_collision = false;

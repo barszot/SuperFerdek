@@ -14,7 +14,6 @@ class Ferdek
         const float mini_jump_height;
         float left_warp;
         float right_warp;
-        bool faced_forward;
         
         bool is_jumping;
         int mini_jumps;
@@ -23,6 +22,7 @@ class Ferdek
     public:
         Ferdek();
         ~Ferdek();
+        bool faced_forward;
         void Update();
         const sf::Sprite& GetSprite() const;
         const sf::Vector2f& GetPosition() const;
