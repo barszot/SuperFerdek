@@ -16,7 +16,7 @@ class Game
         void GameSetup();
         void GameUpdate();
         void EndGame();
-        void ManagePlayerCollisionsAndGravity();
+        void ManagePlayerCollisions();
         bool IsDone();
 };
 

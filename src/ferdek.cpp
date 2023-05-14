@@ -1,7 +1,7 @@
 #include "ferdek.h"
 
-Ferdek::Ferdek() : position(sf::Vector2f(64.f, 480.f)), min_horizontal_warp(2),
-max_horizontal_warp(6), acceleration_warp(0.01)
+Ferdek::Ferdek() : position(sf::Vector2f(160.f, 480.f)), min_horizontal_warp(2),
+max_horizontal_warp(6), acceleration_warp(0.01), gravity_warp(0.5)
 {
     texture_sheet.loadFromFile("src/imgs/mario.png");
     left_warp = min_horizontal_warp;
@@ -25,13 +25,14 @@ Ferdek::~Ferdek()
 
 void Ferdek::Update()
 {
-    if (((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && position.x>left_warp+64) && !left_collision)
+    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))&& !left_collision)
     {   
         if(faced_forward==true)
         {
             faced_forward = false;
             left_warp = min_horizontal_warp;
         }
+
         position.x -= left_warp;
         sprite.setTextureRect(sf::IntRect(181, 0, 13, 16));
         left_warp = std::min(left_warp+acceleration_warp, max_horizontal_warp);
@@ -46,11 +47,11 @@ void Ferdek::Update()
         }
         position.x += right_warp;
         sprite.setTextureRect(sf::IntRect(211, 0, 13, 16));
-        faced_forward = true;
         right_warp = std::min(right_warp+acceleration_warp, max_horizontal_warp);
     }
 
     sprite.setPosition(position);
+
 
 }
 
@@ -63,3 +64,4 @@ const sf::Vector2f& Ferdek::GetPosition() const
 {
     return position;
 }
+

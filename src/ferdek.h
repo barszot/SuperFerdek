@@ -10,6 +10,7 @@ class Ferdek
         const float min_horizontal_warp;
         const float max_horizontal_warp;
         const float acceleration_warp;
+        const float gravity_warp;
         float left_warp;
         float right_warp;
         bool faced_forward;
