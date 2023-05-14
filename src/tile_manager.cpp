@@ -70,6 +70,12 @@ const std::vector<std::shared_ptr<Tile>>& TileManager::GetTileCollection() const
     return tile_collection;
 }
 
+const std::vector<std::vector<int>>& TileManager::GetTileTypes() const
+{
+    return tile_types;
+}
+
+
 int TileManager::GetLength() const
 {
     return length;

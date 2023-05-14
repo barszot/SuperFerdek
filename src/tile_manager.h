@@ -18,7 +18,7 @@ class TileManager
         ~TileManager();
 
         const std::vector<std::shared_ptr<Tile>>& GetTileCollection() const;
-
+        const std::vector<std::vector<int>>& GetTileTypes() const;
         int GetLength() const;
         int GetHeigth() const;
         int GetLevel() const;

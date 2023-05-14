@@ -1,7 +1,7 @@
 #include "mario.h"
 
-Mario::Mario() : position(sf::Vector2f(64.f, 412.f)), min_horizontal_warp(2),
-max_horizontal_warp(5), acceleration_warp(0.002)
+Mario::Mario() : position(sf::Vector2f(64.f, 480.f)), min_horizontal_warp(2),
+max_horizontal_warp(6), acceleration_warp(0.01)
 {
     texture_sheet.loadFromFile("src/imgs/mario.png");
     left_warp = min_horizontal_warp;
@@ -9,8 +9,13 @@ max_horizontal_warp(5), acceleration_warp(0.002)
     faced_forward = true;
     sprite.setTexture(texture_sheet);
     sprite.setTextureRect(sf::IntRect(211, 0, 13, 16));
+    sprite.setOrigin(32, 32);
     sprite.setPosition(position);
-    sprite.setScale(sf::Vector2f(2.2f, 2.2f));
+    sprite.setScale(sf::Vector2f(2.f, 2.f));
+    left_collision = false;
+    right_collision = false;
+    top_collision = false;
+    bottom_collision = false;
 }
 
 Mario::~Mario()
@@ -20,7 +25,7 @@ Mario::~Mario()
 
 void Mario::Update()
 {
-    if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && position.x>min_horizontal_warp)
+    if (((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) && position.x>left_warp+64) && !left_collision)
     {   
         if(faced_forward==true)
         {
@@ -32,7 +37,7 @@ void Mario::Update()
         left_warp = std::min(left_warp+acceleration_warp, max_horizontal_warp);
 
     }
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && !right_collision)
     {   
         if(faced_forward==false)
         {

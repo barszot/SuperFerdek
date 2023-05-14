@@ -13,12 +13,17 @@ class Mario
         float left_warp;
         float right_warp;
         bool faced_forward;
+
     public:
         Mario();
         ~Mario();
         void Update();
         const sf::Sprite& GetSprite() const;
         const sf::Vector2f& GetPosition() const;
+        bool left_collision;
+        bool right_collision;
+        bool top_collision;
+        bool bottom_collision;
 };
 
 #endif
