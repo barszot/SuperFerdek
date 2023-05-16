@@ -4,7 +4,7 @@ CXX_FLAGS = -g -Wall -std=c++20
 OS := $(shell uname)
 
 LINUX_INCLUDES = -I/usr/include/SFML
-LINUX_LIBS = -L/usr/lib/x86_64-linux-gnu -lsfml-graphics -lsfml-window -lsfml-system
+LINUX_LIBS = -L/usr/lib/x86_64-linux-gnu -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 SRC = ${wildcard src/*.cpp} ${wildcard src/states/*.cpp}
 OBJ = ${wildcard build/*}

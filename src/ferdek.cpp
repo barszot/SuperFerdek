@@ -1,7 +1,7 @@
 #include "ferdek.h"
 #include <iostream>
-Ferdek::Ferdek() : position(sf::Vector2f(160.f, 480.f-128.f)), min_horizontal_warp(2),
-max_horizontal_warp(6), acceleration_warp(0.01),  max_mini_jumps(15), mini_jump_height(5.f)
+Ferdek::Ferdek() : position(sf::Vector2f(160.f, 480.f-128.f)), min_horizontal_warp(200),
+max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f), mini_jump_height(500.f)
 {
     texture_sheet.loadFromFile("src/imgs/mario.png");
     left_warp = min_horizontal_warp;
@@ -18,6 +18,7 @@ max_horizontal_warp(6), acceleration_warp(0.01),  max_mini_jumps(15), mini_jump_
     bottom_collision = false;
     is_jumping = false;
     mini_jumps = 0;
+    gravity_warp = 300.f;
 }
 
 Ferdek::~Ferdek()
@@ -25,7 +26,7 @@ Ferdek::~Ferdek()
 
 }
 
-void Ferdek::Update()
+void Ferdek::Update(float time_warp)
 {
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))&& !left_collision)
     {   
@@ -35,7 +36,7 @@ void Ferdek::Update()
             left_warp = min_horizontal_warp;
         }
 
-        position.x -= left_warp;
+        position.x -= left_warp*time_warp;
         sprite.setTextureRect(sf::IntRect(181, 0, 13, 16));
         left_warp = std::min(left_warp+acceleration_warp, max_horizontal_warp);
 
@@ -47,7 +48,7 @@ void Ferdek::Update()
             faced_forward = true;
             right_warp = min_horizontal_warp;
         }
-        position.x += right_warp;
+        position.x += right_warp*time_warp;
         sprite.setTextureRect(sf::IntRect(211, 0, 13, 16));
         right_warp = std::min(right_warp+acceleration_warp, max_horizontal_warp);
     }
@@ -57,11 +58,31 @@ void Ferdek::Update()
         left_warp = min_horizontal_warp;
 
     }
+
+    if(is_jumping)
+    {
+        position.y -= mini_jump_height*time_warp;
+        DecrementMiniJumps(time_warp);
+    }
+    else if(!bottom_collision)
+    {
+        //std::cout<<gravity_warp*time_warp<<"\n";
+        if(gravity_warp*time_warp > 50.f)
+        {
+            position.y += 6.f;
+        }
+        else
+        {
+            position.y +=  gravity_warp*time_warp;
+        }
+    }
+
     sprite.setPosition(position);
     if((sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && (!is_jumping && bottom_collision))
     {
         StartJumping();
     }
+    
 }
 
 
@@ -91,11 +112,12 @@ int Ferdek::GetNumberOfMiniJumps() const
 {
     return mini_jumps;
 }
-void Ferdek::DecrementMiniJumps()
+void Ferdek::DecrementMiniJumps(float time_warp)
 {
+    //std::cout<<mini_jumps<<"\n";
     if(mini_jumps>0)
     {
-        mini_jumps-=1;
+        mini_jumps = std::max(0.f, mini_jumps - 100*time_warp);
     }
     if(mini_jumps==0)
     {

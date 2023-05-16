@@ -98,3 +98,8 @@ void Window::UpdateView(const float& player_x, const float& min_x, const float& 
     sf::View view(sf::FloatRect(top_x, 0.f, window_size.x, window_size.y));
     render_window.setView(view);
 }
+
+sf::Vector2u Window::GetActualSize()
+{
+    return render_window.getSize();
+}

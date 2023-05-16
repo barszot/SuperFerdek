@@ -1,5 +1,6 @@
 #ifndef GAME_H
 #define GAME_H
+#include <cmath>
 #include "window.h"
 #include "tile_manager.h"
 #include "ferdek.h"
@@ -15,9 +16,9 @@ class Game
         Game();
         ~Game();
         void GameSetup();
-        void GameUpdate();
+        void GameUpdate(float time_warp);
         void EndGame();
-        void ManagePlayerCollisions();
+        void ManagePlayerCollisions(float time_warp);
         bool IsDone();
 };
 
