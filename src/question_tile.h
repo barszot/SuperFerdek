@@ -5,7 +5,6 @@ class QuestionTile : public Tile
 {
     protected:
         sf::Texture second_texture;
-        void ChangeTexture();
         bool activated;
         virtual void Action();
         void TextureSetup();
@@ -13,7 +12,7 @@ class QuestionTile : public Tile
         QuestionTile();
         QuestionTile(const int& type, const sf::Vector2f& position);
         virtual ~QuestionTile();
-        virtual void Activated();
+        virtual void Activated(bool is_ferdek_big);
         bool GetActivated() const;
 
 };

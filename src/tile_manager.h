@@ -3,26 +3,26 @@
 #include "tile.h"
 #include "question_tile.h"
 #include <memory>
+#include <typeinfo>
+
 class TileManager
 {
     private:
         int length; //dla pierwszego poziomu 512
         int height; //domyslnie 16
         int level;
-        std::vector<std::vector<int>> tile_types;
-        std::vector<std::shared_ptr<Tile>> tile_collection; 
+        std::vector<std::vector<std::unique_ptr<Tile>>> tiles;
         void Setup(const int& length, const int& height, const int& level);
-        void CreateTileCollection();
     public:
         TileManager();
         TileManager(const int& length, const int& height, const int& level);
         ~TileManager();
-
-        const std::vector<std::shared_ptr<Tile>>& GetTileCollection() const;
-        const std::vector<std::vector<int>>& GetTileTypes() const;
+        const std::vector<std::vector<std::unique_ptr<Tile>>>& GetTiles() const;
         int GetLength() const;
         int GetHeigth() const;
         int GetLevel() const;
+        bool CheckTile(int x, int y) const;
+        void TileActivation(int x, int y, bool is_ferdek_big);
 
 };
 

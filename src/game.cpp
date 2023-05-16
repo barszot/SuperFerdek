@@ -42,7 +42,6 @@ void Game::EndGame()
 }
 void Game::ManagePlayerCollisions(float time_warp)
 {
-    const std::vector<std::vector<int>>& tile_types = tile_manager.GetTileTypes();
     float x = ferdek.GetPosition().x;
     float y = ferdek.GetPosition().y;
     int id_x = int(x) / 32;
@@ -51,15 +50,16 @@ void Game::ManagePlayerCollisions(float time_warp)
     int id_y = (int(y) / 32) - 2;
 
     //std::cout<<tile_types[id_x_special_1][id_y]<<" "<<tile_types[id_x_special_2][id_y]<<"\n";
-    if(tile_types[id_x+1][id_y]>=0)
+    if(tile_manager.CheckTile(id_x+1,id_y))
     {
         ferdek.right_collision = true;
+
     }
     else
     {
         ferdek.right_collision = false;
     }
-    if(id_x-2 < 0 || tile_types[id_x][id_y]>=0 )
+    if(id_x-2 < 0 || tile_manager.CheckTile(id_x,id_y))
     {
         ferdek.left_collision = true;
     }
@@ -67,9 +67,11 @@ void Game::ManagePlayerCollisions(float time_warp)
     {
         ferdek.left_collision = false;
     }
-    if(tile_types[id_x_special_1][id_y+1] >=0 || tile_types[id_x_special_2][id_y+1] >= 0)
+    if(tile_manager.CheckTile(id_x_special_1,id_y+1) || tile_manager.CheckTile(id_x_special_2,id_y+1))
     {
         ferdek.bottom_collision = true;
+
+
         //std::cout<<y<<" "<<32*(id_y+2)<<"\n";
         ferdek.SetY(32*(id_y+2));
     }
@@ -77,9 +79,12 @@ void Game::ManagePlayerCollisions(float time_warp)
     {
         ferdek.bottom_collision = false;
     }
-    if(tile_types[id_x_special_1][id_y] >=0 || tile_types[id_x_special_2][id_y]>=0)
+    if(tile_manager.CheckTile(id_x_special_1,id_y) || tile_manager.CheckTile(id_x_special_2,id_y))
     {
         ferdek.top_collision = true;
+
+        tile_manager.TileActivation(id_x_special_1, id_y, false);
+        tile_manager.TileActivation(id_x_special_2, id_y, false);
     }
     else
     {

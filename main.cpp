@@ -7,7 +7,7 @@ int main()
 {
     
     sf::Clock clock;
-
+    
     Game game;
     while(!game.IsDone()){
         sf::Time elapsedTime = clock.restart();

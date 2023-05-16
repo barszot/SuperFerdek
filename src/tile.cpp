@@ -47,3 +47,8 @@ int Tile::GetType() const
 {
     return type;
 }
+
+void Tile::Activated(bool is_ferdek_big)
+{
+    
+}

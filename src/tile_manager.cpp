@@ -1,4 +1,5 @@
 #include "tile_manager.h"
+#include "question_tile.h"
 #include <iostream>
 TileManager::TileManager()
 {
@@ -17,7 +18,6 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
     this->length = length;
     this->height = height;
     this->level = level;
-    tile_types.clear();
     sf::Image level_sheet;
     switch(level)
     {
@@ -29,64 +29,50 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
     }
     for(int i=0;i<length; i++)
     {
-        std::vector<int> column;
+        std::vector<std::unique_ptr<Tile>> col;
         for(int j=0;j<height; j++)
         {
+            int type = -1;
+
             sf::Color pixel_color = level_sheet.getPixel(i, j);
             if(sf::Color(255, 0, 0) == pixel_color)
             {
-                column.push_back(0);
+                type = 0;
             }
             else if(sf::Color(128, 0, 0) == pixel_color)
             {
-                column.push_back(1);
+                type = 1;
             }
             else if(sf::Color(255, 255, 0) == pixel_color)
             {
-                column.push_back(10);
+                type = 10;
+            }
+
+
+            if (type == -1)
+            {
+                col.push_back(nullptr);
             }
             else
             {
-                column.push_back(-1);
+                sf::Vector2f tile_position(i*32, j*32);
+                if(type<10){
+                    col.push_back(std::make_unique<Tile>(type, tile_position));    
+                }
+                else if(type<20)
+                {
+                    col.push_back(std::make_unique<QuestionTile>(type, tile_position));    
+
+                }
             }
 
         }
-        tile_types.push_back(column);
+
+        tiles.push_back(std::move(col));
     }
-    CreateTileCollection();
-}
-void TileManager::CreateTileCollection()
-{
-    tile_collection.clear();
-    for(int i=0;i<length; i++)
-    {
-        for(int j=0;j<height; j++)
-        {
-            int tile_type = tile_types[i][j];
-            if(10>tile_type && tile_type >=0){
-                sf::Vector2f tile_position(i*32, j*32);
-                tile_collection.push_back(std::make_shared<Tile>(tile_type, tile_position));
-            }
-            if(20>tile_type && tile_type>=10)
-            {
-                //std::cout<<i<<" "<<j<<"\n";
-                sf::Vector2f tile_position(i*32, j*32);
-                //std::shared_ptr<QuestionTile> qt_ptr = std::make_shared<QuestionTile>(tile_type, tile_position);
-                tile_collection.push_back(std::make_shared<QuestionTile>(tile_type, tile_position));
-                std::cout<<(*tile_collection[tile_collection.size()-2]).GetType();
-            }
-        }
-    }
+
 }
 
-const std::vector<std::shared_ptr<Tile>>& TileManager::GetTileCollection() const {
-    return tile_collection;
-}
-
-const std::vector<std::vector<int>>& TileManager::GetTileTypes() const
-{
-    return tile_types;
-}
 
 
 int TileManager::GetLength() const
@@ -100,4 +86,21 @@ int TileManager::GetHeigth() const
 int TileManager::GetLevel() const
 {
     return level;
+}
+
+bool TileManager::CheckTile(int x, int y) const
+{
+    return nullptr!=tiles[x][y];
+}
+
+void TileManager::TileActivation(int x, int y, bool is_ferdek_big)
+{
+    if(CheckTile(x, y)){
+        tiles[x][y]->Activated(is_ferdek_big);
+    }
+}
+
+const std::vector<std::vector<std::unique_ptr<Tile>>>& TileManager::GetTiles() const
+{
+    return tiles;
 }

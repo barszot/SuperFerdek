@@ -1,5 +1,5 @@
 #include "window.h"
-
+#include <iostream>
 Window::Window()
 {
     Setup("Window", sf::Vector2u(512,512));
@@ -76,18 +76,20 @@ void Window::Draw(const sf::Drawable& drawable)
 {
     render_window.draw(drawable);
 }
-void Window::DrawTile(const Tile& tile)
-{
-    Draw(tile.GetSprite());
-}
 
 void Window::DrawTileCollection(const TileManager& tile_manager)
 {
-    const std::vector<std::shared_ptr<Tile>>& tile_collection = tile_manager.GetTileCollection();
-    int n = tile_collection.size();
-    for(int i=0;i<n;i++)
+    int x = tile_manager.GetTiles().size();
+    int y = tile_manager.GetTiles()[0].size();
+    for(int i=0;i<x;i++)
     {
-        DrawTile(*tile_collection[i]);
+        for(int j=0;j<y;j++)
+        {
+            if(tile_manager.CheckTile(i, j)){
+                Draw(tile_manager.GetTiles()[i][j]->GetSprite());
+
+            }
+        }
     }
 }
 

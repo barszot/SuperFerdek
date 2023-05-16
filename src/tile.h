@@ -17,6 +17,7 @@ class Tile
         sf::Vector2f GetPositon() const;
         const sf::Sprite& GetSprite() const;
         int GetType() const;
+        virtual void Activated(bool is_ferdek_big);
 };
 
 

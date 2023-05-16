@@ -18,7 +18,7 @@ max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f)
     bottom_collision = false;
     is_jumping = false;
     mini_jumps = 0;
-    gravity_warp = 300.f;
+    gravity_warp = 300.f; //bylo 300
     mini_jump_height = 400.f;
 }
 
@@ -68,7 +68,7 @@ void Ferdek::Update(float time_warp)
     else if(!bottom_collision)
     {
         //std::cout<<gravity_warp*time_warp<<"\n";
-        if(gravity_warp*time_warp > 50.f)
+        if(gravity_warp*time_warp > 30.f)
         {
             position.y += 6.f;
         }
