@@ -1,5 +1,5 @@
 #include "tile_manager.h"
-
+#include <iostream>
 TileManager::TileManager()
 {
     Setup(512, 16, 1);
@@ -41,10 +41,15 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
             {
                 column.push_back(1);
             }
+            else if(sf::Color(255, 255, 0) == pixel_color)
+            {
+                column.push_back(10);
+            }
             else
             {
                 column.push_back(-1);
             }
+
         }
         tile_types.push_back(column);
     }
@@ -58,9 +63,17 @@ void TileManager::CreateTileCollection()
         for(int j=0;j<height; j++)
         {
             int tile_type = tile_types[i][j];
-            if(tile_type>=0){
+            if(10>tile_type && tile_type >=0){
                 sf::Vector2f tile_position(i*32, j*32);
                 tile_collection.push_back(std::make_shared<Tile>(tile_type, tile_position));
+            }
+            if(20>tile_type && tile_type>=10)
+            {
+                //std::cout<<i<<" "<<j<<"\n";
+                sf::Vector2f tile_position(i*32, j*32);
+                //std::shared_ptr<QuestionTile> qt_ptr = std::make_shared<QuestionTile>(tile_type, tile_position);
+                tile_collection.push_back(std::make_shared<QuestionTile>(tile_type, tile_position));
+                std::cout<<(*tile_collection[tile_collection.size()-2]).GetType();
             }
         }
     }

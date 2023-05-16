@@ -16,7 +16,7 @@ void Game::GameSetup()
 
 void Game::GameUpdate(float time_warp)
 {
-        if(window.IsDone()){
+        if(window.IsDone() || ferdek.GetPosition().y>16.5f*32){
             EndGame();
             return;
         }
@@ -49,7 +49,8 @@ void Game::ManagePlayerCollisions(float time_warp)
     int id_x_special_1 = int(x + 8.f) / 32;
     int id_x_special_2 = int(x + 24.f) / 32;
     int id_y = (int(y) / 32) - 2;
-    //std::cout<<tile_types[id_x_special_1][id_y+1]<<" "<<tile_types[id_x_special_2][id_y+1]<<"\n";
+
+    //std::cout<<tile_types[id_x_special_1][id_y]<<" "<<tile_types[id_x_special_2][id_y]<<"\n";
     if(tile_types[id_x+1][id_y]>=0)
     {
         ferdek.right_collision = true;
@@ -76,6 +77,15 @@ void Game::ManagePlayerCollisions(float time_warp)
     {
         ferdek.bottom_collision = false;
     }
+    if(tile_types[id_x_special_1][id_y] >=0 || tile_types[id_x_special_2][id_y]>=0)
+    {
+        ferdek.top_collision = true;
+    }
+    else
+    {
+        ferdek.top_collision = false;
+    }
+    
 
     //std::cout<<ferdek.bottom_collision<<"\n";
 }   

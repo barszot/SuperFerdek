@@ -1,7 +1,7 @@
 #include "ferdek.h"
 #include <iostream>
 Ferdek::Ferdek() : position(sf::Vector2f(160.f, 480.f-128.f)), min_horizontal_warp(200),
-max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f), mini_jump_height(500.f)
+max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f)
 {
     texture_sheet.loadFromFile("src/imgs/mario.png");
     left_warp = min_horizontal_warp;
@@ -19,6 +19,7 @@ max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f), mini_jump
     is_jumping = false;
     mini_jumps = 0;
     gravity_warp = 300.f;
+    mini_jump_height = 400.f;
 }
 
 Ferdek::~Ferdek()
@@ -82,6 +83,10 @@ void Ferdek::Update(float time_warp)
     {
         StartJumping();
     }
+    if(top_collision)
+    {   
+        StopJumpingInstantly();
+    }   
     
 }
 
@@ -128,4 +133,10 @@ void Ferdek::StartJumping()
 {
     mini_jumps = max_mini_jumps;
     is_jumping = true;
+}
+
+void Ferdek::StopJumpingInstantly()
+{
+    mini_jumps = 0;
+    is_jumping = false;
 }

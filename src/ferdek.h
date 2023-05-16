@@ -11,7 +11,7 @@ class Ferdek
         const float max_horizontal_warp;
         const float acceleration_warp;
         const int max_mini_jumps;
-        const float mini_jump_height;
+        float mini_jump_height;
         float left_warp;
         float right_warp;
         float gravity_warp;
@@ -36,7 +36,7 @@ class Ferdek
         int GetNumberOfMiniJumps() const;
         void DecrementMiniJumps(float time_warp);
         void StartJumping();
-
+        void StopJumpingInstantly();
 };
 
 #endif

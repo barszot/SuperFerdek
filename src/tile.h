@@ -4,7 +4,7 @@
 
 class Tile
 {
-    private:
+    protected:
         sf::Texture texture;
         sf::Vector2f position;
         sf::Sprite sprite;
@@ -13,7 +13,7 @@ class Tile
     public:
         Tile();
         Tile(const int& type, const sf::Vector2f& position);
-        ~Tile();
+        virtual ~Tile();
         sf::Vector2f GetPositon() const;
         const sf::Sprite& GetSprite() const;
         int GetType() const;

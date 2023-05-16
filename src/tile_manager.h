@@ -1,6 +1,7 @@
 #ifndef TILE_MANAGER_H
 #define TILE_MANAGER_H
 #include "tile.h"
+#include "question_tile.h"
 #include <memory>
 class TileManager
 {

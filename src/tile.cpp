@@ -15,15 +15,16 @@ void Tile::Setup(const int& type, const sf::Vector2f& position)
     {
         case 0:
             this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(32, 0, 16, 16));
+            sprite.setTexture(texture);
             break;
-        case 1:
-            this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(48, 0, 16, 16));
-            break;
+
         default:
-            return;
+            this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(48, 0, 16, 16));
+            sprite.setTexture(texture);
+            break;
+
     }
     this->position = position;
-    sprite.setTexture(texture);
     sprite.setPosition(position);
     sprite.setScale(sf::Vector2f (2.0f, 2.0f));
 
