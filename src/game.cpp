@@ -21,7 +21,7 @@ void Game::GameUpdate(float time_warp)
             return;
         }
         window.BeginDraw();
-        window.DrawTileCollection(tile_manager);
+        window.DrawTileCollection(tile_manager, int(ferdek.GetPosition().x)/32);
         window.Draw(ferdek.GetSprite());
         window.UpdateView(ferdek.GetPosition().x, 0, 16384);
         window.Update();

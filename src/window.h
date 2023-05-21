@@ -27,7 +27,7 @@ class Window
         sf::Vector2u GetWindowSize() const;
         void ToggleFullscreen();
         void Draw(const sf::Drawable& drawable);
-        void DrawTileCollection(const TileManager& tile_manager);
+        void DrawTileCollection(const TileManager& tile_manager, int current_ferdek_column);
         void UpdateView(const float& player_x, const float& min_x, const float& max_x);
         sf::Vector2u GetActualSize();
 

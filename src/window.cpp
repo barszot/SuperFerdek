@@ -77,11 +77,11 @@ void Window::Draw(const sf::Drawable& drawable)
     render_window.draw(drawable);
 }
 
-void Window::DrawTileCollection(const TileManager& tile_manager)
+void Window::DrawTileCollection(const TileManager& tile_manager, int current_ferdek_column)
 {
     int x = tile_manager.GetTiles().size();
     int y = tile_manager.GetTiles()[0].size();
-    for(int i=0;i<x;i++)
+    for(int i=std::max(0, current_ferdek_column-32);i<std::min(32+current_ferdek_column, x);i++)
     {
         for(int j=0;j<y;j++)
         {
