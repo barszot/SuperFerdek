@@ -1,5 +1,6 @@
 #include "tile_manager.h"
 #include "question_tile.h"
+#include "question_tile_beer.h"
 #include <iostream>
 TileManager::TileManager()
 {
@@ -61,7 +62,7 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
                 }
                 else if(type<20)
                 {
-                    col.push_back(std::make_unique<QuestionTile>(type, tile_position));    
+                    col.push_back(std::make_unique<QuestionTileBeer>(type, tile_position));    
 
                 }
             }
