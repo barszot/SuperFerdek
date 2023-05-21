@@ -89,15 +89,18 @@ void Game::ManagePlayerCollisions()
     {
         ferdek.top_collision = true;
 
-        std::shared_ptr<Mob> mob_ptr_1 = tile_manager.TileActivation(id_x_special_1, id_y);
+        auto mob_ptr_1 = tile_manager.TileActivation(id_x_special_1, id_y);
         if(mob_ptr_1!=nullptr){
             mobs.push_back(mob_ptr_1);
         }
 
+        if(id_x_special_1!=id_x_special_2){
 
-        std::shared_ptr<Mob> mob_ptr_2 = tile_manager.TileActivation(id_x_special_2, id_y);
-        if(mob_ptr_2!=nullptr){
-            mobs.push_back(mob_ptr_1);
+            auto mob_ptr_2 = tile_manager.TileActivation(id_x_special_2, id_y);
+            if(mob_ptr_2!=nullptr)
+            {
+                mobs.push_back(mob_ptr_2);
+            }
         }
 
     }
