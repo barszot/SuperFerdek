@@ -94,11 +94,13 @@ bool TileManager::CheckTile(int x, int y) const
     return nullptr!=tiles[x][y];
 }
 
-void TileManager::TileActivation(int x, int y, bool is_ferdek_big)
+std::shared_ptr<Mob> TileManager::TileActivation(int x, int y)
 {
     if(CheckTile(x, y)){
-        tiles[x][y]->Activated(is_ferdek_big);
+        tiles[x][y]->Activated();
+        return tiles[x][y]->GetMobPtr();
     }
+    return nullptr;
 }
 
 const std::vector<std::vector<std::unique_ptr<Tile>>>& TileManager::GetTiles() const

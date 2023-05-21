@@ -12,7 +12,7 @@ class QuestionTile : public Tile
         QuestionTile();
         QuestionTile(const int& type, const sf::Vector2f& position);
         virtual ~QuestionTile();
-        virtual void Activated(bool is_ferdek_big);
+        virtual void Activated();
         bool GetActivated() const;
 
 };

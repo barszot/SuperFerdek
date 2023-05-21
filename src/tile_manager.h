@@ -22,7 +22,7 @@ class TileManager
         int GetHeigth() const;
         int GetLevel() const;
         bool CheckTile(int x, int y) const;
-        void TileActivation(int x, int y, bool is_ferdek_big);
+        std::shared_ptr<Mob> TileActivation(int x, int y);
 
 };
 

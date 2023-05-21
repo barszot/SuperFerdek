@@ -17,13 +17,17 @@ QuestionTile::~QuestionTile()
 {
 
 }
-void QuestionTile::Activated(bool is_ferdek_big)
+void QuestionTile::Activated()
 {
     if (activated==false)
     {
         activated = true;
         sprite.setTexture(second_texture);
         Action();
+    }
+    else
+    {
+        this->mob_ptr = nullptr;
     }
 }
 

@@ -10,6 +10,8 @@ Tile::Tile(const int& type, const sf::Vector2f& position)
 }
 void Tile::Setup(const int& type, const sf::Vector2f& position)
 {
+    this->mob_ptr = nullptr;
+
     this->type = type;
     switch(type)
     {
@@ -48,7 +50,12 @@ int Tile::GetType() const
     return type;
 }
 
-void Tile::Activated(bool is_ferdek_big)
+void Tile::Activated()
 {
     
+}
+
+std::shared_ptr<Mob> Tile::GetMobPtr() const
+{
+    return mob_ptr;
 }

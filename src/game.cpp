@@ -6,7 +6,7 @@ Game::Game() : window(Window("Super Ferdek", sf::Vector2u(1024, 512))), is_done(
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
     mobs.clear();
-    mobs.push_back(std::make_shared<Beer>(sf::Vector2f(384.f, 480.f)));
+    //mobs.push_back(std::make_shared<Beer>(sf::Vector2f(420.f, 480.f)));
 }
 
 Game::~Game() {}
@@ -89,8 +89,17 @@ void Game::ManagePlayerCollisions()
     {
         ferdek.top_collision = true;
 
-        tile_manager.TileActivation(id_x_special_1, id_y, false);
-        tile_manager.TileActivation(id_x_special_2, id_y, false);
+        std::shared_ptr<Mob> mob_ptr_1 = tile_manager.TileActivation(id_x_special_1, id_y);
+        if(mob_ptr_1!=nullptr){
+            mobs.push_back(mob_ptr_1);
+        }
+
+
+        std::shared_ptr<Mob> mob_ptr_2 = tile_manager.TileActivation(id_x_special_2, id_y);
+        if(mob_ptr_2!=nullptr){
+            mobs.push_back(mob_ptr_1);
+        }
+
     }
     else
     {
@@ -139,17 +148,19 @@ void Game::ManageMobsCollisions()
         }
     }
     mobs.erase(std::remove_if(mobs.begin(), mobs.end(),
-        [](const std::shared_ptr<Mob>& mobPtr) {
+        [](const std::shared_ptr<Mob>& mob_ptr) {
             
-            return (mobPtr->GetPosition().y > 17.f*32);
+            return (mob_ptr->GetPosition().y > 16.f*32);
         }), mobs.end());
 }
 
 void Game::MobsUpdate(float delta_time)
 {
     int n = mobs.size();
+    //std::cout<<n<<"\n";
     for(int i = 0; i<n;i++)
     {
+        //std::cout<<i<<" "<<mobs[i]->GetSpeed()<<std::endl;
         if (abs(ferdek.GetPosition().x-mobs[i]->GetPosition().x)/32 < 24)
         {
            mobs[i]->Update(delta_time);

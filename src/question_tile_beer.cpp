@@ -21,5 +21,6 @@ void QuestionTileBeer::Action()
 {
     sf::Vector2f beer_position = position;
     beer_position.y += 32.f;
+    this->mob_ptr = std::make_shared<Beer>(beer_position);
     //mobs.push_back(std::make_shared<Beer>(beer_position));
 }

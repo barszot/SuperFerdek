@@ -39,15 +39,18 @@ void Mob::Update(float delta_time)
 }
 void Mob::Move(float delta_time)
 {
-    if(faced_forward)
+    if(bottom_collision)
     {
-        position.x += delta_time*speed;
+        if(faced_forward)
+        {
+            position.x += delta_time*speed;
+        }
+        else
+        {
+            position.x -= delta_time*speed;
+        }
     }
     else
-    {
-        position.x -= delta_time*speed;
-    }
-    if(!bottom_collision)
     {
         position.y += delta_time*gravity_speed;
     }
