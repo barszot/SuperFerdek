@@ -1,5 +1,5 @@
 #include "mob.h"
-
+#include <cmath>
 class Beer : public Mob
 {
     private:
@@ -8,4 +8,6 @@ class Beer : public Mob
         Beer();
         Beer(sf::Vector2f position);
         ~Beer();
+        virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position);
+
 };

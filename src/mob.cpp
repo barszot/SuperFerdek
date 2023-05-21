@@ -6,7 +6,8 @@ Mob::Mob()
     this->speed = 200.f;
     this->gravity_speed = 300.f;
     this->bottom_collision = false;
-
+    this->marked_for_death = false;
+    this->feedback = false;
 }
 Mob::~Mob()
 {
@@ -78,4 +79,22 @@ void Mob::SetY(float new_y)
 {
     position.y = new_y;
     sprite.setPosition(position);
+}
+
+void Mob::SetMarkedForDeath(bool is_marked)
+{
+    marked_for_death = is_marked;
+}
+
+bool Mob::GetMarkedForDeath() const
+{
+    return marked_for_death;
+}
+void Mob::MarkForDeathIfNecessary(sf::Vector2f ferdek_position)
+{
+
+}
+bool Mob::GetFeedback() const
+{
+    return feedback;
 }

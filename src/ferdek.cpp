@@ -1,7 +1,7 @@
 #include "ferdek.h"
 #include <iostream>
 Ferdek::Ferdek() : position(sf::Vector2f(160.f, 480.f-128.f)), min_horizontal_warp(200),
-max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f)
+max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f), is_big(false)
 {
     texture_sheet.loadFromFile("src/imgs/Ferdek.png");
     left_warp = min_horizontal_warp;
@@ -29,6 +29,13 @@ Ferdek::~Ferdek()
 
 void Ferdek::Update(float time_warp)
 {
+    if(is_big){
+    sprite.setColor(sf::Color(0, 255, 0));
+    }
+    else{
+    sprite.setColor(sf::Color::White);
+
+    }
     if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))&& !left_collision)
     {   
         if(faced_forward==true)
@@ -131,4 +138,14 @@ void Ferdek::StopJumpingInstantly()
 {
     mini_jumps = 0;
     is_jumping = false;
+}
+
+
+bool Ferdek::IsBig() const
+{
+    return is_big;
+}
+void Ferdek::SetIsBig(bool is_big)
+{
+    this->is_big = is_big;
 }

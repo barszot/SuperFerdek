@@ -11,6 +11,8 @@ class Mob
         sf::Vector2f position;
         float gravity_speed;
         bool bottom_collision;
+        bool marked_for_death;
+        bool feedback;
     public:
         Mob();
         virtual ~Mob();
@@ -26,7 +28,10 @@ class Mob
         void SetBottomCollision(bool new_bottom_collision);
         void SetFacedForward(bool new_faced_forward);
         void SetY(float new_y);
-
+        void SetMarkedForDeath(bool is_marked);
+        bool GetMarkedForDeath() const;
+        virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position);
+        bool GetFeedback() const;
 };  
 
 #endif

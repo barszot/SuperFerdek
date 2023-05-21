@@ -145,12 +145,14 @@ void Game::ManageMobsCollisions()
             {
                 mobs[i]->SetBottomCollision(false);
             }
+            mobs[i]->MarkForDeathIfNecessary(ferdek.GetPosition());
+            ferdek.SetIsBig(ferdek.IsBig() || mobs[i]->GetFeedback());
         }
     }
     mobs.erase(std::remove_if(mobs.begin(), mobs.end(),
         [](const std::shared_ptr<Mob>& mob_ptr) {
             
-            return (mob_ptr->GetPosition().y > 16.f*32);
+            return (mob_ptr->GetMarkedForDeath());
         }), mobs.end());
 }
 
