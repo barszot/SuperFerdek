@@ -67,15 +67,7 @@ void Ferdek::Update(float time_warp)
     }
     else if(!bottom_collision)
     {
-        //std::cout<<gravity_warp*time_warp<<"\n";
-        if(gravity_warp*time_warp > 30.f)
-        {
-            position.y += 6.f;
-        }
-        else
-        {
-            position.y +=  gravity_warp*time_warp;
-        }
+        position.y +=  gravity_warp*time_warp;
     }
 
     sprite.setPosition(position);

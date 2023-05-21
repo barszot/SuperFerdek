@@ -18,7 +18,7 @@ void Game::GameSetup()
 
 void Game::GameUpdate(float time_warp)
 {
-        std::cout<<time_warp<<"\n";
+        time_warp = std::min(0.1f, time_warp);
         if(window.IsDone() || ferdek.GetPosition().y>16.5f*32){
             EndGame();
             return;
@@ -141,7 +141,7 @@ void Game::ManageMobsCollisions()
     mobs.erase(std::remove_if(mobs.begin(), mobs.end(),
         [](const std::shared_ptr<Mob>& mobPtr) {
             
-            return (mobPtr->GetPosition().y > 17*32);
+            return (mobPtr->GetPosition().y > 17.f*32);
         }), mobs.end());
 }
 

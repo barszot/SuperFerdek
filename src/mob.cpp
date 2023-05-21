@@ -41,15 +41,15 @@ void Mob::Move(float delta_time)
 {
     if(faced_forward)
     {
-        position.x += std::min(delta_time*speed, 2.f);
+        position.x += delta_time*speed;
     }
     else
     {
-        position.x -= std::min(delta_time*speed, 2.f);
+        position.x -= delta_time*speed;
     }
     if(!bottom_collision)
     {
-        position.y += std::min(delta_time*gravity_speed, 2.f);
+        position.y += delta_time*gravity_speed;
     }
     sprite.setPosition(position);
 }
