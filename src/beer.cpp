@@ -18,7 +18,7 @@ Beer::~Beer()
 
 void Beer::Setup()
 {
-    this->texture.loadFromFile("src/imgs/beer_texture.png");
+    this->texture.loadFromFile("src/imgs/Mocny_FULL.png");
     sprite.setTexture(this->texture);
     sprite.setPosition(this->position);
     sprite.setOrigin(0, 32);
