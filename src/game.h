@@ -4,6 +4,8 @@
 #include "window.h"
 #include "tile_manager.h"
 #include "ferdek.h"
+#include "mob.h"
+#include <memory>
 class Game
 {
     private:
@@ -12,14 +14,17 @@ class Game
         TileManager tile_manager;
         bool is_done;
         float gravity_warp;
+        std::vector<std::shared_ptr<Mob>> mobs;
     public:
         Game();
         ~Game();
         void GameSetup();
         void GameUpdate(float time_warp);
         void EndGame();
-        void ManagePlayerCollisions(float time_warp);
+        void ManagePlayerCollisions();
+        void ManageMobsCollisions();
         bool IsDone();
+        void MobsUpdate(float delta_time);
 };
 
 #endif

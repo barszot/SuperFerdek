@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "tile.h"
 #include "tile_manager.h"
+#include "mob.h"
 class Window
 {
     private:
@@ -28,6 +29,8 @@ class Window
         void ToggleFullscreen();
         void Draw(const sf::Drawable& drawable);
         void DrawTileCollection(const TileManager& tile_manager, int current_ferdek_column);
+        void DrawMobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferdek_position_x);
+
         void UpdateView(const float& player_x, const float& min_x, const float& max_x);
         sf::Vector2u GetActualSize();
 

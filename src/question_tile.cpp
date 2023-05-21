@@ -36,6 +36,7 @@ void QuestionTile::TextureSetup()
 }
 void QuestionTile::Action()
 {
-
+    //sf::Vector2f beer_position = position;
+    //position.y += 32;
 }
 

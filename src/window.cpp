@@ -93,6 +93,7 @@ void Window::DrawTileCollection(const TileManager& tile_manager, int current_fer
     }
 }
 
+
 void Window::UpdateView(const float& player_x, const float& min_x, const float& max_x)
 {
     float top_x = std::max(min_x, player_x-window_size.x/2);
@@ -105,3 +106,17 @@ sf::Vector2u Window::GetActualSize()
 {
     return render_window.getSize();
 }
+
+void Window::DrawMobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferdek_position_x)
+{
+    int n = mobs.size();
+    for(int i = 0; i<n;i++)
+    {
+        if (abs(ferdek_position_x-mobs[i]->GetPosition().x)/32 < 24)
+        {
+            Draw(mobs[i]->GetSprite());
+
+        }
+    }
+}
+
