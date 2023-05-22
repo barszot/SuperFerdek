@@ -7,7 +7,6 @@ int main()
 {
     
     sf::Clock clock;
-    std::cout<<"o kurde!\n";
     Game game;
     while(!game.IsWindowDone() && !game.IsDone()){
         sf::Time elapsedTime = clock.restart();

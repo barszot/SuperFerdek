@@ -26,7 +26,6 @@ void Game::GameUpdate(float time_warp)
         window.Update();
         if(ferdek.IsDead()){
             lives -= 1;
-            std::cout<<"RESET\n";
             GameAfterDeath();
         }
         if(lives<=0)

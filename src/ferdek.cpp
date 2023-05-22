@@ -19,7 +19,7 @@ max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f), is_big(fa
     is_jumping = false;
     mini_jumps = 0;
     gravity_warp = 300.f; //bylo 300
-    mini_jump_height = 800.f; // domyslnie 400.f
+    mini_jump_height = 400.f; // domyslnie 400.f
     this->is_dead = false;
     //Reset();
 }
