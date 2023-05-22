@@ -13,6 +13,7 @@ class Mob
         bool bottom_collision;
         bool marked_for_death;
         bool feedback;
+        int type;
     public:
         Mob();
         virtual ~Mob();
@@ -32,6 +33,7 @@ class Mob
         bool GetMarkedForDeath() const;
         virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position);
         bool GetFeedback() const;
+        int GetType() const;
 };  
 
 #endif

@@ -31,7 +31,6 @@ class Window
         void Draw(const sf::Drawable& drawable);
         void DrawTileCollection(const TileManager& tile_manager, int current_ferdek_column);
         void DrawMobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferdek_position_x);
-
         void UpdateView(const float& player_x, const float& min_x, const float& max_x);
         sf::Vector2u GetActualSize();
         void DrawCoinResult(const unsigned int& coins, const float& player_x, const float& min_x, const float& max_x);

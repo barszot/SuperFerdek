@@ -1,12 +1,13 @@
 #include "game.h"
 #include "beer.h"
+#include "spark.h"
 #include <iostream>
 Game::Game() : window(Window("Super Ferdek", sf::Vector2u(1024, 512))), is_done(false), gravity_warp(250.f), coins(0)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
     mobs.clear();
-    //mobs.push_back(std::make_shared<Beer>(sf::Vector2f(420.f, 480.f)));
+    mobs.push_back(std::make_shared<Spark>(sf::Vector2f(420.f, 480.f)));
 }
 
 Game::~Game() {}
@@ -152,7 +153,8 @@ void Game::ManageMobsCollisions()
                 mobs[i]->SetBottomCollision(false);
             }
             mobs[i]->MarkForDeathIfNecessary(ferdek.GetPosition());
-            ferdek.SetIsBig(ferdek.IsBig() || mobs[i]->GetFeedback());
+            ferdek.SetIsBig(ferdek.IsBig() || (mobs[i]->GetFeedback()&&mobs[i]->GetType() == 1));
+            coins += (mobs[i]->GetFeedback()&&mobs[i]->GetType() == 2);
         }
     }
     mobs.erase(std::remove_if(mobs.begin(), mobs.end(),

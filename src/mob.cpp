@@ -98,3 +98,8 @@ bool Mob::GetFeedback() const
 {
     return feedback;
 }
+
+int Mob::GetType() const
+{
+    return type;
+}
