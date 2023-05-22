@@ -7,7 +7,7 @@ Game::Game() : window(Window("Super Ferdek", sf::Vector2u(1024, 512))), is_done(
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
     mobs.clear();
-    mobs.push_back(std::make_shared<Spark>(sf::Vector2f(420.f, 480.f)));
+    //mobs.push_back(std::make_shared<Spark>(sf::Vector2f(420.f, 480.f)));
 }
 
 Game::~Game() {}
@@ -82,7 +82,7 @@ void Game::ManagePlayerCollisions()
     {
         ferdek.bottom_collision = !(tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y+1, coins) && tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y+1, coins));
 
-        //std::cout<<y<<" "<<32*(id_y+2)<<"\n";
+        std::cout<<tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y+1, coins)<<" "<<tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y+1, coins)<<"\n";
         ferdek.SetY(32*(id_y+2));
     }
     else

@@ -1,5 +1,5 @@
 #include "tile_manager.h"
-#include "question_tile.h"
+#include "question_tile_coin.h"
 #include "question_tile_beer.h"
 #include "coin.h"
 #include <iostream>
@@ -49,6 +49,10 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
             {
                 type = 10;
             }
+            else if(sf::Color(255, 128, 0) == pixel_color)
+            {
+                type = 11;
+            }
             else if(sf::Color(100, 100, 100) == pixel_color)
             {
                 type = 100;
@@ -63,9 +67,14 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
                 if(type<10){
                     col.push_back(std::make_unique<Tile>(type, tile_position));    
                 }
-                else if(type<20)
+                else if(type==10)
                 {
                     col.push_back(std::make_unique<QuestionTileBeer>(type, tile_position));    
+
+                }
+                else if(type==11)
+                {
+                    col.push_back(std::make_unique<QuestionTileCoin>(type, tile_position));    
 
                 }
                 else if(type == 100)
