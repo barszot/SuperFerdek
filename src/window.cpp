@@ -63,6 +63,7 @@ void Window::Update()
     while(render_window.pollEvent(event)){
     if(event.type == sf::Event::Closed){
         is_done = true;
+        //std::cout<<"ZAMKNIETO OKNO!\n";
     }
     else if(event.type == sf::Event::KeyPressed &&
     event.key.code == sf::Keyboard::F5)
@@ -125,16 +126,28 @@ void Window::DrawMobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferde
     }
 }
 
-void Window::DrawCoinResult(const unsigned int& coins, const float& player_x, const float& min_x, const float& max_x)
+void Window::DrawStats(const unsigned int& coins, const int& lives, const float& player_x, const float& min_x, const float& max_x)
 {
     float top_x = std::max(min_x, player_x-window_size.x/2);
     top_x = std::min(top_x, max_x-window_size.x);
     sf::Vector2f position(top_x, 0);
-    std::wstring  content = L" zł";
+    std::wstring content = L" zł";
     content = std::to_wstring(coins)+content;
-    sf::Text coin_result_text (content, comic_sans);
-    coin_result_text.setCharacterSize(128);
-    coin_result_text.setFillColor(sf::Color(255, 255, 0));
-    coin_result_text.setPosition(position);
-    Draw(coin_result_text);
+    sf::Text result_text (content, comic_sans);
+    result_text.setCharacterSize(64);
+    result_text.setFillColor(sf::Color(255, 255, 0));
+    result_text.setPosition(position);
+    Draw(result_text);
+
+    content = L"Życia: ";
+    content = content + std::to_wstring(lives);
+    result_text.setCharacterSize(64);
+    result_text.setFillColor(sf::Color::Red);
+    result_text.setPosition(position); 
+    result_text.setString(content);
+    position.x += window_size.x * 0.5f;
+    result_text.setPosition(position);
+    Draw(result_text);  
+
 }
+

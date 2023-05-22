@@ -16,16 +16,19 @@ class Game
         float gravity_warp;
         std::vector<std::shared_ptr<Mob>> mobs;
         unsigned int coins;
+        int level;
+        int lives;
     public:
         Game();
         ~Game();
-        void GameSetup();
+        void GameAfterDeath();
         void GameUpdate(float time_warp);
         void EndGame();
         void ManagePlayerCollisions();
         void ManageMobsCollisions();
         bool IsDone();
         void MobsUpdate(float delta_time);
+        bool IsWindowDone() const;
 };
 
 #endif

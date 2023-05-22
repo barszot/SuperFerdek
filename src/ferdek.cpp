@@ -20,11 +20,32 @@ max_horizontal_warp(600), acceleration_warp(1),  max_mini_jumps(15.f), is_big(fa
     mini_jumps = 0;
     gravity_warp = 300.f; //bylo 300
     mini_jump_height = 800.f; // domyslnie 400.f
+    this->is_dead = false;
+    //Reset();
 }
 
 Ferdek::~Ferdek()
 {
 
+}
+void Ferdek::Reset()
+{
+    this->is_dead=false;
+    this->position= sf::Vector2f(160.f, 480.f-128.f);
+    this->is_big = false;
+    left_warp = min_horizontal_warp;
+    right_warp = min_horizontal_warp;
+    faced_forward = true;
+    sprite.setTextureRect(sf::IntRect(229, 0, 13, 16));
+    sprite.setOrigin(0, 32);
+    sprite.setPosition(position);
+    sprite.setScale(sf::Vector2f(2.f, 2.f));
+    left_collision = false;
+    right_collision = false;
+    top_collision = false;
+    bottom_collision = false;
+    is_jumping = false;
+    mini_jumps = 0;
 }
 
 void Ferdek::Update(float time_warp)
@@ -148,4 +169,13 @@ bool Ferdek::IsBig() const
 void Ferdek::SetIsBig(bool is_big)
 {
     this->is_big = is_big;
+}
+
+void Ferdek::InstantKill()
+{
+    is_dead = true;
+}
+bool Ferdek::IsDead() const
+{
+    return is_dead;
 }

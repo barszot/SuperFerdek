@@ -5,20 +5,26 @@
 #include <iostream>
 TileManager::TileManager()
 {
-    Setup(512, 16, 1);
+    this->length = 512;
+    this->height = 16;
+    this->level = 1;
+    Setup(level);
 }
 TileManager::TileManager(const int& length, const int& height, const int& level)
 {
-    Setup(length, height, level);
+    this->length = length;
+    this->height = height;
+    this->level = level;
+    Setup(level);
 }
 TileManager::~TileManager()
 {
 
 }
-void TileManager::Setup(const int& length, const int& height, const int& level)
+
+void TileManager::Setup(const int& level)
 {
-    this->length = length;
-    this->height = height;
+    this->tiles.clear();
     this->level = level;
     sf::Image level_sheet;
     switch(level)

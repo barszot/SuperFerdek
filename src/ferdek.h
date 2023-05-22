@@ -18,12 +18,12 @@ class Ferdek
         bool is_jumping;
         float mini_jumps;
         bool is_big;
-
+        bool is_dead;
     public:
         Ferdek();
         ~Ferdek();
         bool faced_forward;
-
+        void Reset();
         void Update(float time_warp);
         const sf::Sprite& GetSprite() const;
         const sf::Vector2f& GetPosition() const;
@@ -38,9 +38,11 @@ class Ferdek
         void DecrementMiniJumps(float time_warp);
         void StartJumping();
         void StopJumpingInstantly();
-
+        void InstantKill();
         bool IsBig() const;
         void SetIsBig(bool is_big);
+        bool IsDead() const;
+
 };
 
 #endif

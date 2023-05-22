@@ -2,7 +2,7 @@
 #include "beer.h"
 #include "spark.h"
 #include <iostream>
-Game::Game() : window(Window("Super Ferdek", sf::Vector2u(1024, 512))), is_done(false), gravity_warp(250.f), coins(0)
+Game::Game() : window(Window("Super Ferdek", sf::Vector2u(1024, 512))), is_done(false), gravity_warp(250.f), coins(0), level(1), lives(3)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
@@ -12,28 +12,38 @@ Game::Game() : window(Window("Super Ferdek", sf::Vector2u(1024, 512))), is_done(
 
 Game::~Game() {}
 
-void Game::GameSetup()
+void Game::GameAfterDeath()
 {
+    this->ferdek.Reset();
+    this->tile_manager.Setup(level);
+    this->mobs.clear();
+    this->coins = 0;
 
 }
 
 void Game::GameUpdate(float time_warp)
 {
-        time_warp = std::min(0.1f, time_warp);
-        if(window.IsDone() || ferdek.GetPosition().y>16.5f*32){
+        window.Update();
+        if(ferdek.IsDead()){
+            lives -= 1;
+            std::cout<<"RESET\n";
+            GameAfterDeath();
+        }
+        if(lives<=0)
+        {
             EndGame();
             return;
         }
+        time_warp = std::min(0.1f, time_warp);
+
         window.BeginDraw();
         //tu narysuj tlo
-        window.DrawCoinResult(coins, ferdek.GetPosition().x, 0, 16384);
+        window.DrawStats(coins, lives, ferdek.GetPosition().x, 0, 16384);
 
         window.DrawTileCollection(tile_manager, int(ferdek.GetPosition().x)/32);
         window.DrawMobs(mobs, ferdek.GetPosition().x);
         window.Draw(ferdek.GetSprite());
-        window.UpdateView(ferdek.GetPosition().x, 0, 16384);
-        window.Update();
-        
+        window.UpdateView(ferdek.GetPosition().x, 0, 16384);        
         ferdek.Update(time_warp);
         MobsUpdate(time_warp);
         ManagePlayerCollisions();
@@ -55,6 +65,9 @@ void Game::ManagePlayerCollisions()
 {
     float x = ferdek.GetPosition().x;
     float y = ferdek.GetPosition().y;
+    if(y>16.5f*32){
+        ferdek.InstantKill();
+    }
     int id_x = int(x) / 32;
     int id_x_special_1 = int(x + 8.f) / 32;
     int id_x_special_2 = int(x + 24.f) / 32;
@@ -82,7 +95,7 @@ void Game::ManagePlayerCollisions()
     {
         ferdek.bottom_collision = !(tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y+1, coins) && tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y+1, coins));
 
-        std::cout<<tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y+1, coins)<<" "<<tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y+1, coins)<<"\n";
+        //std::cout<<tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y+1, coins)<<" "<<tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y+1, coins)<<"\n";
         ferdek.SetY(32*(id_y+2));
     }
     else
@@ -176,4 +189,9 @@ void Game::MobsUpdate(float delta_time)
            mobs[i]->Update(delta_time);
         }
     }
+}
+
+bool Game::IsWindowDone() const
+{
+    return window.IsDone();
 }

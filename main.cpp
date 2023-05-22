@@ -7,13 +7,13 @@ int main()
 {
     
     sf::Clock clock;
-    
+    std::cout<<"o kurde!\n";
     Game game;
-    while(!game.IsDone()){
+    while(!game.IsWindowDone() && !game.IsDone()){
         sf::Time elapsedTime = clock.restart();
         float time_warp = elapsedTime.asSeconds();
         game.GameUpdate(time_warp);
     }
-    game.EndGame();
+    //game.EndGame();
     return 0;
 }
