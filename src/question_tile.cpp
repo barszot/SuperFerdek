@@ -33,7 +33,7 @@ void QuestionTile::Activated()
 
 void QuestionTile::TextureSetup()
 {
-    this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(48, 16, 16, 16));
+    this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(115, 31, 16, 16));
     sprite.setTexture(texture);
     this->second_texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(6*16, 16, 16, 16));
 

@@ -15,6 +15,7 @@ class Game
         bool is_done;
         float gravity_warp;
         std::vector<std::shared_ptr<Mob>> mobs;
+        unsigned int coins;
     public:
         Game();
         ~Game();

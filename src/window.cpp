@@ -1,8 +1,11 @@
 #include "window.h"
 #include <iostream>
+#include <locale.h>
+
 Window::Window()
 {
     Setup("Window", sf::Vector2u(512,512));
+
 }
 
 Window::Window(const std::string& title,const sf::Vector2u& size)
@@ -15,6 +18,8 @@ Window::~Window()
 }
 void Window::Setup(const std::string& title, const sf::Vector2u& size)
 {
+    setlocale(LC_CTYPE, "Polish");
+    this->comic_sans.loadFromFile("src/fonts/ComicSansMS3.ttf");
     this->window_title = title;
     this->window_size = size;
     this->is_done = false;
@@ -120,3 +125,16 @@ void Window::DrawMobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferde
     }
 }
 
+void Window::DrawCoinResult(const unsigned int& coins, const float& player_x, const float& min_x, const float& max_x)
+{
+    float top_x = std::max(min_x, player_x-window_size.x/2);
+    top_x = std::min(top_x, max_x-window_size.x);
+    sf::Vector2f position(top_x, 0);
+    std::wstring  content = L" zł";
+    content = std::to_wstring(coins)+content;
+    sf::Text coin_result_text (content, comic_sans);
+    coin_result_text.setCharacterSize(128);
+    coin_result_text.setFillColor(sf::Color(255, 255, 0));
+    coin_result_text.setPosition(position);
+    Draw(coin_result_text);
+}

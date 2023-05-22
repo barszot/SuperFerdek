@@ -15,6 +15,7 @@ class Window
         std::string window_title;
         bool is_fullscreen;
         bool is_done;
+        sf::Font comic_sans;
     public:
         Window();
         Window(const std::string& title,const sf::Vector2u& size);
@@ -33,7 +34,7 @@ class Window
 
         void UpdateView(const float& player_x, const float& min_x, const float& max_x);
         sf::Vector2u GetActualSize();
-
+        void DrawCoinResult(const unsigned int& coins, const float& player_x, const float& min_x, const float& max_x);
 };
 
 #endif

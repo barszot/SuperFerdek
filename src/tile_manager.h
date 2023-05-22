@@ -22,6 +22,7 @@ class TileManager
         int GetHeigth() const;
         int GetLevel() const;
         bool CheckTile(int x, int y) const;
+        bool ReactIfTileIsCoin(int x, int y, unsigned int& coins);
         std::shared_ptr<Mob> TileActivation(int x, int y);
 
 };

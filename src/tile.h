@@ -12,6 +12,7 @@ class Tile
         int type;
         void Setup(const int& type, const sf::Vector2f& position);
         std::shared_ptr<Mob> mob_ptr;
+        bool is_coin;
     public:
         Tile();
         Tile(const int& type, const sf::Vector2f& position);
@@ -21,6 +22,7 @@ class Tile
         int GetType() const;
         virtual void Activated();
         std::shared_ptr<Mob> GetMobPtr() const;
+        bool IsCoin() const;
 
 };
 

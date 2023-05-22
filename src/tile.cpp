@@ -1,17 +1,17 @@
 #include "tile.h"
 
-Tile::Tile()
+Tile::Tile() : is_coin(false)
 {
     Setup(0, sf::Vector2f(0.f, 0.f));
 }
-Tile::Tile(const int& type, const sf::Vector2f& position)
+Tile::Tile(const int& type, const sf::Vector2f& position) : is_coin(false)
 {
     Setup(type, position);
 }
 void Tile::Setup(const int& type, const sf::Vector2f& position)
 {
     this->mob_ptr = nullptr;
-
+    this->is_coin = false;
     this->type = type;
     switch(type)
     {
@@ -58,4 +58,9 @@ void Tile::Activated()
 std::shared_ptr<Mob> Tile::GetMobPtr() const
 {
     return mob_ptr;
+}
+
+bool Tile::IsCoin() const
+{
+    return is_coin;
 }

@@ -1,6 +1,7 @@
 #include "tile_manager.h"
 #include "question_tile.h"
 #include "question_tile_beer.h"
+#include "coin.h"
 #include <iostream>
 TileManager::TileManager()
 {
@@ -48,8 +49,10 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
             {
                 type = 10;
             }
-
-
+            else if(sf::Color(100, 100, 100) == pixel_color)
+            {
+                type = 100;
+            }
             if (type == -1)
             {
                 col.push_back(nullptr);
@@ -64,6 +67,10 @@ void TileManager::Setup(const int& length, const int& height, const int& level)
                 {
                     col.push_back(std::make_unique<QuestionTileBeer>(type, tile_position));    
 
+                }
+                else if(type == 100)
+                {
+                   col.push_back(std::make_unique<Coin>(type, tile_position));    
                 }
             }
 
@@ -106,4 +113,17 @@ std::shared_ptr<Mob> TileManager::TileActivation(int x, int y)
 const std::vector<std::vector<std::unique_ptr<Tile>>>& TileManager::GetTiles() const
 {
     return tiles;
+}
+
+bool TileManager::ReactIfTileIsCoin(int x, int y, unsigned int& coins)
+{
+    if(CheckTile(x, y))
+    {
+        if(tiles[x][y]->IsCoin()){
+            tiles[x][y].reset();
+            coins++;
+            return true;
+        }
+    }
+    return false;
 }
