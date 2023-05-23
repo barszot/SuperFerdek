@@ -2,7 +2,8 @@
 #include "beer.h"
 #include "spark.h"
 #include <iostream>
-Game::Game() : window(Window("Super Ferdek", sf::Vector2u(1024, 512))), is_done(false), gravity_warp(250.f), coins(0), level(1), lives(3)
+
+Game::Game(Window& window): window(window), is_done(false), gravity_warp(250.f), coins(0), level(1), lives(3)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
@@ -48,7 +49,6 @@ void Game::GameUpdate(float time_warp)
         ManagePlayerCollisions();
         ManageMobsCollisions();
         window.EndDraw();
-        
 }
 
 bool Game::IsDone()
@@ -58,7 +58,6 @@ bool Game::IsDone()
 void Game::EndGame()
 {
     is_done = true;
-    window.Destroy();
 }
 void Game::ManagePlayerCollisions()
 {

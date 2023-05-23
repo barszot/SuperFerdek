@@ -9,7 +9,7 @@
 class Game
 {
     private:
-        Window window;
+        Window& window;
         Ferdek ferdek;
         TileManager tile_manager;
         bool is_done;
@@ -19,7 +19,7 @@ class Game
         int level;
         int lives;
     public:
-        Game();
+        Game(Window& window);
         ~Game();
         void GameAfterDeath();
         void GameUpdate(float time_warp);

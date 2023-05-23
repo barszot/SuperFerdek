@@ -24,6 +24,7 @@ void Window::Setup(const std::string& title, const sf::Vector2u& size)
     this->window_size = size;
     this->is_done = false;
     this->is_fullscreen = false;
+    this->in_lobby = true;
     render_window.setFramerateLimit(60);
     Create();
 }
@@ -151,3 +152,49 @@ void Window::DrawStats(const unsigned int& coins, const int& lives, const float&
 
 }
 
+void Window::StartWindow()
+{
+    this->in_lobby = true;
+    
+    sf::RectangleShape startButton(sf::Vector2f(400, 100));
+    startButton.setPosition(300, 250);
+    startButton.setFillColor(sf::Color::Green);
+
+    UpdateView(0,0,10000);
+    sf::Text buttonText("START - kliknij enter", comic_sans, 30);
+    buttonText.setPosition(360, 280);
+    buttonText.setFillColor(sf::Color::White);
+
+    sf::Text Title("SUPER FERDEK", comic_sans, 60);
+    Title.setPosition(360, 80);
+    Title.setFillColor(sf::Color::Black);
+
+    //render_window.display();
+    while(true)
+    {
+        BeginDraw();
+        Draw(startButton);
+        Draw(buttonText);
+        Draw(Title);
+        sf::Event event;
+        while(render_window.pollEvent(event)){
+        if(event.type == sf::Event::Closed){
+            is_done = true;
+            return;
+            //std::cout<<"ZAMKNIETO OKNO!\n";
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::F5)
+        {
+            ToggleFullscreen();
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::Enter)
+        {
+            this->in_lobby = false;
+            return;
+        }
+        }
+        EndDraw();
+    }
+}
