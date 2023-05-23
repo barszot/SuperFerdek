@@ -89,6 +89,8 @@ void Ferdek::Reset()
 
 void Ferdek::Update(float time_warp)
 {
+    //this->sprite.setOrigin(0, 32+32*is_big);
+
     //std::cout<<left_collision<<" "<<right_collision<<" "<<top_collision<<" "<<bottom_collision<<"\n";
     current_time_before_change -= time_warp;
     if(current_time_before_change <= 0.f)
@@ -242,7 +244,7 @@ void Ferdek::SetIsBig(bool is_ferdek_big_now)
     if(is_big)
     {
         this->mini_jump_height = is_big_jump_heigth;
-        this->sprite.setOrigin(0, 64);
+        //this->sprite.setOrigin(0, 64);
         std::cout<<" curr position: "<<position.x<<" "<<position.y<<"\n";
 
         //std::cout<<"O KURDE\n";
@@ -250,7 +252,7 @@ void Ferdek::SetIsBig(bool is_ferdek_big_now)
     else
     {
         this->mini_jump_height = is_small_jump_heigth;
-        this->sprite.setOrigin(0, 32);
+        //this->sprite.setOrigin(0, 32);
 
         std::cout<<" curr position: "<<position.x<<" "<<position.y<<"\n";
 
