@@ -136,6 +136,7 @@ void Game::ManageMobsCollisions()
     //std::cout<<mobs[0]<<"\n";
     for(int i = 0; i<n;i++)
     {
+        //std::cout<<i<<" "<<mobs[i]->GetType()<<"\n";
         if (abs(ferdek.GetPosition().x-mobs[i]->GetPosition().x)/32 < 24)
         {
             
@@ -164,7 +165,8 @@ void Game::ManageMobsCollisions()
                 mobs[i]->SetBottomCollision(false);
             }
             mobs[i]->MarkForDeathIfNecessary(ferdek.GetPosition());
-            ferdek.SetIsBig(ferdek.IsBig() || (mobs[i]->GetFeedback()&&mobs[i]->GetType() == 1));
+            ferdek.SetIsBig(ferdek.IsBig() || (mobs[i]->GetFeedback() && mobs[i]->GetType() == 1));
+
             coins += (mobs[i]->GetFeedback()&&mobs[i]->GetType() == 2);
         }
     }

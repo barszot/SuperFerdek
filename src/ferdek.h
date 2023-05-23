@@ -7,11 +7,13 @@ class Ferdek
         sf::Texture texture_sheet;
         sf::Sprite sprite;
         sf::Vector2f position;
-        const float min_horizontal_warp;
-        const float max_horizontal_warp;
-        const float acceleration_warp;
-        const int max_mini_jumps;
+        float min_horizontal_warp;
+        float max_horizontal_warp;
+        float acceleration_warp;
+        int max_mini_jumps;
         float mini_jump_height;
+        float is_small_jump_heigth;
+        float is_big_jump_heigth;
         float left_warp;
         float right_warp;
         float gravity_warp;
@@ -19,6 +21,13 @@ class Ferdek
         float mini_jumps;
         bool is_big;
         bool is_dead;
+        bool is_running;
+        bool is_crouching;
+        bool frame;
+        float max_time_before_change;
+        float current_time_before_change;
+
+        sf::IntRect ferdek_texture_list[2][2][4][2]; // faced_forward?, is_big?, akcja, klatka
     public:
         Ferdek();
         ~Ferdek();
@@ -40,7 +49,7 @@ class Ferdek
         void StopJumpingInstantly();
         void InstantKill();
         bool IsBig() const;
-        void SetIsBig(bool is_big);
+        void SetIsBig(bool is_ferdek_big_now);
         bool IsDead() const;
 
 };
