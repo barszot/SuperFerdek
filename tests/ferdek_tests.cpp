@@ -54,6 +54,37 @@ TEST_CASE("Ferdek tests", "[ferdek]")
     }
     SECTION("jumping")
     {
-        
+        ferdek.reset(true);
+        CHECK(ferdek.get_is_jumping()==false);
+        CHECK(ferdek.get_remaining_jump_time()==0.f);
+        CHECK(ferdek.get_jump_speed()==400.f);
+        ferdek.set_is_big(true);
+        CHECK(ferdek.get_is_jumping()==false);
+        CHECK(ferdek.get_remaining_jump_time()==0.f);
+        CHECK(ferdek.get_jump_speed()==600.f);
+        ferdek.set_is_big(false);
+        CHECK(ferdek.get_is_jumping()==false);
+        CHECK(ferdek.get_remaining_jump_time()==0.f);
+        CHECK(ferdek.get_jump_speed()==400.f);
+        ferdek.start_jumping();
+        CHECK(ferdek.get_is_jumping()==true);
+        CHECK(ferdek.get_remaining_jump_time()==0.15f);
+        CHECK(ferdek.get_jump_speed()==400.f);
+        ferdek.decrease_remaining_jump_time(0.04f);
+        CHECK(ferdek.get_is_jumping()==true);
+        CHECK(abs(ferdek.get_remaining_jump_time()-0.11f)<0.00001f);
+        CHECK(ferdek.get_jump_speed()==400.f);
+        ferdek.decrease_remaining_jump_time(0.12f);
+        CHECK(ferdek.get_is_jumping()==false);
+        CHECK(ferdek.get_remaining_jump_time()==0.f);
+        CHECK(ferdek.get_jump_speed()==400.f);
+        ferdek.start_jumping();
+        CHECK(ferdek.get_is_jumping()==true);
+        CHECK(ferdek.get_remaining_jump_time()==0.15f);
+        CHECK(ferdek.get_jump_speed()==400.f);
+        ferdek.stop_jumping_instantly();
+        CHECK(ferdek.get_is_jumping()==false);
+        CHECK(ferdek.get_remaining_jump_time()==0.f);
+        CHECK(ferdek.get_jump_speed()==400.f);
     }
 }

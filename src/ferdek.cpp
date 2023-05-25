@@ -44,13 +44,13 @@ Ferdek::Ferdek()
     
     this->texture_sheet.loadFromFile("src/imgs/Ferdek.png");
     
-    this->min_horizontal_warp = 200;
-    this->max_horizontal_warp = 400;
-    this->acceleration_warp = 4.f;
-    this->max_mini_jumps=15.f;
+    this->min_horizontal_speed = 200;
+    this->max_horizontal_speed = 400;
+    this->acceleration = 4.f;
+    this->max_jump_time=0.15f;
     this->is_small_jump_heigth = 400.f;
     this->is_big_jump_heigth = 600.f;
-    this->gravity_warp = 300.f; //bylo 300
+    this->gravity_speed = 300.f; //bylo 300
     this->max_time_before_change = 0.3f;
     this->sprite.setTexture(texture_sheet);
     this->sprite.setScale(sf::Vector2f(2.f, 2.f));
@@ -68,11 +68,11 @@ void Ferdek::reset(bool reset_completely)
     
     if(reset_completely){
     this->is_big=false;
-    this->mini_jump_height = 400.f; // domyslnie 400.f
+    this->jump_speed = 400.f; // domyslnie 400.f
     }
 
-    this->left_warp = min_horizontal_warp;
-    this->right_warp = min_horizontal_warp;
+    this->left_speed = min_horizontal_speed;
+    this->right_speed = min_horizontal_speed;
     this->faced_forward = true;
     this->left_collision = false;
     this->right_collision = false;
@@ -81,7 +81,7 @@ void Ferdek::reset(bool reset_completely)
     this->is_jumping = false;
     this->is_running = false;
     this->is_crouching = false;
-    this->mini_jumps = 0;
+    this->remaining_jump_time = 0;
     this->is_dead = false;
     this->current_time_before_change = max_time_before_change;
     this->frame = false;
@@ -107,12 +107,12 @@ void Ferdek::update(float time_warp)
         if(faced_forward==true)
         {
             faced_forward = false;
-            left_warp = min_horizontal_warp;
+            left_speed = min_horizontal_speed;
         }
 
-        position.x -= left_warp*time_warp;
+        position.x -= left_speed*time_warp;
         sprite.setTextureRect(sf::IntRect(181, 0, 13, 16));
-        left_warp = std::min(left_warp+acceleration_warp, max_horizontal_warp);
+        left_speed = std::min(left_speed+acceleration, max_horizontal_speed);
 
     }
     else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && !right_collision)
@@ -121,38 +121,38 @@ void Ferdek::update(float time_warp)
         if(faced_forward==false)
         {
             faced_forward = true;
-            right_warp = min_horizontal_warp;
+            right_speed = min_horizontal_speed;
         }
-        position.x += right_warp*time_warp;
+        position.x += right_speed*time_warp;
         sprite.setTextureRect(sf::IntRect(229, 0, 13, 16));
-        right_warp = std::min(right_warp+acceleration_warp, max_horizontal_warp);
+        right_speed = std::min(right_speed+acceleration, max_horizontal_speed);
     }
     else
     {
         is_running = false;
-        right_warp = min_horizontal_warp;
-        left_warp = min_horizontal_warp;
+        right_speed = min_horizontal_speed;
+        left_speed = min_horizontal_speed;
 
     }
 
     if(is_jumping)
     {
-        position.y -= mini_jump_height*time_warp;
-        DecrementMiniJumps(time_warp);
+        position.y -= jump_speed*time_warp;
+        decrease_remaining_jump_time(time_warp);
     }
     else if(!bottom_collision)
     {
-        position.y +=  gravity_warp*time_warp;
+        position.y +=  gravity_speed*time_warp;
     }
 
     sprite.setPosition(position);
     if((sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) && (!is_jumping && bottom_collision))
     {
-        StartJumping();
+        start_jumping();
     }
     if(top_collision)
     {   
-        StopJumpingInstantly();
+        stop_jumping_instantly();
     }   
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {   
@@ -211,36 +211,37 @@ bool Ferdek::get_is_jumping() const
 {
     return is_jumping;
 }
-float Ferdek::GetMiniJump() const
+float Ferdek::get_jump_speed() const
 {
-    return mini_jump_height;
+    return jump_speed;
 }
-int Ferdek::GetNumberOfMiniJumps() const
+float Ferdek::get_remaining_jump_time() const
 {
-    return mini_jumps;
+    return remaining_jump_time;
 }
-void Ferdek::DecrementMiniJumps(float time_warp)
+void Ferdek::decrease_remaining_jump_time(float time_warp)
 {
     //std::cout<<mini_jumps<<"\n";
-    if(mini_jumps>0)
+    if(remaining_jump_time>0)
     {
-        mini_jumps = std::max(0.f, mini_jumps - 100*time_warp);
+        //std::cout<<mini_jumps*100 - 100*time_warp<<" "<<mini_jumps - time_warp<<"\n";
+        remaining_jump_time = std::max(0.f, remaining_jump_time - time_warp);
     }
-    if(mini_jumps==0)
+    if(remaining_jump_time==0)
     {
         is_jumping = false;
     }
 }
-void Ferdek::StartJumping()
+void Ferdek::start_jumping()
 {
     is_crouching = false;
-    mini_jumps = max_mini_jumps;
+    remaining_jump_time = max_jump_time;
     is_jumping = true;
 }
 
-void Ferdek::StopJumpingInstantly()
+void Ferdek::stop_jumping_instantly()
 {
-    mini_jumps = 0;
+    remaining_jump_time = 0;
     is_jumping = false;
 }
 
@@ -254,11 +255,11 @@ void Ferdek::set_is_big(bool is_ferdek_big_now)
     this->is_big = is_ferdek_big_now;
     if(is_big)
     {
-        this->mini_jump_height = is_big_jump_heigth;
+        this->jump_speed = is_big_jump_heigth;
     }
     else
     {
-        this->mini_jump_height = is_small_jump_heigth;
+        this->jump_speed = is_small_jump_heigth;
     }
 }
 
