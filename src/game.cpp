@@ -24,7 +24,7 @@ void Game::GameAfterDeath()
 
 void Game::GameUpdate(float time_warp)
 {
-        window.Update();
+        window.update();
         if(ferdek.get_is_dead()){
             lives -= 1;
             GameAfterDeath();
@@ -36,19 +36,19 @@ void Game::GameUpdate(float time_warp)
         }
         time_warp = std::min(0.1f, time_warp);
 
-        window.BeginDraw();
+        window.begin_draw();
         //tu narysuj tlo
-        window.DrawStats(coins, lives, ferdek.get_position().x, 0, 16384);
+        window.draw_stats(coins, lives, ferdek.get_position().x, 0, 16384);
 
-        window.DrawTileCollection(tile_manager, int(ferdek.get_position().x)/32);
-        window.DrawMobs(mobs, ferdek.get_position().x);
-        window.DrawFerdek(ferdek);
-        window.UpdateView(ferdek.get_position().x, 0, 16384);        
+        window.draw_tile_collection(tile_manager, int(ferdek.get_position().x)/32);
+        window.draw_mobs(mobs, ferdek.get_position().x);
+        window.draw_ferdek(ferdek);
+        window.update_view(ferdek.get_position().x, 0, 16384);        
         ferdek.update(time_warp);
         MobsUpdate(time_warp);
         ManagePlayerCollisions();
         ManageMobsCollisions();
-        window.EndDraw();
+        window.end_draw();
 }
 
 bool Game::IsDone()
@@ -63,7 +63,7 @@ void Game::ManagePlayerCollisions()
 {
     float x = ferdek.get_position().x;
     float y = ferdek.get_position().y;
-    if(y>17.f*32){ //oryginalnie 16.5f * 32
+    if(y>16.5f*32){ //oryginalnie 16.5f * 32
         ferdek.instant_kill();
     }
     int id_x = int(x) / 32;
@@ -133,9 +133,10 @@ void Game::ManagePlayerCollisions()
     {
         ferdek.right_collision = true;
     }
-    if(id_y - 2 <= 0)
+    if(id_y - 1 <= 0)
     {
         ferdek.top_collision = true;
+
     }
     //std::cout<<ferdek.bottom_collision<<"\n";
 }   
@@ -205,5 +206,5 @@ void Game::MobsUpdate(float delta_time)
 
 bool Game::IsWindowDone() const
 {
-    return window.IsDone();
+    return window.get_is_done();
 }

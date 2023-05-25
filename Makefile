@@ -26,6 +26,10 @@ ferdek_tests:
 tile_tests:
 	${CXX} ${CXX_FLAGS} ${SRC} tests/tile_tests.cpp -o build/tile_tests ${LIBS}
 
+window_tests:
+	${CXX} ${CXX_FLAGS} ${SRC} tests/window_tests.cpp -o build/window_tests ${LIBS}
+
+
 clean: ${OBJ}
 	@echo "Removing ${OBJ}"
 	rm -f ${OBJ}

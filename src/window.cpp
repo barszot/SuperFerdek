@@ -4,19 +4,24 @@
 
 Window::Window()
 {
-    Setup("Window", sf::Vector2u(512,512));
+    setup("Window", sf::Vector2u(512,512));
 
 }
 
 Window::Window(const std::string& title,const sf::Vector2u& size)
 {
-    Setup(title, size);
+    setup(title, size);
 }
 Window::~Window()
 {
-    Destroy();
+    destroy();
 }
-void Window::Setup(const std::string& title, const sf::Vector2u& size)
+std::string Window::get_window_title() const
+{
+    return window_title;
+}
+
+void Window::setup(const std::string& title, const sf::Vector2u& size)
 {
     setlocale(LC_CTYPE, "Polish");
     this->comic_sans.loadFromFile("src/fonts/ComicSansMS3.ttf");
@@ -26,39 +31,39 @@ void Window::Setup(const std::string& title, const sf::Vector2u& size)
     this->is_fullscreen = false;
     this->in_lobby = true;
     render_window.setFramerateLimit(60);
-    Create();
+    create();
 }
-void Window::Destroy()
+void Window::destroy()
 {
     render_window.close();
 }
-void Window::Create()
+void Window::create()
 {
     auto style = (is_fullscreen ? sf::Style::Fullscreen : sf::Style::Default);
     render_window.create({ window_size.x, window_size.y, 32 }, window_title, style);
 }
 
-bool Window::IsDone() const
+bool Window::get_is_done() const
 {
     return is_done;
 }
-bool Window::IsFullscreen() const
+bool Window::get_is_fullscreen() const
 {
     return is_fullscreen;
 }
-sf::Vector2u Window::GetWindowSize() const
+sf::Vector2u Window::get_window_size() const
 {
     return window_size;
 }
-void Window::BeginDraw() // Clears the window
+void Window::begin_draw() // Clears the window
 {
     render_window.clear(sf::Color::Cyan);
 }
-void Window::EndDraw() //Shows result
+void Window::end_draw() //Shows result
 {
     render_window.display();
 }
-void Window::Update()
+void Window::update()
 {
     sf::Event event;
     while(render_window.pollEvent(event)){
@@ -69,22 +74,22 @@ void Window::Update()
     else if(event.type == sf::Event::KeyPressed &&
     event.key.code == sf::Keyboard::F5)
     {
-        ToggleFullscreen();
+        toggle_fullscreen();
     }
     }
 }
-void Window::ToggleFullscreen()
+void Window::toggle_fullscreen()
 {
     is_fullscreen = !is_fullscreen;
-    Destroy();
-    Create();
+    destroy();
+    create();
 }
-void Window::Draw(const sf::Drawable& drawable)
+void Window::draw(const sf::Drawable& drawable)
 {
     render_window.draw(drawable);
 }
 
-void Window::DrawTileCollection(const TileManager& tile_manager, int current_ferdek_column)
+void Window::draw_tile_collection(const TileManager& tile_manager, int current_ferdek_column)
 {
     int x = tile_manager.GetTiles().size();
     int y = tile_manager.GetTiles()[0].size();
@@ -93,7 +98,7 @@ void Window::DrawTileCollection(const TileManager& tile_manager, int current_fer
         for(int j=0;j<y;j++)
         {
             if(tile_manager.CheckTile(i, j)){
-                Draw(tile_manager.GetTiles()[i][j]->get_sprite());
+                draw(tile_manager.GetTiles()[i][j]->get_sprite());
 
             }
         }
@@ -101,7 +106,7 @@ void Window::DrawTileCollection(const TileManager& tile_manager, int current_fer
 }
 
 
-void Window::UpdateView(const float& player_x, const float& min_x, const float& max_x)
+void Window::update_view(const float& player_x, const float& min_x, const float& max_x)
 {
     float top_x = std::max(min_x, player_x-window_size.x/2);
     top_x = std::min(top_x, max_x-window_size.x);
@@ -109,25 +114,25 @@ void Window::UpdateView(const float& player_x, const float& min_x, const float& 
     render_window.setView(view);
 }
 
-sf::Vector2u Window::GetActualSize()
+sf::Vector2u Window::get_actual_size() const
 {
     return render_window.getSize();
 }
 
-void Window::DrawMobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferdek_position_x)
+void Window::draw_mobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferdek_position_x)
 {
     int n = mobs.size();
     for(int i = 0; i<n;i++)
     {
         if (abs(ferdek_position_x-mobs[i]->GetPosition().x)/32 < 24)
         {
-            Draw(mobs[i]->GetSprite());
+            draw(mobs[i]->GetSprite());
 
         }
     }
 }
 
-void Window::DrawStats(const unsigned int& coins, const int& lives, const float& player_x, const float& min_x, const float& max_x)
+void Window::draw_stats(const unsigned int& coins, const int& lives, const float& player_x, const float& min_x, const float& max_x)
 {
     float top_x = std::max(min_x, player_x-window_size.x/2);
     top_x = std::min(top_x, max_x-window_size.x);
@@ -138,7 +143,7 @@ void Window::DrawStats(const unsigned int& coins, const int& lives, const float&
     result_text.setCharacterSize(64);
     result_text.setFillColor(sf::Color(255, 255, 0));
     result_text.setPosition(position);
-    Draw(result_text);
+    draw(result_text);
 
     content = L"Życia: ";
     content = content + std::to_wstring(lives);
@@ -148,11 +153,11 @@ void Window::DrawStats(const unsigned int& coins, const int& lives, const float&
     result_text.setString(content);
     position.x += window_size.x * 0.5f;
     result_text.setPosition(position);
-    Draw(result_text);  
+    draw(result_text);  
 
 }
 
-void Window::StartWindow()
+void Window::start_window()
 {
     this->in_lobby = true;
     
@@ -160,7 +165,7 @@ void Window::StartWindow()
     startButton.setPosition(300, 250);
     startButton.setFillColor(sf::Color::Green);
 
-    UpdateView(0,0,10000);
+    update_view(0,0,10000);
     sf::Text buttonText("START - kliknij enter", comic_sans, 30);
     buttonText.setPosition(360, 280);
     buttonText.setFillColor(sf::Color::White);
@@ -172,10 +177,10 @@ void Window::StartWindow()
     //render_window.display();
     while(true)
     {
-        BeginDraw();
-        Draw(startButton);
-        Draw(buttonText);
-        Draw(Title);
+        begin_draw();
+        draw(startButton);
+        draw(buttonText);
+        draw(Title);
         sf::Event event;
         while(render_window.pollEvent(event)){
         if(event.type == sf::Event::Closed){
@@ -186,7 +191,7 @@ void Window::StartWindow()
         else if(event.type == sf::Event::KeyPressed &&
         event.key.code == sf::Keyboard::F5)
         {
-            ToggleFullscreen();
+            toggle_fullscreen();
         }
         else if(event.type == sf::Event::KeyPressed &&
         event.key.code == sf::Keyboard::Enter)
@@ -195,12 +200,12 @@ void Window::StartWindow()
             return;
         }
         }
-        EndDraw();
+        end_draw();
     }
 }
 
-void Window::DrawFerdek(Ferdek& ferdek)
+void Window::draw_ferdek(Ferdek& ferdek)
 {
     ferdek.set_sprite_origin(0, 32+16*ferdek.get_is_big());
-    Draw(ferdek.get_sprite());
+    draw(ferdek.get_sprite());
 }

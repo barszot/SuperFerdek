@@ -47,7 +47,7 @@ Ferdek::Ferdek()
     this->min_horizontal_speed = 200;
     this->max_horizontal_speed = 400;
     this->acceleration = 4.f;
-    this->max_jump_time=0.15f;
+    this->max_jump_time=0.15f; //bylo 0.15f
     this->is_small_jump_heigth = 400.f;
     this->is_big_jump_heigth = 600.f;
     this->gravity_speed = 300.f; //bylo 300

@@ -8,8 +8,8 @@ int main()
     Window window("Super Ferdek", sf::Vector2u(1024, 512));
     sf::Clock clock;
 
-    while(!window.IsDone()){
-    window.StartWindow();
+    while(!window.get_is_done()){
+    window.start_window();
     Game game(window);
     while(!game.IsWindowDone() && !game.IsDone()){
         sf::Time elapsedTime = clock.restart();
