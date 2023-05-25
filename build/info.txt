@@ -1,0 +1,1 @@
+Do folderu build trafiają skompilowane pliki z grą ("main") oraz pliki z testami jednostkowymi ("..._tests").
