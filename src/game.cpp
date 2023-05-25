@@ -42,7 +42,7 @@ void Game::GameUpdate(float time_warp)
 
         window.DrawTileCollection(tile_manager, int(ferdek.GetPosition().x)/32);
         window.DrawMobs(mobs, ferdek.GetPosition().x);
-        window.Draw(ferdek.GetSprite());
+        window.DrawFerdek(ferdek);
         window.UpdateView(ferdek.GetPosition().x, 0, 16384);        
         ferdek.Update(time_warp);
         MobsUpdate(time_warp);
@@ -71,19 +71,21 @@ void Game::ManagePlayerCollisions()
     int id_x_special_2 = int(x + 24.f) / 32;
     int id_y = (int(y) / 32) - 2;
 
+    bool condition = ferdek.IsBig() && !ferdek.is_crouching;
+
     //std::cout<<tile_types[id_x_special_1][id_y]<<" "<<tile_types[id_x_special_2][id_y]<<"\n";
-    if(tile_manager.CheckTile(id_x+1,id_y))
+    if(tile_manager.CheckTile(id_x+1,id_y) || tile_manager.CheckTile(id_x+1,id_y-condition))
     {
-        ferdek.right_collision = !tile_manager.ReactIfTileIsCoin(id_x+1,id_y, coins);
+        ferdek.right_collision = (!tile_manager.ReactIfTileIsCoin(id_x+1,id_y, coins) || !tile_manager.ReactIfTileIsCoin(id_x+1,id_y-condition, coins));
 
     }
     else
     {
         ferdek.right_collision = false;
     }
-    if(id_x-2 < 0 || tile_manager.CheckTile(id_x,id_y))
+    if(tile_manager.CheckTile(id_x,id_y) || tile_manager.CheckTile(id_x,id_y-condition))
     {
-        ferdek.left_collision = !tile_manager.ReactIfTileIsCoin(id_x,id_y, coins);
+        ferdek.left_collision = (!tile_manager.ReactIfTileIsCoin(id_x,id_y, coins) || !tile_manager.ReactIfTileIsCoin(id_x,id_y-condition, coins));
     }
     else
     {
@@ -100,18 +102,18 @@ void Game::ManagePlayerCollisions()
     {
         ferdek.bottom_collision = false;
     }
-    if(tile_manager.CheckTile(id_x_special_1,id_y) || tile_manager.CheckTile(id_x_special_2,id_y))
+    if(tile_manager.CheckTile(id_x_special_1,id_y-condition) || tile_manager.CheckTile(id_x_special_2,id_y-condition))
     {
-        ferdek.top_collision = !(tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y, coins) && tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y, coins));
+        ferdek.top_collision = !(tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y-condition, coins) && tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y-condition, coins));
 
-        auto mob_ptr_1 = tile_manager.TileActivation(id_x_special_1, id_y);
+        auto mob_ptr_1 = tile_manager.TileActivation(id_x_special_1, id_y-condition);
         if(mob_ptr_1!=nullptr){
             mobs.push_back(mob_ptr_1);
         }
 
         if(id_x_special_1!=id_x_special_2){
 
-            auto mob_ptr_2 = tile_manager.TileActivation(id_x_special_2, id_y);
+            auto mob_ptr_2 = tile_manager.TileActivation(id_x_special_2, id_y-condition);
             if(mob_ptr_2!=nullptr)
             {
                 mobs.push_back(mob_ptr_2);
@@ -123,8 +125,18 @@ void Game::ManagePlayerCollisions()
     {
         ferdek.top_collision = false;
     }
-    
-
+    if(id_x-2<0)
+    {
+        ferdek.left_collision = true;
+    }
+    if(id_x+2>=tile_manager.GetLength())
+    {
+        ferdek.right_collision = true;
+    }
+    if(id_y - 2 <= 0)
+    {
+        ferdek.top_collision = true;
+    }
     //std::cout<<ferdek.bottom_collision<<"\n";
 }   
 

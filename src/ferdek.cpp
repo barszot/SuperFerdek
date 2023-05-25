@@ -82,7 +82,7 @@ void Ferdek::Reset()
     this->frame = false;
     this->sprite.setTexture(texture_sheet);
     this->sprite.setTextureRect(ferdek_texture_list[1][0][0][0]);
-    this->sprite.setOrigin(0, 32);
+    //this->sprite.setOrigin(0, 32);
     this->sprite.setPosition(position);
     this->sprite.setScale(sf::Vector2f(2.f, 2.f));
 }
@@ -220,6 +220,7 @@ void Ferdek::DecrementMiniJumps(float time_warp)
 }
 void Ferdek::StartJumping()
 {
+    is_crouching = false;
     mini_jumps = max_mini_jumps;
     is_jumping = true;
 }
@@ -267,4 +268,8 @@ void Ferdek::InstantKill()
 bool Ferdek::IsDead() const
 {
     return is_dead;
+}
+void Ferdek::SetSpriteOrigin(int x, int y)
+{
+    sprite.setOrigin(x, y);
 }

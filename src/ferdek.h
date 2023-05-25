@@ -22,7 +22,6 @@ class Ferdek
         bool is_big;
         bool is_dead;
         bool is_running;
-        bool is_crouching;
         bool frame;
         float max_time_before_change;
         float current_time_before_change;
@@ -31,6 +30,7 @@ class Ferdek
     public:
         Ferdek();
         ~Ferdek();
+        bool is_crouching;
         bool faced_forward;
         void Reset();
         void Update(float time_warp);
@@ -51,7 +51,7 @@ class Ferdek
         bool IsBig() const;
         void SetIsBig(bool is_ferdek_big_now);
         bool IsDead() const;
-
+        void SetSpriteOrigin(int x, int y);
 };
 
 #endif

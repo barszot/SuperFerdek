@@ -198,3 +198,9 @@ void Window::StartWindow()
         EndDraw();
     }
 }
+
+void Window::DrawFerdek(Ferdek& ferdek)
+{
+    ferdek.SetSpriteOrigin(0, 32+16*ferdek.IsBig());
+    Draw(ferdek.GetSprite());
+}
