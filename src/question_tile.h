@@ -6,14 +6,14 @@ class QuestionTile : public Tile
     protected:
         sf::Texture second_texture;
         bool activated;
-        virtual void Action();
-        void TextureSetup();
+        virtual void action();
+        void texture_setup();
     public:
         QuestionTile();
         QuestionTile(const int& type, const sf::Vector2f& position);
         virtual ~QuestionTile();
-        virtual void Activated();
-        bool GetActivated() const;
+        virtual void activate_tile();
+        bool get_activated() const;
 
 };
 

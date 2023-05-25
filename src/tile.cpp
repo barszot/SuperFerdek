@@ -1,14 +1,15 @@
 #include "tile.h"
+Tile::Tile()
+{
+    setup(0, sf::Vector2f(0.f, 0.f));
+    this->is_coin = false;
 
-Tile::Tile() : is_coin(false)
-{
-    Setup(0, sf::Vector2f(0.f, 0.f));
 }
-Tile::Tile(const int& type, const sf::Vector2f& position) : is_coin(false)
+Tile::Tile(const int& type, const sf::Vector2f& position)
 {
-    Setup(type, position);
+    setup(type, position);
 }
-void Tile::Setup(const int& type, const sf::Vector2f& position)
+void Tile::setup(const int& type, const sf::Vector2f& position)
 {
     this->mob_ptr = nullptr;
     this->is_coin = false;
@@ -36,31 +37,31 @@ Tile::~Tile()
 {
 
 }
-sf::Vector2f Tile::GetPositon() const
+sf::Vector2f Tile::get_position() const
 {
     return position;
 }
-const sf::Sprite& Tile::GetSprite() const
+sf::Sprite& Tile::get_sprite()
 {
     return sprite;
 }
 
-int Tile::GetType() const
+int Tile::get_type() const
 {
     return type;
 }
 
-void Tile::Activated()
+void Tile::activate_tile()
 {
     
 }
 
-std::shared_ptr<Mob> Tile::GetMobPtr() const
+std::shared_ptr<Mob> Tile::get_mob_ptr() const
 {
     return mob_ptr;
 }
 
-bool Tile::IsCoin() const
+bool Tile::get_is_coin() const
 {
     return is_coin;
 }

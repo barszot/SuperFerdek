@@ -2,28 +2,27 @@
 #include <iostream>
 QuestionTile::QuestionTile()
 {
-    Setup(4, sf::Vector2f(50.f, 50.f));
+    setup(12, sf::Vector2f(0.f, 0.f));
     activated = false;
-    TextureSetup();
-
+    texture_setup();
 }
 QuestionTile::QuestionTile(const int& type, const sf::Vector2f& position)
 {
-    Setup(type, position);
+    setup(type, position);
     activated = false;
-    TextureSetup();
+    texture_setup();
 }
 QuestionTile::~QuestionTile()
 {
 
 }
-void QuestionTile::Activated()
+void QuestionTile::activate_tile()
 {
     if (activated==false)
     {
         activated = true;
         sprite.setTexture(second_texture);
-        Action();
+        action();
     }
     else
     {
@@ -31,16 +30,19 @@ void QuestionTile::Activated()
     }
 }
 
-void QuestionTile::TextureSetup()
+void QuestionTile::texture_setup()
 {
     this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(115, 31, 16, 16));
     sprite.setTexture(texture);
     this->second_texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(6*16, 16, 16, 16));
 
 }
-void QuestionTile::Action()
+void QuestionTile::action()
 {
-    //sf::Vector2f beer_position = position;
-    //position.y += 32;
+
 }
 
+bool QuestionTile::get_activated() const
+{
+    return activated;
+}

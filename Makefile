@@ -20,9 +20,11 @@ all:
 #test:
 #	${CXX} ${CXX_FLAGS} ${SRC} tests/test_board.cpp -o build/tests ${LIBS}
 
-test:
-	${CXX} ${CXX_FLAGS} ${SRC} tests/*.cpp -o build/tests ${LIBS}
+ferdek_tests:
+	${CXX} ${CXX_FLAGS} ${SRC} tests/ferdek_tests.cpp -o build/ferdek_tests ${LIBS}
 
+tile_tests:
+	${CXX} ${CXX_FLAGS} ${SRC} tests/tile_tests.cpp -o build/tile_tests ${LIBS}
 
 clean: ${OBJ}
 	@echo "Removing ${OBJ}"

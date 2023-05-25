@@ -2,22 +2,22 @@
 
 QuestionTileCoin::QuestionTileCoin()
 {
-    Setup(4, sf::Vector2f(50.f, 50.f));
+    setup(4, sf::Vector2f(50.f, 50.f));
     activated = false;
-    TextureSetup();
+    texture_setup();
 }
 
 QuestionTileCoin::QuestionTileCoin(const int& type, const sf::Vector2f& position)
 {
-    Setup(type, position);
+    setup(type, position);
     activated = false;
-    TextureSetup();
+    texture_setup();
 }
 QuestionTileCoin::~QuestionTileCoin()
 {
 
 }
-void QuestionTileCoin::Action()
+void QuestionTileCoin::action()
 {
     sf::Vector2f coin_position = position;
     coin_position.y += 32.f;

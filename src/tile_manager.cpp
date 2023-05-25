@@ -119,8 +119,8 @@ bool TileManager::CheckTile(int x, int y) const
 std::shared_ptr<Mob> TileManager::TileActivation(int x, int y)
 {
     if(CheckTile(x, y)){
-        tiles[x][y]->Activated();
-        return tiles[x][y]->GetMobPtr();
+        tiles[x][y]->activate_tile();
+        return tiles[x][y]->get_mob_ptr();
     }
     return nullptr;
 }
@@ -134,7 +134,7 @@ bool TileManager::ReactIfTileIsCoin(int x, int y, unsigned int& coins)
 {
     if(CheckTile(x, y))
     {
-        if(tiles[x][y]->IsCoin()){
+        if(tiles[x][y]->get_is_coin()){
             tiles[x][y].reset();
             coins++;
             return true;

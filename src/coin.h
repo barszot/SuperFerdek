@@ -4,7 +4,7 @@
 class Coin : public Tile
 {
     private:
-        void TextureSetup();
+        void texture_setup();
     public:
         Coin();
         Coin(const int& type, const sf::Vector2f& position);

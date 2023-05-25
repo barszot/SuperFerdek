@@ -6,7 +6,7 @@
 class QuestionTileBeer : public QuestionTile
 {
     protected:
-        virtual void Action();
+        virtual void action();
     public:
         QuestionTileBeer();
         QuestionTileBeer(const int& type, const sf::Vector2f& position);

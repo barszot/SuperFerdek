@@ -5,7 +5,7 @@
 class QuestionTileCoin : public QuestionTile
 {
     protected:
-        virtual void Action();
+        virtual void action();
     public:
         QuestionTileCoin();
         QuestionTileCoin(const int& type, const sf::Vector2f& position);

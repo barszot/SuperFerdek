@@ -43,6 +43,7 @@ public:
     void set_x(const float &new_x);
     void set_y(const float &new_y);
     void set_position(const sf::Vector2f& new_position);
+    //TODO zmien skok u ferdka
     bool get_is_jumping() const;
     float GetMiniJump() const;
     int GetNumberOfMiniJumps() const;

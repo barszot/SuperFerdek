@@ -10,19 +10,19 @@ class Tile
         sf::Vector2f position;
         sf::Sprite sprite;
         int type;
-        void Setup(const int& type, const sf::Vector2f& position);
+        void setup(const int& type, const sf::Vector2f& position);
         std::shared_ptr<Mob> mob_ptr;
         bool is_coin;
     public:
         Tile();
         Tile(const int& type, const sf::Vector2f& position);
         virtual ~Tile();
-        sf::Vector2f GetPositon() const;
-        const sf::Sprite& GetSprite() const;
-        int GetType() const;
-        virtual void Activated();
-        std::shared_ptr<Mob> GetMobPtr() const;
-        bool IsCoin() const;
+        sf::Vector2f get_position() const;
+        sf::Sprite& get_sprite();
+        int get_type() const;
+        virtual void activate_tile();
+        std::shared_ptr<Mob> get_mob_ptr() const;
+        bool get_is_coin() const;
 
 };
 

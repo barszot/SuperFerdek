@@ -93,7 +93,7 @@ void Window::DrawTileCollection(const TileManager& tile_manager, int current_fer
         for(int j=0;j<y;j++)
         {
             if(tile_manager.CheckTile(i, j)){
-                Draw(tile_manager.GetTiles()[i][j]->GetSprite());
+                Draw(tile_manager.GetTiles()[i][j]->get_sprite());
 
             }
         }
