@@ -52,4 +52,8 @@ TEST_CASE("Ferdek tests", "[ferdek]")
         ferdek.set_y(120.f);
         CHECK(ferdek.get_position() == sf::Vector2f(60.f, 120.f));
     }
+    SECTION("jumping")
+    {
+        
+    }
 }

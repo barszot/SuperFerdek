@@ -53,7 +53,7 @@ public:
     bool get_is_big() const;
     void set_is_big(bool is_ferdek_big_now);
     bool get_is_dead() const;
-    void SetSpriteOrigin(int x, int y);
+    void set_sprite_origin(int x, int y);
 };
 
 #endif

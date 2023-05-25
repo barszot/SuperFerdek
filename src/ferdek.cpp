@@ -270,7 +270,7 @@ bool Ferdek::get_is_dead() const
 {
     return is_dead;
 }
-void Ferdek::SetSpriteOrigin(int x, int y)
+void Ferdek::set_sprite_origin(int x, int y)
 {
     sprite.setOrigin(x, y);
 }
