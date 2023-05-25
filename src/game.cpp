@@ -15,7 +15,7 @@ Game::~Game() {}
 
 void Game::GameAfterDeath()
 {
-    this->ferdek.Reset();
+    this->ferdek.reset(true);
     this->tile_manager.Setup(level);
     this->mobs.clear();
     this->coins = 0;
@@ -25,7 +25,7 @@ void Game::GameAfterDeath()
 void Game::GameUpdate(float time_warp)
 {
         window.Update();
-        if(ferdek.IsDead()){
+        if(ferdek.get_is_dead()){
             lives -= 1;
             GameAfterDeath();
         }
@@ -38,13 +38,13 @@ void Game::GameUpdate(float time_warp)
 
         window.BeginDraw();
         //tu narysuj tlo
-        window.DrawStats(coins, lives, ferdek.GetPosition().x, 0, 16384);
+        window.DrawStats(coins, lives, ferdek.get_position().x, 0, 16384);
 
-        window.DrawTileCollection(tile_manager, int(ferdek.GetPosition().x)/32);
-        window.DrawMobs(mobs, ferdek.GetPosition().x);
+        window.DrawTileCollection(tile_manager, int(ferdek.get_position().x)/32);
+        window.DrawMobs(mobs, ferdek.get_position().x);
         window.DrawFerdek(ferdek);
-        window.UpdateView(ferdek.GetPosition().x, 0, 16384);        
-        ferdek.Update(time_warp);
+        window.UpdateView(ferdek.get_position().x, 0, 16384);        
+        ferdek.update(time_warp);
         MobsUpdate(time_warp);
         ManagePlayerCollisions();
         ManageMobsCollisions();
@@ -61,17 +61,17 @@ void Game::EndGame()
 }
 void Game::ManagePlayerCollisions()
 {
-    float x = ferdek.GetPosition().x;
-    float y = ferdek.GetPosition().y;
+    float x = ferdek.get_position().x;
+    float y = ferdek.get_position().y;
     if(y>16.5f*32){
-        ferdek.InstantKill();
+        ferdek.instant_kill();
     }
     int id_x = int(x) / 32;
     int id_x_special_1 = int(x + 8.f) / 32;
     int id_x_special_2 = int(x + 24.f) / 32;
     int id_y = (int(y) / 32) - 2;
 
-    bool condition = ferdek.IsBig() && !ferdek.is_crouching;
+    bool condition = ferdek.get_is_big() && !ferdek.is_crouching;
 
     //std::cout<<tile_types[id_x_special_1][id_y]<<" "<<tile_types[id_x_special_2][id_y]<<"\n";
     if(tile_manager.CheckTile(id_x+1,id_y) || tile_manager.CheckTile(id_x+1,id_y-condition))
@@ -149,7 +149,7 @@ void Game::ManageMobsCollisions()
     for(int i = 0; i<n;i++)
     {
         //std::cout<<i<<" "<<mobs[i]->GetType()<<"\n";
-        if (abs(ferdek.GetPosition().x-mobs[i]->GetPosition().x)/32 < 24)
+        if (abs(ferdek.get_position().x-mobs[i]->GetPosition().x)/32 < 24)
         {
             
             float x = mobs[i]->GetPosition().x;
@@ -176,8 +176,8 @@ void Game::ManageMobsCollisions()
             {
                 mobs[i]->SetBottomCollision(false);
             }
-            mobs[i]->MarkForDeathIfNecessary(ferdek.GetPosition());
-            ferdek.SetIsBig(ferdek.IsBig() || (mobs[i]->GetFeedback() && mobs[i]->GetType() == 1));
+            mobs[i]->MarkForDeathIfNecessary(ferdek.get_position());
+            ferdek.set_is_big(ferdek.get_is_big() || (mobs[i]->GetFeedback() && mobs[i]->GetType() == 1));
 
             coins += (mobs[i]->GetFeedback()&&mobs[i]->GetType() == 2);
         }
@@ -196,7 +196,7 @@ void Game::MobsUpdate(float delta_time)
     for(int i = 0; i<n;i++)
     {
         //std::cout<<i<<" "<<mobs[i]->GetSpeed()<<std::endl;
-        if (abs(ferdek.GetPosition().x-mobs[i]->GetPosition().x)/32 < 24)
+        if (abs(ferdek.get_position().x-mobs[i]->GetPosition().x)/32 < 24)
         {
            mobs[i]->Update(delta_time);
         }

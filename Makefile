@@ -17,8 +17,12 @@ LIBS = $(LINUX_LIBS)
 all:
 	${CXX} ${CXX_FLAGS} ${INCLUDES} ${SRC} main.cpp -o build/main ${LIBS}
 
+#test:
+#	${CXX} ${CXX_FLAGS} ${SRC} tests/test_board.cpp -o build/tests ${LIBS}
+
 test:
-	${CXX} ${CXX_FLAGS} ${SRC} tests/test_board.cpp -o build/tests ${LIBS}
+	${CXX} ${CXX_FLAGS} ${SRC} tests/*.cpp -o build/tests ${LIBS}
+
 
 clean: ${OBJ}
 	@echo "Removing ${OBJ}"

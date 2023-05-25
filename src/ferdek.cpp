@@ -43,29 +43,37 @@ Ferdek::Ferdek()
     this->ferdek_texture_list[1][1][3][1] = sf::IntRect(0*16, 16, 16, 32);
     
     this->texture_sheet.loadFromFile("src/imgs/Ferdek.png");
-
-
-    Reset();
-}
-
-Ferdek::~Ferdek()
-{
-
-}
-void Ferdek::Reset()
-{
-    this->position = sf::Vector2f(160.f, 480.f-128.f);
+    
     this->min_horizontal_warp = 200;
     this->max_horizontal_warp = 600;
     this->acceleration_warp = 1.f;
     this->max_mini_jumps=15.f;
     this->is_small_jump_heigth = 400.f;
     this->is_big_jump_heigth = 600.f;
+    this->gravity_warp = 300.f; //bylo 300
+    this->max_time_before_change = 0.3f;
+    this->sprite.setTexture(texture_sheet);
+    this->sprite.setScale(sf::Vector2f(2.f, 2.f));
+
+    reset(true);
+}
+
+Ferdek::~Ferdek()
+{
+
+}
+void Ferdek::reset(bool reset_completely)
+{
+    this->position = sf::Vector2f(160.f, 352.f);
+    
+    if(reset_completely){
     this->is_big=false;
+    this->mini_jump_height = 400.f; // domyslnie 400.f
+    }
+
     this->left_warp = min_horizontal_warp;
     this->right_warp = min_horizontal_warp;
     this->faced_forward = true;
-
     this->left_collision = false;
     this->right_collision = false;
     this->top_collision = false;
@@ -74,20 +82,15 @@ void Ferdek::Reset()
     this->is_running = false;
     this->is_crouching = false;
     this->mini_jumps = 0;
-    this->gravity_warp = 300.f; //bylo 300
-    this->mini_jump_height = 400.f; // domyslnie 400.f
     this->is_dead = false;
-    this->max_time_before_change = 0.3f;
     this->current_time_before_change = max_time_before_change;
     this->frame = false;
-    this->sprite.setTexture(texture_sheet);
-    this->sprite.setTextureRect(ferdek_texture_list[1][0][0][0]);
+    this->sprite.setTextureRect(ferdek_texture_list[faced_forward][is_big][0][0]);
     //this->sprite.setOrigin(0, 32);
     this->sprite.setPosition(position);
-    this->sprite.setScale(sf::Vector2f(2.f, 2.f));
 }
 
-void Ferdek::Update(float time_warp)
+void Ferdek::update(float time_warp)
 {
     //this->sprite.setOrigin(0, 32+32*is_big);
 
@@ -180,11 +183,11 @@ void Ferdek::Update(float time_warp)
 
 
 
-const sf::Sprite& Ferdek::GetSprite() const
+const sf::Sprite& Ferdek::get_sprite() const
 {
     return sprite;
 }
-const sf::Vector2f& Ferdek::GetPosition() const
+const sf::Vector2f& Ferdek::get_position() const
 {
     return position;
 }
@@ -194,7 +197,7 @@ void Ferdek::SetY(const float& new_y)
     position.y = new_y;
 }
 
-bool Ferdek::IsJumping() const
+bool Ferdek::get_is_jumping() const
 {
     return is_jumping;
 }
@@ -232,40 +235,28 @@ void Ferdek::StopJumpingInstantly()
 }
 
 
-bool Ferdek::IsBig() const
+bool Ferdek::get_is_big() const
 {
     return is_big;
 }
-void Ferdek::SetIsBig(bool is_ferdek_big_now)
+void Ferdek::set_is_big(bool is_ferdek_big_now)
 {   
-    bool is_changed = !(is_ferdek_big_now==is_big);
     this->is_big = is_ferdek_big_now;
-    if(is_changed){
-        std::cout<<"prev position: "<<position.x<<" "<<position.y;
     if(is_big)
     {
         this->mini_jump_height = is_big_jump_heigth;
-        //this->sprite.setOrigin(0, 64);
-        std::cout<<" curr position: "<<position.x<<" "<<position.y<<"\n";
-
-        //std::cout<<"O KURDE\n";
     }
     else
     {
         this->mini_jump_height = is_small_jump_heigth;
-        //this->sprite.setOrigin(0, 32);
-
-        std::cout<<" curr position: "<<position.x<<" "<<position.y<<"\n";
-
-    }
     }
 }
 
-void Ferdek::InstantKill()
+void Ferdek::instant_kill()
 {
     is_dead = true;
 }
-bool Ferdek::IsDead() const
+bool Ferdek::get_is_dead() const
 {
     return is_dead;
 }
