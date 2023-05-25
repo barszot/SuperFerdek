@@ -4,6 +4,7 @@
 #include "tile.h"
 #include "tile_manager.h"
 #include "mob.h"
+#include "ferdek.h"
 class Window
 {
     private:
@@ -36,6 +37,7 @@ class Window
         sf::Vector2u GetActualSize();
         void DrawStats(const unsigned int& coins, const int& lives, const float& player_x, const float& min_x, const float& max_x);
         void StartWindow();
+        void DrawFerdek(Ferdek& ferdek);
 };
 
 #endif
