@@ -45,8 +45,8 @@ Ferdek::Ferdek()
     this->texture_sheet.loadFromFile("src/imgs/Ferdek.png");
     
     this->min_horizontal_warp = 200;
-    this->max_horizontal_warp = 600;
-    this->acceleration_warp = 1.f;
+    this->max_horizontal_warp = 400;
+    this->acceleration_warp = 4.f;
     this->max_mini_jumps=15.f;
     this->is_small_jump_heigth = 400.f;
     this->is_big_jump_heigth = 600.f;

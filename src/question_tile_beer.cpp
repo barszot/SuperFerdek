@@ -2,7 +2,7 @@
 
 QuestionTileBeer::QuestionTileBeer()
 {
-    setup(4, sf::Vector2f(50.f, 50.f));
+    setup(10, sf::Vector2f(0.f, 0.f));
     activated = false;
     texture_setup();
 }
