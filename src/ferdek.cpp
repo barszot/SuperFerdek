@@ -191,12 +191,22 @@ const sf::Vector2f& Ferdek::get_position() const
 {
     return position;
 }
-
-void Ferdek::SetY(const float& new_y)
+void Ferdek::set_x(const float &new_x)
 {
-    position.y = new_y;
+    position.x = new_x;
+    sprite.setPosition(position);
 }
 
+void Ferdek::set_y(const float& new_y)
+{
+    position.y = new_y;
+    sprite.setPosition(position);
+}
+void Ferdek::set_position(const sf::Vector2f& new_position)
+{
+    position = new_position;
+    sprite.setPosition(new_position);
+}
 bool Ferdek::get_is_jumping() const
 {
     return is_jumping;

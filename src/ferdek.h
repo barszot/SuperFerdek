@@ -33,14 +33,16 @@ public:
     bool is_crouching;
     bool faced_forward;
     void reset(bool reset_completely);
-    void update(float time_warp);
+    void update(float delta_time);
     const sf::Sprite &get_sprite() const;
     const sf::Vector2f &get_position() const;
     bool left_collision;
     bool right_collision;
     bool top_collision;
     bool bottom_collision;
-    void SetY(const float &new_y);
+    void set_x(const float &new_x);
+    void set_y(const float &new_y);
+    void set_position(const sf::Vector2f& new_position);
     bool get_is_jumping() const;
     float GetMiniJump() const;
     int GetNumberOfMiniJumps() const;

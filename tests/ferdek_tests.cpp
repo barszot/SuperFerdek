@@ -2,15 +2,6 @@
 #include "catch.hpp"
 #include "../src/ferdek.h"
 
-static const double eps = 0.00000001;
-
-bool compare(double a, double b){
-    if (a-eps<b && a+eps>b)
-        {
-            return true;
-        }
-    return false;
-}
 
 TEST_CASE("Ferdek tests", "[ferdek]") 
 {
@@ -48,5 +39,17 @@ TEST_CASE("Ferdek tests", "[ferdek]")
         CHECK(ferdek.get_is_big() == true);
         ferdek.reset(true);
         CHECK(ferdek.get_is_big() == false);        
+    }
+    SECTION("setting position")
+    {
+        ferdek.reset(true);
+        CHECK(ferdek.get_is_dead() == false);
+        CHECK(ferdek.get_position() == sf::Vector2f(160.f, 352.f));
+        ferdek.set_position(sf::Vector2f(40.f, 75.f));
+        CHECK(ferdek.get_position() == sf::Vector2f(40.f, 75.f));
+        ferdek.set_x(60.f);
+        CHECK(ferdek.get_position() == sf::Vector2f(60.f, 75.f));
+        ferdek.set_y(120.f);
+        CHECK(ferdek.get_position() == sf::Vector2f(60.f, 120.f));
     }
 }

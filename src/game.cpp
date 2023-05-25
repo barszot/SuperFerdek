@@ -63,7 +63,7 @@ void Game::ManagePlayerCollisions()
 {
     float x = ferdek.get_position().x;
     float y = ferdek.get_position().y;
-    if(y>16.5f*32){
+    if(y>17.f*32){ //oryginalnie 16.5f * 32
         ferdek.instant_kill();
     }
     int id_x = int(x) / 32;
@@ -96,7 +96,7 @@ void Game::ManagePlayerCollisions()
         ferdek.bottom_collision = !(tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y+1, coins) && tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y+1, coins));
 
         //std::cout<<tile_manager.ReactIfTileIsCoin(id_x_special_1,id_y+1, coins)<<" "<<tile_manager.ReactIfTileIsCoin(id_x_special_2,id_y+1, coins)<<"\n";
-        ferdek.SetY(32*(id_y+2));
+        ferdek.set_y(32*(id_y+2));
     }
     else
     {
