@@ -20,7 +20,7 @@ int main()
     if(game.get_is_won())
     {
         unsigned int result = game.get_coins_earned_earlier();
-
+        window.end_window_after_win(result);
         std::cout<<"WYgRALES!! "<<result<<"\n";
     }
     else

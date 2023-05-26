@@ -261,7 +261,52 @@ void Window::end_window_after_lost()
 
 void Window::end_window_after_win(const unsigned int& result)
 {
+    this->in_lobby = true;
+    
+    sf::RectangleShape startButton(sf::Vector2f(400, 100));
+    startButton.setPosition(300, 250);
+    startButton.setFillColor(sf::Color::Black);
 
+    update_view(0,0,10000);
+    sf::Text buttonText("RESTART - kliknij enter", comic_sans, 30);
+    buttonText.setPosition(360, 280);
+    buttonText.setFillColor(sf::Color::White);
+
+    sf::Text Title("WYGRANA", comic_sans, 60);
+    Title.setPosition(360, 80);
+    Title.setFillColor(sf::Color::Black);
+    sf::Text result_text(std::to_wstring(result)+L"zł", comic_sans, 60);
+    result_text.setPosition(360, 120);
+    result_text.setFillColor(sf::Color::Black);
+    //render_window.display();
+    while(true)
+    {
+        begin_draw(sf::Color::Yellow);
+        draw(startButton);
+        draw(buttonText);
+        draw(Title);
+        draw(result_text);
+        sf::Event event;
+        while(render_window.pollEvent(event)){
+        if(event.type == sf::Event::Closed){
+            is_done = true;
+            return;
+            //std::cout<<"ZAMKNIETO OKNO!\n";
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::F5)
+        {
+            toggle_fullscreen();
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::Enter)
+        {
+            this->in_lobby = false;
+            return;
+        }
+        }
+        end_draw();
+    }
 }
 void Window::draw_ferdek(Ferdek& ferdek)
 {
