@@ -13,17 +13,23 @@ int main()
     Game game(window, 3);
     while(!game.IsWindowDone() && !game.IsDone()){
         sf::Time elapsedTime = clock.restart();
-        float time_warp = elapsedTime.asSeconds();
-        game.GameUpdate(time_warp);
+        float delta_time = elapsedTime.asSeconds();
+        game.GameUpdate(delta_time);
     }
+    if(!window.get_is_done()){
     if(game.get_is_won())
     {
-        std::cout<<"WYgRALES!!\n";
+        unsigned int result = game.get_coins_earned_earlier();
+
+        std::cout<<"WYgRALES!! "<<result<<"\n";
     }
     else
     {
         std::cout<<"przegrales!!\n";
+        window.end_window_after_lost();
 
+
+    }
     }
     }
     //game.EndGame();

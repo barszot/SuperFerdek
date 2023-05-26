@@ -55,9 +55,9 @@ sf::Vector2u Window::get_window_size() const
 {
     return window_size;
 }
-void Window::begin_draw() // Clears the window
+void Window::begin_draw(sf::Color color) // Clears the window
 {
-    render_window.clear(sf::Color::Cyan);
+    render_window.clear(color);
 }
 void Window::end_draw() //Shows result
 {
@@ -151,14 +151,14 @@ void Window::draw_stats(const unsigned int& coins, const int& lives, const int& 
     result_text.setFillColor(sf::Color::Red);
     result_text.setPosition(position); 
     result_text.setString(content);
-    position.x += window_size.x * 0.5f;
+    position.x += window_size.x * 0.25f;
     result_text.setPosition(position);
     draw(result_text);  
     content = L"Poziom: ";
     content = content + std::to_wstring(level);
     result_text.setCharacterSize(64);
     result_text.setFillColor(sf::Color::Black);
-    position.x += window_size.x * 0.1f;
+    position.x += window_size.x * 0.25f;
     result_text.setPosition(position); 
     result_text.setString(content);
     draw(result_text);
@@ -212,6 +212,57 @@ void Window::start_window()
     }
 }
 
+void Window::end_window_after_lost()
+{
+    this->in_lobby = true;
+    
+    sf::RectangleShape startButton(sf::Vector2f(400, 100));
+    startButton.setPosition(300, 250);
+    startButton.setFillColor(sf::Color::Red);
+
+    update_view(0,0,10000);
+    sf::Text buttonText("RESTART - kliknij enter", comic_sans, 30);
+    buttonText.setPosition(360, 280);
+    buttonText.setFillColor(sf::Color::White);
+
+    sf::Text Title("Przegrana", comic_sans, 60);
+    Title.setPosition(360, 80);
+    Title.setFillColor(sf::Color::Red);
+
+    //render_window.display();
+    while(true)
+    {
+        begin_draw(sf::Color::Black);
+        draw(startButton);
+        draw(buttonText);
+        draw(Title);
+        sf::Event event;
+        while(render_window.pollEvent(event)){
+        if(event.type == sf::Event::Closed){
+            is_done = true;
+            return;
+            //std::cout<<"ZAMKNIETO OKNO!\n";
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::F5)
+        {
+            toggle_fullscreen();
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::Enter)
+        {
+            this->in_lobby = false;
+            return;
+        }
+        }
+        end_draw();
+    }
+}
+
+void Window::end_window_after_win(const unsigned int& result)
+{
+
+}
 void Window::draw_ferdek(Ferdek& ferdek)
 {
     ferdek.set_sprite_origin(0, 32+16*ferdek.get_is_big());

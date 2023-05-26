@@ -25,7 +25,7 @@ class Window
         std::string get_window_title() const;
         sf::Vector2u get_window_size() const;
 
-        void begin_draw();
+        void begin_draw(sf::Color color = sf::Color::Cyan);
         void end_draw();
         void update();
         bool get_is_done() const;
@@ -40,6 +40,9 @@ class Window
         void draw_stats(const unsigned int& coins, const int& lives, const int& level, const float& player_x, const float& min_x, const float& max_x);
         void start_window();
         void draw_ferdek(Ferdek& ferdek);
+        void end_window_after_lost();
+        void end_window_after_win(const unsigned int& result);
+
 };
 
 #endif

@@ -13,11 +13,10 @@ class Game
         Ferdek ferdek;
         TileManager tile_manager;
         bool is_done;
-        float gravity_warp;
+        float gravity_speed;
         std::vector<std::shared_ptr<Mob>> mobs;
         unsigned int coins;
         unsigned int coins_earned_earlier;
-
         int level;
         int lives;
         const int max_level;
@@ -35,6 +34,7 @@ class Game
         bool IsWindowDone() const;
         void load_next_level();
         bool get_is_won() const;
+        unsigned int get_coins_earned_earlier() const;
 };
 
 #endif

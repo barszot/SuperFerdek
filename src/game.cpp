@@ -3,7 +3,7 @@
 #include "spark.h"
 #include <iostream>
 
-Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_warp(250.f), coins(0), level(1), lives(3), coins_earned_earlier(0), max_level(max_level), is_won(false)
+Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(0),  level(1), lives(3), max_level(max_level), is_won(false)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
@@ -38,11 +38,14 @@ void Game::GameUpdate(float time_warp)
 
         window.begin_draw();
         //tu narysuj tlo
-        window.draw_stats(coins+coins_earned_earlier, lives, level, ferdek.get_position().x, 0, tile_manager.GetLength()*32);
 
         window.draw_tile_collection(tile_manager, int(ferdek.get_position().x)/32);
+        window.draw_stats(coins+coins_earned_earlier, lives, level, ferdek.get_position().x, 0, tile_manager.GetLength()*32);
+
         window.draw_mobs(mobs, ferdek.get_position().x);
         window.draw_ferdek(ferdek);
+
+
         window.update_view(ferdek.get_position().x, 0, tile_manager.GetLength()*32);        
         ferdek.update(time_warp);
         MobsUpdate(time_warp);
@@ -237,4 +240,8 @@ void Game::load_next_level()
 bool Game::get_is_won() const
 {
     return is_won;
+}
+unsigned int Game::get_coins_earned_earlier() const
+{
+    return coins_earned_earlier;
 }
