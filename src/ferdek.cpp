@@ -46,7 +46,9 @@ Ferdek::Ferdek()
     
     this->min_horizontal_speed = 200;
     this->max_horizontal_speed = 400;
-    this->acceleration = 4.f;
+    this->speed_during_crouching = 100;
+
+    this->acceleration = 400.f;
     this->max_jump_time=0.15f; //bylo 0.15f
     this->is_small_jump_heigth = 400.f;
     this->is_big_jump_heigth = 600.f;
@@ -90,12 +92,12 @@ void Ferdek::reset(bool reset_completely)
     this->sprite.setPosition(position);
 }
 
-void Ferdek::update(float time_warp)
+void Ferdek::update(float delta_time)
 {
     //this->sprite.setOrigin(0, 32+32*is_big);
 
     //std::cout<<left_collision<<" "<<right_collision<<" "<<top_collision<<" "<<bottom_collision<<"\n";
-    current_time_before_change -= time_warp;
+    current_time_before_change -= delta_time;
     if(current_time_before_change <= 0.f)
     {
         current_time_before_change = max_time_before_change;
@@ -107,13 +109,19 @@ void Ferdek::update(float time_warp)
         if(faced_forward==true)
         {
             faced_forward = false;
+
             left_speed = min_horizontal_speed;
         }
-
-        position.x -= left_speed*time_warp;
+        if(is_crouching)
+        {
+            left_speed = speed_during_crouching;
+        }
+        position.x -= left_speed*delta_time;
         sprite.setTextureRect(sf::IntRect(181, 0, 13, 16));
-        left_speed = std::min(left_speed+acceleration, max_horizontal_speed);
-
+        if(!is_crouching)
+        {
+            left_speed = std::min(left_speed+acceleration*delta_time, max_horizontal_speed);
+        }
     }
     else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && !right_collision)
     {   
@@ -123,9 +131,16 @@ void Ferdek::update(float time_warp)
             faced_forward = true;
             right_speed = min_horizontal_speed;
         }
-        position.x += right_speed*time_warp;
+        if(is_crouching)
+        {
+            right_speed = speed_during_crouching;
+        }
+        position.x += right_speed*delta_time;
         sprite.setTextureRect(sf::IntRect(229, 0, 13, 16));
-        right_speed = std::min(right_speed+acceleration, max_horizontal_speed);
+        if(!is_crouching)
+        {
+            right_speed = std::min(right_speed+acceleration*delta_time, max_horizontal_speed);
+        }
     }
     else
     {
@@ -137,12 +152,12 @@ void Ferdek::update(float time_warp)
 
     if(is_jumping)
     {
-        position.y -= jump_speed*time_warp;
-        decrease_remaining_jump_time(time_warp);
+        position.y -= jump_speed*delta_time;
+        decrease_remaining_jump_time(delta_time);
     }
     else if(!bottom_collision)
     {
-        position.y +=  gravity_speed*time_warp;
+        position.y +=  gravity_speed*delta_time;
     }
 
     sprite.setPosition(position);
@@ -219,13 +234,13 @@ float Ferdek::get_remaining_jump_time() const
 {
     return remaining_jump_time;
 }
-void Ferdek::decrease_remaining_jump_time(float time_warp)
+void Ferdek::decrease_remaining_jump_time(float delta_time)
 {
     //std::cout<<mini_jumps<<"\n";
     if(remaining_jump_time>0)
     {
         //std::cout<<mini_jumps*100 - 100*time_warp<<" "<<mini_jumps - time_warp<<"\n";
-        remaining_jump_time = std::max(0.f, remaining_jump_time - time_warp);
+        remaining_jump_time = std::max(0.f, remaining_jump_time - delta_time);
     }
     if(remaining_jump_time==0)
     {

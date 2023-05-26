@@ -9,6 +9,7 @@ private:
     sf::Vector2f position;
     float min_horizontal_speed;
     float max_horizontal_speed;
+    float speed_during_crouching;
     float acceleration;
     float max_jump_time;
     float jump_speed;

@@ -221,7 +221,7 @@ void Window::end_window_after_lost()
     startButton.setFillColor(sf::Color::Red);
 
     update_view(0,0,10000);
-    sf::Text buttonText("RESTART - kliknij enter", comic_sans, 30);
+    sf::Text buttonText("MENU - kliknij enter", comic_sans, 20);
     buttonText.setPosition(360, 280);
     buttonText.setFillColor(sf::Color::White);
 
@@ -268,7 +268,7 @@ void Window::end_window_after_win(const unsigned int& result)
     startButton.setFillColor(sf::Color::Black);
 
     update_view(0,0,10000);
-    sf::Text buttonText("RESTART - kliknij enter", comic_sans, 30);
+    sf::Text buttonText("MENU - kliknij enter", comic_sans, 20);
     buttonText.setPosition(360, 280);
     buttonText.setFillColor(sf::Color::White);
 
