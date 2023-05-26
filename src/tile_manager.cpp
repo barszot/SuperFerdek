@@ -33,7 +33,7 @@ void TileManager::Setup(const int& level)
     }*/
     this->height = level_sheet.getSize().y;
     this->length = level_sheet.getSize().x;
-    std::cout<<level<<" "<<height<<" "<<length<<"\n";
+    //std::cout<<level<<" "<<height<<" "<<length<<"\n";
     for(int i=0;i<length; i++)
     {
         std::vector<std::unique_ptr<Tile>> col;
@@ -144,7 +144,7 @@ bool TileManager::ReactIfTileIsCoin(int x, int y, unsigned int& coins)
 void TileManager::load_next_level()
 {
     this->level+=1;
-    std::cout<<"nowy poziom " << level;
+    //std::cout<<"nowy poziom " << level;
 
     Setup(level);
 }

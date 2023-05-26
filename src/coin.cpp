@@ -18,6 +18,6 @@ Coin::~Coin()
 }
 void Coin::texture_setup()
 {
-    this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(136, 28, 16, 16));
+    this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(115, 48, 16, 16));
     sprite.setTexture(texture);
 }

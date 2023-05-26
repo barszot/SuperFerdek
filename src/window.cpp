@@ -168,27 +168,16 @@ void Window::draw_stats(const unsigned int& coins, const int& lives, const int& 
 void Window::start_window()
 {
     this->in_lobby = true;
-    
-    sf::RectangleShape startButton(sf::Vector2f(400, 100));
-    startButton.setPosition(300, 250);
-    startButton.setFillColor(sf::Color::Green);
-
-    update_view(0,0,10000);
-    sf::Text buttonText("START - kliknij enter", comic_sans, 30);
-    buttonText.setPosition(360, 280);
-    buttonText.setFillColor(sf::Color::White);
-
-    sf::Text Title("SUPER FERDEK", comic_sans, 60);
-    Title.setPosition(360, 80);
-    Title.setFillColor(sf::Color::Black);
-
+  
+    sf::Sprite start_image;
+    sf::Texture start_image_texture;
+    start_image_texture.loadFromFile("src/imgs/start.png");
+    start_image.setTexture(start_image_texture);
     //render_window.display();
     while(true)
     {
         begin_draw();
-        draw(startButton);
-        draw(buttonText);
-        draw(Title);
+        draw(start_image);
         sf::Event event;
         while(render_window.pollEvent(event)){
         if(event.type == sf::Event::Closed){

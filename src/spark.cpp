@@ -26,7 +26,7 @@ void Spark::Update(float delta_time)
 void Spark::Setup(){
     this->lifespan = 0.2f;
     this->type = 2;
-    this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(136, 47, 16, 16));
+    this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(96, 32, 16, 16));
     sprite.setTexture(this->texture);
     sprite.setPosition(this->position);
     sprite.setOrigin(0, 32);
