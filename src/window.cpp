@@ -132,7 +132,7 @@ void Window::draw_mobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferd
     }
 }
 
-void Window::draw_stats(const unsigned int& coins, const int& lives, const float& player_x, const float& min_x, const float& max_x)
+void Window::draw_stats(const unsigned int& coins, const int& lives, const int& level, const float& player_x, const float& min_x, const float& max_x)
 {
     float top_x = std::max(min_x, player_x-window_size.x/2);
     top_x = std::min(top_x, max_x-window_size.x);
@@ -154,6 +154,14 @@ void Window::draw_stats(const unsigned int& coins, const int& lives, const float
     position.x += window_size.x * 0.5f;
     result_text.setPosition(position);
     draw(result_text);  
+    content = L"Poziom: ";
+    content = content + std::to_wstring(level);
+    result_text.setCharacterSize(64);
+    result_text.setFillColor(sf::Color::Black);
+    position.x += window_size.x * 0.1f;
+    result_text.setPosition(position); 
+    result_text.setString(content);
+    draw(result_text);
 
 }
 

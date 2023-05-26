@@ -37,7 +37,7 @@ class Window
         void draw_mobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferdek_position_x);
         void update_view(const float& player_x, const float& min_x, const float& max_x);
         sf::Vector2u get_actual_size() const;
-        void draw_stats(const unsigned int& coins, const int& lives, const float& player_x, const float& min_x, const float& max_x);
+        void draw_stats(const unsigned int& coins, const int& lives, const int& level, const float& player_x, const float& min_x, const float& max_x);
         void start_window();
         void draw_ferdek(Ferdek& ferdek);
 };

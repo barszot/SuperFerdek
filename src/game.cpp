@@ -3,7 +3,7 @@
 #include "spark.h"
 #include <iostream>
 
-Game::Game(Window& window): window(window), is_done(false), gravity_warp(250.f), coins(0), level(1), lives(3)
+Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_warp(250.f), coins(0), level(1), lives(3), coins_earned_earlier(0), max_level(max_level), is_won(false)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
@@ -38,12 +38,12 @@ void Game::GameUpdate(float time_warp)
 
         window.begin_draw();
         //tu narysuj tlo
-        window.draw_stats(coins, lives, ferdek.get_position().x, 0, 16384);
+        window.draw_stats(coins+coins_earned_earlier, lives, level, ferdek.get_position().x, 0, tile_manager.GetLength()*32);
 
         window.draw_tile_collection(tile_manager, int(ferdek.get_position().x)/32);
         window.draw_mobs(mobs, ferdek.get_position().x);
         window.draw_ferdek(ferdek);
-        window.update_view(ferdek.get_position().x, 0, 16384);        
+        window.update_view(ferdek.get_position().x, 0, tile_manager.GetLength()*32);        
         ferdek.update(time_warp);
         MobsUpdate(time_warp);
         ManagePlayerCollisions();
@@ -65,8 +65,15 @@ void Game::ManagePlayerCollisions()
     float y = ferdek.get_position().y;
     if(y>16.5f*32){ //oryginalnie 16.5f * 32
         ferdek.instant_kill();
+        return;
     }
     int id_x = int(x) / 32;
+    //std::cout<<id_x<<" "<<tile_manager.GetLength()<<"\n";
+    if(id_x>=tile_manager.GetLength()-3)
+    {
+        load_next_level();
+        return;
+    }
     int id_x_special_1 = int(x + 8.f) / 32;
     int id_x_special_2 = int(x + 24.f) / 32;
     int id_y = (int(y) / 32) - 2;
@@ -207,4 +214,27 @@ void Game::MobsUpdate(float delta_time)
 bool Game::IsWindowDone() const
 {
     return window.get_is_done();
+}
+void Game::load_next_level()
+{
+    this->level+=1;
+    this->coins_earned_earlier += coins;
+    if (level<=max_level)
+    {
+        this->coins = 0;
+        tile_manager.load_next_level();
+        ferdek.reset(false);
+        this->tile_manager.Setup(level);
+        this->mobs.clear();
+    }
+    else
+    {      
+        is_done = true;
+        is_won = true;
+    }
+}
+
+bool Game::get_is_won() const
+{
+    return is_won;
 }

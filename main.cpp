@@ -10,11 +10,20 @@ int main()
 
     while(!window.get_is_done()){
     window.start_window();
-    Game game(window);
+    Game game(window, 3);
     while(!game.IsWindowDone() && !game.IsDone()){
         sf::Time elapsedTime = clock.restart();
         float time_warp = elapsedTime.asSeconds();
         game.GameUpdate(time_warp);
+    }
+    if(game.get_is_won())
+    {
+        std::cout<<"WYgRALES!!\n";
+    }
+    else
+    {
+        std::cout<<"przegrales!!\n";
+
     }
     }
     //game.EndGame();

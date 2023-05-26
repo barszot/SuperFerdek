@@ -16,10 +16,14 @@ class Game
         float gravity_warp;
         std::vector<std::shared_ptr<Mob>> mobs;
         unsigned int coins;
+        unsigned int coins_earned_earlier;
+
         int level;
         int lives;
+        const int max_level;
+        bool is_won;
     public:
-        Game(Window& window);
+        Game(Window& window, int max_level);
         ~Game();
         void GameAfterDeath();
         void GameUpdate(float time_warp);
@@ -29,6 +33,8 @@ class Game
         bool IsDone();
         void MobsUpdate(float delta_time);
         bool IsWindowDone() const;
+        void load_next_level();
+        bool get_is_won() const;
 };
 
 #endif

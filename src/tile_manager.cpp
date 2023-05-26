@@ -5,16 +5,10 @@
 #include <iostream>
 TileManager::TileManager()
 {
-    this->length = 512;
-    this->height = 16;
-    this->level = 1;
-    Setup(level);
+    Setup(1);
 }
-TileManager::TileManager(const int& length, const int& height, const int& level)
+TileManager::TileManager(const int& level)
 {
-    this->length = length;
-    this->height = height;
-    this->level = level;
     Setup(level);
 }
 TileManager::~TileManager()
@@ -27,14 +21,19 @@ void TileManager::Setup(const int& level)
     this->tiles.clear();
     this->level = level;
     sf::Image level_sheet;
-    switch(level)
+    std::string path = "src/imgs/sheet_level_" + std::to_string(level) + ".png";
+    level_sheet.loadFromFile(path);
+
+    /*switch(level)
     {
         case 1:
-            level_sheet.loadFromFile("src/imgs/tiles_level_1.png");
             break;
         default:
-            return;
-    }
+            level_sheet.loadFromFile("src/imgs/tiles_level_1.png");
+    }*/
+    this->height = level_sheet.getSize().y;
+    this->length = level_sheet.getSize().x;
+    std::cout<<level<<" "<<height<<" "<<length<<"\n";
     for(int i=0;i<length; i++)
     {
         std::vector<std::unique_ptr<Tile>> col;
@@ -141,4 +140,11 @@ bool TileManager::ReactIfTileIsCoin(int x, int y, unsigned int& coins)
         }
     }
     return false;
+}
+void TileManager::load_next_level()
+{
+    this->level+=1;
+    std::cout<<"nowy poziom " << level;
+
+    Setup(level);
 }

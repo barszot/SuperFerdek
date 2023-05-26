@@ -14,7 +14,7 @@ class TileManager
         std::vector<std::vector<std::unique_ptr<Tile>>> tiles;
     public:
         TileManager();
-        TileManager(const int& length, const int& height, const int& level);
+        TileManager(const int& level);
         ~TileManager();
         void Setup(const int& level);
         const std::vector<std::vector<std::unique_ptr<Tile>>>& GetTiles() const;
@@ -24,7 +24,7 @@ class TileManager
         bool CheckTile(int x, int y) const;
         bool ReactIfTileIsCoin(int x, int y, unsigned int& coins);
         std::shared_ptr<Mob> TileActivation(int x, int y);
-
+        void load_next_level();
 };
 
 #endif
