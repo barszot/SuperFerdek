@@ -2,13 +2,14 @@
 #include "beer.h"
 #include "spark.h"
 #include <iostream>
-
+#include "enemy.h"
+#include "pazdzioch.h"
 Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(0),  level(1), lives(3), max_level(max_level), is_won(false)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
     mobs.clear();
-    //mobs.push_back(std::make_shared<Spark>(sf::Vector2f(420.f, 480.f)));
+    mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
 }
 
 Game::~Game() {}
@@ -19,6 +20,7 @@ void Game::GameAfterDeath()
     this->tile_manager.Setup(level);
     this->mobs.clear();
     this->coins = 0;
+    mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
 
 }
 
@@ -187,9 +189,13 @@ void Game::ManageMobsCollisions()
             {
                 mobs[i]->SetBottomCollision(false);
             }
-            mobs[i]->MarkForDeathIfNecessary(ferdek.get_position());
-            ferdek.set_is_big(ferdek.get_is_big() || (mobs[i]->GetFeedback() && mobs[i]->GetType() == 1));
 
+            mobs[i]->MarkForDeathIfNecessary(ferdek.get_position(), ferdek.get_is_big());
+            if(mobs[i]->GetFeedback() && mobs[i]->GetType()<0)
+            {
+                ferdek.not_instant_kill();
+            }
+            ferdek.set_is_big(ferdek.get_is_big() || (mobs[i]->GetFeedback() && mobs[i]->GetType() == 1));
             coins += (mobs[i]->GetFeedback()&&mobs[i]->GetType() == 2);
         }
     }

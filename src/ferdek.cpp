@@ -1,5 +1,6 @@
 #include "ferdek.h"
 #include <iostream>
+#include <cmath>
 Ferdek::Ferdek()
 
 {
@@ -281,6 +282,17 @@ void Ferdek::set_is_big(bool is_ferdek_big_now)
 void Ferdek::instant_kill()
 {
     is_dead = true;
+}
+void Ferdek::not_instant_kill()
+{
+    if(is_big)
+    {
+        set_is_big(false);
+    }
+    else
+    {
+        instant_kill();
+    }
 }
 bool Ferdek::get_is_dead() const
 {

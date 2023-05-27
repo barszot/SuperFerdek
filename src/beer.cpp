@@ -2,6 +2,7 @@
 
 Beer::Beer()
 {
+    this->position = sf::Vector2f(0.f, 0.f);
     Setup();
 
 }
@@ -28,8 +29,13 @@ void Beer::Setup()
     //this->gravity_speed = 10.f;
 }
 
-void Beer::MarkForDeathIfNecessary(sf::Vector2f ferdek_position)
+void Beer::MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_big)
 {
+    /*if(abs(ferdek_position.x-position.x)<=32.f && abs(ferdek_position.y-position.y)<=32.f)
+    {
+        marked_for_death = true;
+        feedback = true;
+    }*/
     if(std::pow(ferdek_position.x-position.x, 2) + std::pow(ferdek_position.y-position.y, 2) < 32.f*32.f)
     {
         marked_for_death = true;

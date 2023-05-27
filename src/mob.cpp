@@ -90,7 +90,7 @@ bool Mob::GetMarkedForDeath() const
 {
     return marked_for_death;
 }
-void Mob::MarkForDeathIfNecessary(sf::Vector2f ferdek_position)
+void Mob::MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_big)
 {
 
 }

@@ -51,6 +51,7 @@ public:
     void start_jumping();
     void stop_jumping_instantly();
     void instant_kill();
+    void not_instant_kill();
     bool get_is_big() const;
     void set_is_big(bool is_ferdek_big_now);
     bool get_is_dead() const;

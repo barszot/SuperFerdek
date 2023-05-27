@@ -1,6 +1,7 @@
 #ifndef MOB_H
 #define MOB_H
 #include "SFML/Graphics.hpp"
+#include <cmath>
 class Mob
 {
     protected:
@@ -31,7 +32,7 @@ class Mob
         void SetY(float new_y);
         void SetMarkedForDeath(bool is_marked);
         bool GetMarkedForDeath() const;
-        virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position);
+        virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_big);
         bool GetFeedback() const;
         int GetType() const;
 };  
