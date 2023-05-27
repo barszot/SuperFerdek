@@ -1,4 +1,7 @@
+#ifndef BEER_H
+#define BEER_H
 #include "mob.h"
+
 class Beer : public Mob
 {
     private:
@@ -10,3 +13,4 @@ class Beer : public Mob
         virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_big);
 
 };
+#endif

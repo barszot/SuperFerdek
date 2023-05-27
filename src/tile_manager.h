@@ -1,10 +1,12 @@
 #ifndef TILE_MANAGER_H
 #define TILE_MANAGER_H
 #include "tile.h"
-#include "question_tile.h"
 #include <memory>
 #include <typeinfo>
-
+#include "question_tile.h"
+#include "question_tile_coin.h"
+#include "question_tile_beer.h"
+#include "coin.h"
 class TileManager
 {
     private:

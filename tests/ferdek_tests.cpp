@@ -29,6 +29,12 @@ TEST_CASE("Ferdek tests", "[ferdek]")
         CHECK(ferdek.get_is_dead() == false);
         ferdek.instant_kill();
         CHECK(ferdek.get_is_dead() == true);
+        ferdek.reset(true);
+        ferdek.set_is_big(true);
+        CHECK(ferdek.get_is_big() == true);
+        ferdek.instant_kill();
+        CHECK(ferdek.get_is_dead() == true);
+        ferdek.reset(true);
     }
     SECTION("set is big and test non-complete and complete reset")
     {
@@ -39,6 +45,18 @@ TEST_CASE("Ferdek tests", "[ferdek]")
         CHECK(ferdek.get_is_big() == true);
         ferdek.reset(true);
         CHECK(ferdek.get_is_big() == false);        
+    }
+    SECTION("check not_instant_killing")
+    {
+        ferdek.set_is_big(true);
+        CHECK(ferdek.get_is_big() == true);
+        CHECK(ferdek.get_is_dead() == false);
+        ferdek.not_instant_kill();
+        CHECK(ferdek.get_is_big() == false);
+        CHECK(ferdek.get_is_dead() == false);
+        ferdek.not_instant_kill();
+        CHECK(ferdek.get_is_big() == false);
+        CHECK(ferdek.get_is_dead() == true);
     }
     SECTION("setting position")
     {
