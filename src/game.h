@@ -5,6 +5,7 @@
 #include "tile_manager.h"
 #include "ferdek.h"
 #include "mob.h"
+#include "mob_manager.h"
 #include <memory>
 class Game
 {
@@ -12,6 +13,7 @@ class Game
         Window& window;
         Ferdek ferdek;
         TileManager tile_manager;
+        MobManager mob_manager;
         bool is_done;
         float gravity_speed;
         std::vector<std::shared_ptr<Mob>> mobs;

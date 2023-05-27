@@ -4,12 +4,16 @@
 #include <iostream>
 #include "enemy.h"
 #include "pazdzioch.h"
+#include <memory>
 Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(0),  level(1), lives(3), max_level(max_level), is_won(false)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
     mobs.clear();
-    mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
+    const std::vector<std::shared_ptr<Mob>>& primary_mobs = mob_manager.get_mobs();
+    std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
+
+    //mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
 }
 
 Game::~Game() {}
@@ -19,8 +23,12 @@ void Game::GameAfterDeath()
     this->ferdek.reset(true);
     this->tile_manager.Setup(level);
     this->mobs.clear();
+    mob_manager.setup(level);
+    const std::vector<std::shared_ptr<Mob>>& primary_mobs = mob_manager.get_mobs();
+    std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
+    //std::cout<<"MOBS: "<<mobs.size()<<"\n";
     this->coins = 0;
-    mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
+    //mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
 
 }
 
@@ -171,7 +179,7 @@ void Game::ManageMobsCollisions()
             int id_x_special_1 = int(x + 8.f) / 32;
             int id_x_special_2 = int(x + 24.f) / 32;
             int id_y = (int(y) / 32) - 2;
-            if(tile_manager.CheckTile(id_x+1,id_y))
+            if(id_x>=tile_manager.GetLength()-3 || tile_manager.CheckTile(id_x+1,id_y))
             {
                 mobs[i]->SetFacedForward(false);
 
@@ -232,9 +240,12 @@ void Game::load_next_level()
     {
         this->coins = 0;
         tile_manager.load_next_level();
+        mob_manager.load_next_level();
         ferdek.reset(false);
         this->tile_manager.Setup(level);
         this->mobs.clear();
+        const std::vector<std::shared_ptr<Mob>>& primary_mobs = mob_manager.get_mobs();
+        std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
     }
     else
     {      

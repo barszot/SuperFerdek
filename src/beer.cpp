@@ -41,7 +41,7 @@ void Beer::MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_
         marked_for_death = true;
         feedback = true;
     }
-    else if(position.y > 16.f*32)
+    else if(position.y > 16.5f*32)
     {
         marked_for_death = true;
     }

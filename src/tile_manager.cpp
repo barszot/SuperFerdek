@@ -1,7 +1,5 @@
 #include "tile_manager.h"
-#include "question_tile_coin.h"
-#include "question_tile_beer.h"
-#include "coin.h"
+
 #include <iostream>
 TileManager::TileManager()
 {
@@ -24,13 +22,6 @@ void TileManager::Setup(const int& level)
     std::string path = "src/imgs/sheet_level_" + std::to_string(level) + ".png";
     level_sheet.loadFromFile(path);
 
-    /*switch(level)
-    {
-        case 1:
-            break;
-        default:
-            level_sheet.loadFromFile("src/imgs/tiles_level_1.png");
-    }*/
     this->height = level_sheet.getSize().y;
     this->length = level_sheet.getSize().x;
     //std::cout<<level<<" "<<height<<" "<<length<<"\n";

@@ -1,5 +1,5 @@
 #include "pazdzioch.h"
-
+#include <iostream>
 Pazdzioch::Pazdzioch()
 {
 
@@ -34,9 +34,10 @@ void Pazdzioch::MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_fe
         marked_for_death = true;
     }
 
-    else if(position.y > 16.f*32)
+    else if(position.y > 16.5f*32)
     {
         marked_for_death = true;
+
     }
     else if(std::pow(ferdek_position.x-position.x, 2) + std::pow(ferdek_position.y-position.y, 2) < 32.f*32.f)
     {   

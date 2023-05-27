@@ -14,11 +14,13 @@ class TileManager
         int height; //domyslnie 16
         int level;
         std::vector<std::vector<std::unique_ptr<Tile>>> tiles;
+
     public:
         TileManager();
         TileManager(const int& level);
         ~TileManager();
         void Setup(const int& level);
+
         const std::vector<std::vector<std::unique_ptr<Tile>>>& GetTiles() const;
         int GetLength() const;
         int GetHeigth() const;
