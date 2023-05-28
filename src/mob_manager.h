@@ -5,6 +5,7 @@
 #include "spark.h"
 #include "enemy.h"
 #include "pazdzioch.h"
+#include "boczek.h"
 #include <memory>
 class MobManager
 {

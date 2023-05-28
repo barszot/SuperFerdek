@@ -31,13 +31,16 @@ void MobManager::setup(const int& level)
             {
                 type = -1;
             }
-            else if(sf::Color(255, 0, 0) == pixel_color)
+            else if(sf::Color(128, 0, 128) == pixel_color)
             {
                 type = -2;
             }
             sf::Vector2f mob_position(i*32, j*32);
             if(type==-1){
                 mobs.push_back(std::make_shared<Pazdzioch>(mob_position));
+            }
+            if(type==-2){
+                mobs.push_back(std::make_shared<Boczek>(mob_position));
             }
         }
     }

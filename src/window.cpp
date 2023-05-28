@@ -181,6 +181,7 @@ bool Window::start_window()
     sf::Texture start_image_texture;
     start_image_texture.loadFromFile("src/imgs/start.png");
     start_image.setTexture(start_image_texture);
+    update_view(0,0,10000);
 
     while(true)
     {
@@ -221,11 +222,12 @@ void Window::end_window_after_lost()
     sf::Texture lost_image_texture;
     lost_image_texture.loadFromFile("src/imgs/end_lost.png");
     lost_image.setTexture(lost_image_texture);
+    update_view(0,0,10000);
+
     while(true)
     {
-        begin_draw(sf::Color::Black);
+        begin_draw(sf::Color::Red);
         draw(lost_image);
-
         sf::Event event;
         while(render_window.pollEvent(event)){
         if(event.type == sf::Event::Closed){
@@ -256,7 +258,6 @@ void Window::end_window_after_win(int result, int highscore)
     startButton.setPosition(300, 250);
     startButton.setFillColor(sf::Color::Black);
 
-    update_view(0,0,10000);
     sf::Text buttonText("MENU - kliknij enter", comic_sans, 20);
     buttonText.setPosition(360, 280);
     buttonText.setFillColor(sf::Color::White);
@@ -279,6 +280,8 @@ void Window::end_window_after_win(int result, int highscore)
     sf::Text result_hs(std::to_wstring(highscore)+L"zł", comic_sans, 40);
     result_hs.setPosition(360, 250);
     result_hs.setFillColor(sf::Color::Green);
+    
+    update_view(0,0,10000);
     while(true)
     {
         begin_draw(sf::Color::Yellow);
