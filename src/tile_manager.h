@@ -10,7 +10,7 @@
 class TileManager
 {
     private:
-        int length; //dla pierwszego poziomu 512
+        int length;
         int height; //domyslnie 16
         int level;
         std::vector<std::vector<std::unique_ptr<Tile>>> tiles;
@@ -19,15 +19,15 @@ class TileManager
         TileManager();
         TileManager(const int& level);
         ~TileManager();
-        void Setup(const int& level);
+        void setup(const int& level);
 
-        const std::vector<std::vector<std::unique_ptr<Tile>>>& GetTiles() const;
-        int GetLength() const;
-        int GetHeigth() const;
-        int GetLevel() const;
-        bool CheckTile(int x, int y) const;
-        bool ReactIfTileIsCoin(int x, int y, int& coins);
-        std::shared_ptr<Mob> TileActivation(int x, int y);
+        const std::vector<std::vector<std::unique_ptr<Tile>>>& get_tiles() const;
+        int get_length() const;
+        int get_height() const;
+        int get_level() const;
+        bool check_tile(int x, int y) const;
+        bool react_if_tile_is_coin(int x, int y, int& coins);
+        std::shared_ptr<Mob> tile_activation(int x, int y);
         void load_next_level();
 };
 

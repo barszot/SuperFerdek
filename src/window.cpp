@@ -91,14 +91,14 @@ void Window::draw(const sf::Drawable& drawable)
 
 void Window::draw_tile_collection(const TileManager& tile_manager, int current_ferdek_column)
 {
-    int x = tile_manager.GetTiles().size();
-    int y = tile_manager.GetTiles()[0].size();
+    int x = tile_manager.get_tiles().size();
+    int y = tile_manager.get_tiles()[0].size();
     for(int i=std::max(0, current_ferdek_column-32);i<std::min(32+current_ferdek_column, x);i++)
     {
         for(int j=0;j<y;j++)
         {
-            if(tile_manager.CheckTile(i, j)){
-                draw(tile_manager.GetTiles()[i][j]->get_sprite());
+            if(tile_manager.check_tile(i, j)){
+                draw(tile_manager.get_tiles()[i][j]->get_sprite());
 
             }
         }

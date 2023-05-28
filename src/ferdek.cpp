@@ -50,10 +50,10 @@ Ferdek::Ferdek()
     this->speed_during_crouching = 100;
 
     this->acceleration = 400.f;
-    this->max_jump_time=0.15f; //bylo 0.15f
+    this->max_jump_time=0.2f;
     this->is_small_jump_heigth = 400.f;
     this->is_big_jump_heigth = 600.f;
-    this->gravity_speed = 300.f; //bylo 300
+    this->gravity_speed = 300.f;
     this->max_time_before_change = 0.3f;
     this->sprite.setTexture(texture_sheet);
     this->sprite.setScale(sf::Vector2f(2.f, 2.f));
@@ -71,7 +71,7 @@ void Ferdek::reset(bool reset_completely)
     
     if(reset_completely){
     this->is_big=false;
-    this->jump_speed = 400.f; // domyslnie 400.f
+    this->jump_speed = 400.f;
     }
 
     this->left_speed = min_horizontal_speed;
@@ -89,15 +89,12 @@ void Ferdek::reset(bool reset_completely)
     this->current_time_before_change = max_time_before_change;
     this->frame = false;
     this->sprite.setTextureRect(ferdek_texture_list[faced_forward][is_big][0][0]);
-    //this->sprite.setOrigin(0, 32);
     this->sprite.setPosition(position);
 }
 
 void Ferdek::update(float delta_time)
 {
-    //this->sprite.setOrigin(0, 32+32*is_big);
 
-    //std::cout<<left_collision<<" "<<right_collision<<" "<<top_collision<<" "<<bottom_collision<<"\n";
     current_time_before_change -= delta_time;
     if(current_time_before_change <= 0.f)
     {
@@ -194,7 +191,6 @@ void Ferdek::update(float delta_time)
         action = 1;
     }
     this->sprite.setTextureRect(ferdek_texture_list[!faced_forward][is_big][action][frame]);
-    //std::cout<<is_big<<"  "<<32+32*is_big<<"\n";
 }
 
 
@@ -237,10 +233,8 @@ float Ferdek::get_remaining_jump_time() const
 }
 void Ferdek::decrease_remaining_jump_time(float delta_time)
 {
-    //std::cout<<mini_jumps<<"\n";
     if(remaining_jump_time>0)
     {
-        //std::cout<<mini_jumps*100 - 100*time_warp<<" "<<mini_jumps - time_warp<<"\n";
         remaining_jump_time = std::max(0.f, remaining_jump_time - delta_time);
     }
     if(remaining_jump_time==0)

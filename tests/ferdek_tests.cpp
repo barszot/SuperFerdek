@@ -2,12 +2,10 @@
 #include "catch.hpp"
 #include "../src/ferdek.h"
 
-
 TEST_CASE("Ferdek tests", "[ferdek]") 
 {
 
     Ferdek ferdek;
-
     SECTION("testing start initialization")
     {
         CHECK(ferdek.get_is_jumping()==false);

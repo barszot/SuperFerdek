@@ -1,30 +1,26 @@
 #include "tile_manager.h"
-
-#include <iostream>
 TileManager::TileManager()
 {
-    Setup(1);
+    setup(1);
 }
 TileManager::TileManager(const int& level)
 {
-    Setup(level);
+    setup(level);
 }
 TileManager::~TileManager()
 {
 
 }
 
-void TileManager::Setup(const int& level)
+void TileManager::setup(const int& level)
 {
     this->tiles.clear();
     this->level = level;
     sf::Image level_sheet;
     std::string path = "src/imgs/sheet_level_" + std::to_string(level) + ".png";
     level_sheet.loadFromFile(path);
-
     this->height = level_sheet.getSize().y;
     this->length = level_sheet.getSize().x;
-    //std::cout<<level<<" "<<height<<" "<<length<<"\n";
     for(int i=0;i<length; i++)
     {
         std::vector<std::unique_ptr<Tile>> col;
@@ -88,41 +84,41 @@ void TileManager::Setup(const int& level)
 
 
 
-int TileManager::GetLength() const
+int TileManager::get_length() const
 {
     return length;
 }
-int TileManager::GetHeigth() const
+int TileManager::get_height() const
 {
     return height;
 }
-int TileManager::GetLevel() const
+int TileManager::get_level() const
 {
     return level;
 }
 
-bool TileManager::CheckTile(int x, int y) const
+bool TileManager::check_tile(int x, int y) const
 {
     return nullptr!=tiles[x][y];
 }
 
-std::shared_ptr<Mob> TileManager::TileActivation(int x, int y)
+std::shared_ptr<Mob> TileManager::tile_activation(int x, int y)
 {
-    if(CheckTile(x, y)){
+    if(check_tile(x, y)){
         tiles[x][y]->activate_tile();
         return tiles[x][y]->get_mob_ptr();
     }
     return nullptr;
 }
 
-const std::vector<std::vector<std::unique_ptr<Tile>>>& TileManager::GetTiles() const
+const std::vector<std::vector<std::unique_ptr<Tile>>>& TileManager::get_tiles() const
 {
     return tiles;
 }
 
-bool TileManager::ReactIfTileIsCoin(int x, int y, int& coins)
+bool TileManager::react_if_tile_is_coin(int x, int y, int& coins)
 {
-    if(CheckTile(x, y))
+    if(check_tile(x, y))
     {
         if(tiles[x][y]->get_is_coin()){
             tiles[x][y].reset();
@@ -135,7 +131,5 @@ bool TileManager::ReactIfTileIsCoin(int x, int y, int& coins)
 void TileManager::load_next_level()
 {
     this->level+=1;
-    //std::cout<<"nowy poziom " << level;
-
-    Setup(level);
+    setup(level);
 }

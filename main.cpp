@@ -43,10 +43,10 @@ int main()
         game.load_game(level, lives, coins_earned_earlier, is_big);
     }
 
-    while(!game.IsWindowDone() && !game.IsDone()){
+    while(!game.get_is_window_done() && !game.get_is_done()){
         sf::Time elapsedTime = clock.restart();
         float delta_time = elapsedTime.asSeconds();
-        game.GameUpdate(delta_time);
+        game.game_update(delta_time);
     }
     if(!window.get_is_done()){
     if(game.get_is_won())

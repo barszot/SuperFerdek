@@ -6,10 +6,13 @@
 #include "ferdek.h"
 #include "mob.h"
 #include "mob_manager.h"
-#include <memory>
 #include "../libs/json.hpp"
 #include <fstream>
-
+#include <memory>
+#include "beer.h"
+#include "spark.h"
+#include "enemy.h"
+#include "pazdzioch.h"
 class Game
 {
     private:
@@ -34,14 +37,14 @@ class Game
         Game(Window& window, int max_level);
         void load_game(int current_level, int lives, int coins_earned_earlier, bool is_ferdek_big);
         ~Game();
-        void GameAfterDeath();
-        void GameUpdate(float time_warp);
-        void EndGame();
-        void ManagePlayerCollisions();
-        void ManageMobsCollisions();
-        bool IsDone();
-        void MobsUpdate(float delta_time);
-        bool IsWindowDone() const;
+        void game_after_death();
+        void game_update(float delta_time);
+        void end_game();
+        void manage_ferdek_collisions();
+        void manage_mobs_collisions();
+        bool get_is_done();
+        void mobs_update(float delta_time);
+        bool get_is_window_done() const;
         void load_next_level();
         bool get_is_won() const;
         int get_coins_earned_earlier() const;

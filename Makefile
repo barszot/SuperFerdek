@@ -29,6 +29,8 @@ tile_tests:
 window_tests:
 	${CXX} ${CXX_FLAGS} ${SRC} tests/window_tests.cpp -o build/window_tests ${LIBS}
 
+managers_tests:
+	${CXX} ${CXX_FLAGS} ${SRC} tests/managers_tests.cpp -o build/managers_tests ${LIBS}
 
 clean: ${OBJ}
 	@echo "Removing ${OBJ}"

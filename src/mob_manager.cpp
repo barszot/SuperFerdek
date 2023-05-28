@@ -1,5 +1,4 @@
 #include "mob_manager.h"
-#include <iostream>
 MobManager::MobManager()
 {
     setup(1);
@@ -21,7 +20,6 @@ void MobManager::setup(const int& level)
     level_sheet.loadFromFile(path);
     this->height = level_sheet.getSize().y;
     this->length = level_sheet.getSize().x;
-    //std::cout<<level<<" "<<height<<" "<<length<<"\n";
     for(int i=0;i<length; i++)
     {
         for(int j=0;j<height; j++)
@@ -43,7 +41,6 @@ void MobManager::setup(const int& level)
             }
         }
     }
-    //std::cout<<level<<" "<<mobs.size()<<"\n";
 }
 const std::vector<std::shared_ptr<Mob>>& MobManager::get_mobs() const
 {
