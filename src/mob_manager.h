@@ -23,6 +23,5 @@ class MobManager
         int get_height() const;
         int get_level() const;
         void load_next_level();
-        void reset_mobs();
 };
 #endif

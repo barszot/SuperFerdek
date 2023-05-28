@@ -35,3 +35,25 @@ TEST_CASE("TileManager tests", "[tile_manager]")
         CHECK(y1 == y2);
     }
 }
+TEST_CASE("MobManager tests", "[mob_manager]")
+{
+    MobManager mob_manager;
+    SECTION("testing default initialization")
+    {
+        CHECK(mob_manager.get_level() == 1);
+    }
+    SECTION("testing setup function")
+    {
+        mob_manager.setup(2);
+        CHECK(mob_manager.get_level() == 2);
+        mob_manager.setup(1);
+        CHECK(mob_manager.get_level() == 1);
+    }
+    SECTION("testing loading next level")
+    {
+        mob_manager.load_next_level();
+        CHECK(mob_manager.get_level() == 2);
+        mob_manager.load_next_level();
+        CHECK(mob_manager.get_level() == 3);   
+    }
+}
