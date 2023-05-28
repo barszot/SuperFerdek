@@ -7,6 +7,7 @@ coins_earned_earlier_to_save(0), is_ferdek_big_to_save(false)
     this->mobs.clear();
     const std::vector<std::shared_ptr<Mob>>& primary_mobs = mob_manager.get_mobs();
     std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
+
 }
 
 void Game::load_game(int current_level, int lives, int coins_earned_earlier, bool is_ferdek_big)
@@ -58,7 +59,12 @@ void Game::game_update(float delta_time)
         delta_time = std::min(0.1f, delta_time);
 
         window.begin_draw();
-        //tu narysuj tlo
+        sf::Texture level_background_texture;
+        level_background_texture.loadFromFile("src/imgs/background.jpeg");
+        this->level_background.setTexture(level_background_texture);
+        this->level_background.setScale(4.f, 4.f);
+        this->level_background.setColor(sf::Color(128, 128, 255, 90));
+        window.draw(level_background);
         window.draw_tile_collection(tile_manager, int(ferdek.get_position().x)/32);
         window.draw_stats(coins+coins_earned_earlier, lives, level, ferdek.get_position().x, 0, tile_manager.get_length()*32);
 

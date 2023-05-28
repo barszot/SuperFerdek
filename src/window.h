@@ -18,6 +18,9 @@ class Window
         bool is_done;
         sf::Font comic_sans;
         bool in_lobby;
+
+
+
     public:
         Window();
         Window(const std::string& title,const sf::Vector2u& size);
@@ -25,7 +28,7 @@ class Window
         std::string get_window_title() const;
         sf::Vector2u get_window_size() const;
 
-        void begin_draw(sf::Color color = sf::Color::Cyan);
+        void begin_draw(sf::Color color = sf::Color::White);
         void end_draw();
         void update();
         bool get_is_done() const;

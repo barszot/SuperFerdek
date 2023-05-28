@@ -32,6 +32,7 @@ class Game
         int lives_to_save;
         int coins_earned_earlier_to_save;
         bool is_ferdek_big_to_save;
+        sf::Sprite level_background;
 
     public:
         Game(Window& window, int max_level);

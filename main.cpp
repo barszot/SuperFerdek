@@ -2,29 +2,17 @@
 #include <SFML/Audio.hpp>
 #include "src/game.h"
 #include "src/window.h"
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include "libs/json.hpp"
 #include <string>
 int main()
 {
     Window window("Super Ferdek", sf::Vector2u(1024, 512));
     sf::Clock clock;
-    /*sf::Music music;
-    
-    // Wczytaj plik muzyczny
-    if (!music.openFromFile("src/sounds/sf_theme_song.ogg"))
-        return -1; // Błąd wczytywania pliku
-
-    // Odtwórz muzykę
-    music.play();
-    */
 
     int max_level = 3;
 
-
-
-// Access a value that does not exist in the JSON data
     while(!window.get_is_done()){
     bool is_loading_saved_game = window.start_window();
     std::ifstream f("data.json");
@@ -35,8 +23,7 @@ int main()
     int coins_earned_earlier = data["coins_earned_earlier"];
     bool is_big = data["is_big"];
     int highscore = data["highscore"];
-    std::cout<<"json test: "<<level<<" "<<lives<<" "<<coins_earned_earlier<<" "<<is_big<<" "<<highscore<<"\n";
-    std::cout<<"czy wczytujemy: "<<is_loading_saved_game<<"\n";
+
     Game game(window, max_level);
     if(is_loading_saved_game)
     {
@@ -61,6 +48,5 @@ int main()
     }
     }
     }
-    //game.EndGame();
     return 0;
 }

@@ -31,6 +31,9 @@ void Window::setup(const std::string& title, const sf::Vector2u& size)
     this->is_fullscreen = false;
     this->in_lobby = true;
     render_window.setFramerateLimit(60);
+
+
+
     create();
 }
 void Window::destroy()
@@ -174,11 +177,11 @@ void Window::draw_stats(const unsigned int& coins, const int& lives, const int& 
 bool Window::start_window()
 {
     this->in_lobby = true;
-  
     sf::Sprite start_image;
     sf::Texture start_image_texture;
     start_image_texture.loadFromFile("src/imgs/start.png");
     start_image.setTexture(start_image_texture);
+
     while(true)
     {
         begin_draw();
@@ -214,26 +217,15 @@ bool Window::start_window()
 void Window::end_window_after_lost()
 {
     this->in_lobby = true;
-    
-    sf::RectangleShape startButton(sf::Vector2f(400, 100));
-    startButton.setPosition(300, 250);
-    startButton.setFillColor(sf::Color::Red);
-
-    update_view(0,0,10000);
-    sf::Text buttonText("MENU - kliknij enter", comic_sans, 20);
-    buttonText.setPosition(360, 280);
-    buttonText.setFillColor(sf::Color::White);
-
-    sf::Text Title("Przegrana", comic_sans, 60);
-    Title.setPosition(360, 80);
-    Title.setFillColor(sf::Color::Red);
-
+    sf::Sprite lost_image;
+    sf::Texture lost_image_texture;
+    lost_image_texture.loadFromFile("src/imgs/end_lost.png");
+    lost_image.setTexture(lost_image_texture);
     while(true)
     {
         begin_draw(sf::Color::Black);
-        draw(startButton);
-        draw(buttonText);
-        draw(Title);
+        draw(lost_image);
+
         sf::Event event;
         while(render_window.pollEvent(event)){
         if(event.type == sf::Event::Closed){
