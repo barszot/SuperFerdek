@@ -151,7 +151,7 @@ void Window::draw_stats(const unsigned int& coins, const int& lives, const int& 
     result_text.setFillColor(sf::Color::Red);
     result_text.setPosition(position); 
     result_text.setString(content);
-    position.x += window_size.x * 0.25f;
+    position.x += window_size.x * 0.15f;
     result_text.setPosition(position);
     draw(result_text);  
     content = L"Poziom: ";
@@ -159,6 +159,13 @@ void Window::draw_stats(const unsigned int& coins, const int& lives, const int& 
     result_text.setCharacterSize(64);
     result_text.setFillColor(sf::Color::Black);
     position.x += window_size.x * 0.25f;
+    result_text.setPosition(position); 
+    result_text.setString(content);
+    draw(result_text);
+    content = L"Z = zapisz grę";
+    result_text.setCharacterSize(32);
+    result_text.setFillColor(sf::Color(128, 128, 0));
+    position.x += window_size.x * 0.3f;
     result_text.setPosition(position); 
     result_text.setString(content);
     draw(result_text);
@@ -254,7 +261,7 @@ void Window::end_window_after_lost()
     }
 }
 
-void Window::end_window_after_win(const unsigned int& result)
+void Window::end_window_after_win(const int& result, const int& highscore)
 {
     this->in_lobby = true;
     
@@ -268,11 +275,22 @@ void Window::end_window_after_win(const unsigned int& result)
     buttonText.setFillColor(sf::Color::White);
 
     sf::Text Title("WYGRANA", comic_sans, 60);
+    if(highscore<result)
+    {
+        Title.setString("NOWY REKORD");
+    }
     Title.setPosition(360, 80);
     Title.setFillColor(sf::Color::Black);
     sf::Text result_text(std::to_wstring(result)+L"zł", comic_sans, 60);
     result_text.setPosition(360, 120);
     result_text.setFillColor(sf::Color::Black);
+    
+    sf::Text text_highscore("REKORD", comic_sans, 40);
+    text_highscore.setPosition(360, 170);
+    text_highscore.setFillColor(sf::Color::Black);
+    sf::Text result_hs(std::to_wstring(highscore)+L"zł", comic_sans, 40);
+    result_hs.setPosition(360, 250);
+    result_hs.setFillColor(sf::Color::Green);
     //render_window.display();
     while(true)
     {
@@ -281,6 +299,8 @@ void Window::end_window_after_win(const unsigned int& result)
         draw(buttonText);
         draw(Title);
         draw(result_text);
+        draw(text_highscore);
+        draw(result_hs);
         sf::Event event;
         while(render_window.pollEvent(event)){
         if(event.type == sf::Event::Closed){

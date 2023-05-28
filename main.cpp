@@ -50,8 +50,11 @@ int main()
     if(!window.get_is_done()){
     if(game.get_is_won())
     {
-        unsigned int result = game.get_coins_earned_earlier();
-        window.end_window_after_win(result);
+        int result = game.get_coins_earned_earlier();
+        std::ifstream read_highscore_stream("data.json");
+        read_highscore_stream>>data;
+        highscore = data["highscore"];
+        window.end_window_after_win(result, highscore);
     }
     else
     {
