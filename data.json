@@ -1,7 +1,1 @@
-{
-    "level": "2",
-    "lives": "2",
-    "coins_earned_earlier": "5",
-    "is_big": "1",
-    "highscore": "0"
-}
+{"coins_earned_earlier":8,"highscore":0,"is_big":true,"level":3,"lives":2}

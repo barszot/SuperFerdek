@@ -7,6 +7,9 @@
 #include "mob.h"
 #include "mob_manager.h"
 #include <memory>
+#include "../libs/json.hpp"
+#include <fstream>
+
 class Game
 {
     private:
@@ -15,17 +18,21 @@ class Game
         TileManager tile_manager;
         MobManager mob_manager;
         bool is_done;
-        float gravity_speed;
         std::vector<std::shared_ptr<Mob>> mobs;
-        unsigned int coins;
-        unsigned int coins_earned_earlier;
+        int coins;
+        int coins_earned_earlier;
         int level;
         int lives;
         const int max_level;
         bool is_won;
+        int level_to_save;
+        int lives_to_save;
+        int coins_earned_earlier_to_save;
+        bool is_ferdek_big_to_save;
+
     public:
         Game(Window& window, int max_level);
-        void load_game(int current_level, int lives, unsigned int coins_earned_earlier, bool is_ferdek_big);
+        void load_game(int current_level, int lives, int coins_earned_earlier, bool is_ferdek_big);
         ~Game();
         void GameAfterDeath();
         void GameUpdate(float time_warp);
@@ -37,7 +44,8 @@ class Game
         bool IsWindowDone() const;
         void load_next_level();
         bool get_is_won() const;
-        unsigned int get_coins_earned_earlier() const;
+        int get_coins_earned_earlier() const;
+        void save_game() const;
 };
 
 #endif

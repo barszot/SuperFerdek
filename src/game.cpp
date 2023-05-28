@@ -5,8 +5,9 @@
 #include "enemy.h"
 #include "pazdzioch.h"
 #include <memory>
-Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(0),  level(1),
-lives(3), max_level(max_level), is_won(false)
+Game::Game(Window& window, int max_level): window(window), is_done(false), coins(0), coins_earned_earlier(0),  level(1),
+lives(3), max_level(max_level), is_won(false), level_to_save(1), lives_to_save(3),
+coins_earned_earlier_to_save(0), is_ferdek_big_to_save(false)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
@@ -17,11 +18,16 @@ lives(3), max_level(max_level), is_won(false)
     //mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
 }
 
-void Game::load_game(int current_level, int lives, unsigned int coins_earned_earlier, bool is_ferdek_big)
+void Game::load_game(int current_level, int lives, int coins_earned_earlier, bool is_ferdek_big)
 {
+
     this->level = current_level;
     this->lives = lives;
     this->coins_earned_earlier = coins_earned_earlier;
+    this-> level_to_save = current_level;
+    this-> lives_to_save = lives;
+    this-> coins_earned_earlier = coins_earned_earlier;
+    this->is_ferdek_big_to_save = is_ferdek_big;
     std::cout<<this->level<<" "<<this->lives<<" "<<this->coins_earned_earlier<<"\n";
     this->tile_manager.Setup(level);
     this->mob_manager.setup(level);
@@ -79,6 +85,13 @@ void Game::GameUpdate(float time_warp)
         ManagePlayerCollisions();
         ManageMobsCollisions();
         window.end_draw();
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+        {
+            std::cout<<"ZAPISZ GRE\n";
+            save_game();
+        }
+
+
 }
 
 bool Game::IsDone()
@@ -253,6 +266,10 @@ void Game::load_next_level()
 {
     this->level+=1;
     this->coins_earned_earlier += coins;
+    this->level_to_save = level;
+    this->coins_earned_earlier_to_save = coins_earned_earlier;
+    this->lives_to_save = lives;
+    this->is_ferdek_big_to_save = ferdek.get_is_big();
     if (level<=max_level)
     {
         this->coins = 0;
@@ -275,7 +292,22 @@ bool Game::get_is_won() const
 {
     return is_won;
 }
-unsigned int Game::get_coins_earned_earlier() const
+int Game::get_coins_earned_earlier() const
 {
     return coins_earned_earlier;
+}
+void Game::save_game() const
+{
+    std::ifstream save_game_read_stream("data.json");
+    nlohmann::json prev_data;
+    save_game_read_stream >> prev_data;
+    int highscore = prev_data["highscore"];
+    nlohmann::json new_data;
+    new_data["coins_earned_earlier"] = coins_earned_earlier_to_save;
+    new_data["highscore"] = highscore;
+    new_data["is_big"] = is_ferdek_big_to_save;
+    new_data["level"] = level_to_save;
+    new_data["lives"] = lives_to_save;
+    std::ofstream save_game_load_stream("data.json");
+    save_game_load_stream << new_data << std::endl;
 }

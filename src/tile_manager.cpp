@@ -120,7 +120,7 @@ const std::vector<std::vector<std::unique_ptr<Tile>>>& TileManager::GetTiles() c
     return tiles;
 }
 
-bool TileManager::ReactIfTileIsCoin(int x, int y, unsigned int& coins)
+bool TileManager::ReactIfTileIsCoin(int x, int y, int& coins)
 {
     if(CheckTile(x, y))
     {

@@ -21,14 +21,18 @@ int main()
     */
 
     int max_level = 3;
+
     std::ifstream f("data.json");
-    nlohmann::json data = nlohmann::json::parse(f);
-    int level = std::stoi(data.value("level", "1"));
-    int lives = std::stoi(data.value("lives", "3"));
-    int coins_earned_earlier = std::stoi(data.value("coins_earned_earlier", "0"));
-    bool is_big = std::stoi(data.value("is_big", "0"));
+    nlohmann::json data;
+    f>>data;
+    int level = data["level"];
+    int lives = data["lives"];
+    int coins_earned_earlier = data["coins_earned_earlier"];
+    bool is_big = data["is_big"];
+    int highscore = data["highscore"];
+    std::cout<<"json test: "<<level<<" "<<lives<<" "<<coins_earned_earlier<<" "<<is_big<<" "<<highscore<<"\n";
+
 // Access a value that does not exist in the JSON data
-    std::cout<<"json test: "<<level<<" "<<lives<<" "<<coins_earned_earlier<<" "<<is_big<<"\n";
     while(!window.get_is_done()){
     bool is_loading_saved_game = window.start_window();
     std::cout<<"czy wczytujemy: "<<is_loading_saved_game<<"\n";
@@ -54,7 +58,6 @@ int main()
         window.end_window_after_lost();
     }
     }
-   
     }
     //game.EndGame();
     return 0;
