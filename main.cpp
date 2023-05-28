@@ -32,15 +32,12 @@ int main()
     while(!window.get_is_done()){
     bool is_loading_saved_game = window.start_window();
     std::cout<<"czy wczytujemy: "<<is_loading_saved_game<<"\n";
+    Game game(window, max_level);
     if(is_loading_saved_game)
     {
-        Game game(window, max_level, level, lives, coins_earned_earlier, is_big);
+        game.load_game(level, lives, coins_earned_earlier, is_big);
     }
-    else
-    {
-        Game game(window, max_level);
-    }
-    Game game(window, max_level);
+
     while(!game.IsWindowDone() && !game.IsDone()){
         sf::Time elapsedTime = clock.restart();
         float delta_time = elapsedTime.asSeconds();

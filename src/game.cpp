@@ -10,21 +10,24 @@ lives(3), max_level(max_level), is_won(false)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
-    mobs.clear();
+    this->mobs.clear();
     const std::vector<std::shared_ptr<Mob>>& primary_mobs = mob_manager.get_mobs();
     std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
 
     //mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
 }
 
-Game::Game(Window& window, int max_level, int current_level, int lives, unsigned int coins_earned_earlier, bool is_ferdek_big): window(window),
-is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(coins_earned_earlier), level(current_level), lives(lives), max_level(max_level), is_won(false)
+void Game::load_game(int current_level, int lives, unsigned int coins_earned_earlier, bool is_ferdek_big)
 {
-    tile_manager.Setup(level);
-    mob_manager.setup(level);
-    ferdek.set_is_big(true);
+    this->level = current_level;
+    this->lives = lives;
+    this->coins_earned_earlier = coins_earned_earlier;
+    std::cout<<this->level<<" "<<this->lives<<" "<<this->coins_earned_earlier<<"\n";
+    this->tile_manager.Setup(level);
+    this->mob_manager.setup(level);
+    this->ferdek.set_is_big(is_ferdek_big);
     std::cout<<"cyz ferdek jest wielki? "<<ferdek.get_is_big()<<"\n";
-    mobs.clear();
+    this->mobs.clear();
     const std::vector<std::shared_ptr<Mob>>& primary_mobs = mob_manager.get_mobs();
     std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
 
@@ -63,7 +66,6 @@ void Game::GameUpdate(float time_warp)
 
         window.begin_draw();
         //tu narysuj tlo
-
         window.draw_tile_collection(tile_manager, int(ferdek.get_position().x)/32);
         window.draw_stats(coins+coins_earned_earlier, lives, level, ferdek.get_position().x, 0, tile_manager.GetLength()*32);
 
