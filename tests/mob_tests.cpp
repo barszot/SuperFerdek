@@ -3,7 +3,9 @@
 #include "../src/mob.h"
 #include "../src/beer.h"
 #include "../src/spark.h"
-
+#include "../src/enemy.h"
+#include "../src/pazdzioch.h"
+#include "../src/boczek.h"
 
 TEST_CASE("Mob tests", "[mob]") 
 {
@@ -86,4 +88,41 @@ TEST_CASE("Spark tests", "[spark]")
         CHECK(spark.get_marked_for_death() == true);
     }
 }
-
+TEST_CASE("Enemy tests", "[enemy]")
+{
+    Enemy enemy;
+    SECTION("testing default initialization")
+    {
+        CHECK(enemy.get_is_faced_forward() == true);
+        CHECK(enemy.get_bottom_collision() == false);
+        CHECK(enemy.get_feedback() == false);
+        CHECK(enemy.get_marked_for_death() == false);
+        CHECK(enemy.get_can_kill_ferdek() == true);
+    }
+}
+TEST_CASE("Pazdzioch tests", "[pazdzioch]")
+{
+    Pazdzioch pazdzioch;
+    SECTION("testing default initialization")
+    {
+        CHECK(pazdzioch.get_is_faced_forward() == true);
+        CHECK(pazdzioch.get_bottom_collision() == false);
+        CHECK(pazdzioch.get_feedback() == false);
+        CHECK(pazdzioch.get_marked_for_death() == false);
+        CHECK(pazdzioch.get_can_kill_ferdek() == true);
+        CHECK(pazdzioch.get_type() == -1);
+    }
+}
+TEST_CASE("Boczek tests", "[boczek]")
+{
+    Boczek boczek;
+    SECTION("testing default initialization")
+    {
+        CHECK(boczek.get_is_faced_forward() == true);
+        CHECK(boczek.get_bottom_collision() == false);
+        CHECK(boczek.get_feedback() == false);
+        CHECK(boczek.get_marked_for_death() == false);
+        CHECK(boczek.get_can_kill_ferdek() == true);
+        CHECK(boczek.get_type() == -2);
+    }
+}

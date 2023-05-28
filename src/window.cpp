@@ -226,7 +226,7 @@ void Window::end_window_after_lost()
 
     while(true)
     {
-        begin_draw(sf::Color::Red);
+        begin_draw(sf::Color::Black);
         draw(lost_image);
         sf::Event event;
         while(render_window.pollEvent(event)){
