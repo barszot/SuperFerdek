@@ -1,1 +1,3 @@
 Dokumentacja gry
+
+klasy:
