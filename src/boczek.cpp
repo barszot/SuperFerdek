@@ -23,7 +23,7 @@ void Boczek::setup()
     sprite.setPosition(this->position);
     sprite.setOrigin(0, 48);
     sprite.setScale(sf::Vector2f (2.0f, 2.0f));
-    this->speed = 500.f;
+    this->speed = 300.f;
     this->current_frame = 0;
     this->max_two_frames_time = 0.2f;
     this->current_two_frames_time = max_two_frames_time;

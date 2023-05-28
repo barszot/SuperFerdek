@@ -35,6 +35,9 @@ managers_tests:
 mob_tests:
 	${CXX} ${CXX_FLAGS} ${SRC} tests/mob_tests.cpp -o build/mob_tests ${LIBS}
 
+game_tests:
+	${CXX} ${CXX_FLAGS} ${SRC} tests/game_tests.cpp -o build/game_tests ${LIBS}
+
 
 clean: ${OBJ}
 	@echo "Removing ${OBJ}"
