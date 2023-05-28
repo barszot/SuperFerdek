@@ -18,23 +18,23 @@ class Mob
     public:
         Mob();
         virtual ~Mob();
-        bool IsFacedForward() const;
-        float GetSpeed() const;
-        void ToggleFacedForward();
-        sf::Vector2f GetPosition() const;
-        sf::Sprite GetSprite() const;
-        void Move(float delta_time);
-        virtual void Update(float delta_time);
-        bool GetBottomCollision() const;
-        void ToggleBottomCollision();
-        void SetBottomCollision(bool new_bottom_collision);
-        void SetFacedForward(bool new_faced_forward);
-        void SetY(float new_y);
-        void SetMarkedForDeath(bool is_marked);
-        bool GetMarkedForDeath() const;
-        virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_big);
-        bool GetFeedback() const;
-        int GetType() const;
+        bool get_is_faced_forward() const;
+        float get_speed() const;
+        void toggle_faced_forward();
+        sf::Vector2f get_position() const;
+        sf::Sprite get_sprite() const;
+        void move(float delta_time);
+        virtual void update(float delta_time);
+        bool get_bottom_collision() const;
+        void toggle_bottom_collision();
+        void set_bottom_collision(bool new_bottom_collision);
+        void set_faced_forward(bool new_faced_forward);
+        void set_y(float new_y);
+        void set_marked_for_death(bool is_marked);
+        bool get_marked_for_death() const;
+        virtual void mark_for_death_if_necessary(sf::Vector2f ferdek_position, bool is_ferdek_big);
+        bool get_feedback() const;
+        int get_type() const;
 };  
 
 #endif

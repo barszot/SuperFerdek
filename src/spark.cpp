@@ -2,18 +2,18 @@
 
 Spark::Spark()
 {
-    Setup();
+    setup();
 }
 Spark::Spark(sf::Vector2f position)
 {
     this->position = position;
-    Setup();
+    setup();
 }
 Spark::~Spark()
 {
 
 }
-void Spark::Update(float delta_time)
+void Spark::update(float delta_time)
 {
     lifespan -= delta_time;
     if(lifespan <= 0.f)
@@ -23,7 +23,7 @@ void Spark::Update(float delta_time)
     }
 }
 
-void Spark::Setup(){
+void Spark::setup(){
     this->lifespan = 0.2f;
     this->type = 2;
     this->texture.loadFromFile("src/imgs/map_textures.png", sf::IntRect(96, 32, 16, 16));

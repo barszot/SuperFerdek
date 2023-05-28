@@ -179,47 +179,47 @@ void Game::manage_mobs_collisions()
 
     for(int i = 0; i<n;i++)
     {
-        if (abs(ferdek.get_position().x-mobs[i]->GetPosition().x)/32 < 24)
+        if (abs(ferdek.get_position().x-mobs[i]->get_position().x)/32 < 24)
         {
             
-            float x = mobs[i]->GetPosition().x;
-            float y = mobs[i]->GetPosition().y;
+            float x = mobs[i]->get_position().x;
+            float y = mobs[i]->get_position().y;
             int id_x = int(x) / 32;
             int id_x_special_1 = int(x + 8.f) / 32;
             int id_x_special_2 = int(x + 24.f) / 32;
             int id_y = (int(y) / 32) - 2;
             if(id_x>=tile_manager.get_length()-3 || tile_manager.check_tile(id_x+1,id_y))
             {
-                mobs[i]->SetFacedForward(false);
+                mobs[i]->set_faced_forward(false);
 
             }
             if(id_x-2 < 0 || tile_manager.check_tile(id_x,id_y))
             {
-                mobs[i]->SetFacedForward(true);
+                mobs[i]->set_faced_forward(true);
             }
             if(tile_manager.check_tile(id_x_special_1,id_y+1) || tile_manager.check_tile(id_x_special_2,id_y+1))
             {
-                mobs[i]->SetBottomCollision(true);
-                mobs[i]->SetY(32*(id_y+2));
+                mobs[i]->set_bottom_collision(true);
+                mobs[i]->set_y(32*(id_y+2));
             }
             else
             {
-                mobs[i]->SetBottomCollision(false);
+                mobs[i]->set_bottom_collision(false);
             }
 
-            mobs[i]->MarkForDeathIfNecessary(ferdek.get_position(), ferdek.get_is_big());
-            if(mobs[i]->GetFeedback() && mobs[i]->GetType()<0)
+            mobs[i]->mark_for_death_if_necessary(ferdek.get_position(), ferdek.get_is_big());
+            if(mobs[i]->get_feedback() && mobs[i]->get_type()<0)
             {
                 ferdek.not_instant_kill();
             }
-            ferdek.set_is_big(ferdek.get_is_big() || (mobs[i]->GetFeedback() && mobs[i]->GetType() == 1));
-            coins += (mobs[i]->GetFeedback()&&mobs[i]->GetType() == 2);
+            ferdek.set_is_big(ferdek.get_is_big() || (mobs[i]->get_feedback() && mobs[i]->get_type() == 1));
+            coins += (mobs[i]->get_feedback()&&mobs[i]->get_type() == 2);
         }
     }
     mobs.erase(std::remove_if(mobs.begin(), mobs.end(),
         [](const std::shared_ptr<Mob>& mob_ptr) {
             
-            return (mob_ptr->GetMarkedForDeath());
+            return (mob_ptr->get_marked_for_death());
         }), mobs.end());
 }
 
@@ -228,9 +228,9 @@ void Game::mobs_update(float delta_time)
     int n = mobs.size();
     for(int i = 0; i<n;i++)
     {
-        if (abs(ferdek.get_position().x-mobs[i]->GetPosition().x)/32 < 24)
+        if (abs(ferdek.get_position().x-mobs[i]->get_position().x)/32 < 24)
         {
-           mobs[i]->Update(delta_time);
+           mobs[i]->update(delta_time);
         }
     }
 }

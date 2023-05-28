@@ -11,9 +11,9 @@ Enemy::~Enemy()
 {
 
 }
-void Enemy::Update(float delta_time)
+void Enemy::update(float delta_time)
 {
-    Move(delta_time);
+    move(delta_time);
     if(current_time_of_not_killing_ferdek>0.f)
     {
         current_time_of_not_killing_ferdek -= delta_time;

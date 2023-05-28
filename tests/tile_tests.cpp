@@ -75,9 +75,9 @@ TEST_CASE("Question tile with beer tests", "[question_tile_beer]")
         question_tile_beer.activate_tile();
         CHECK(question_tile_beer.get_activated() == true);
         CHECK(question_tile_beer.get_mob_ptr() != nullptr);
-        CHECK(question_tile_beer.get_mob_ptr()->GetType()==1);
-        CHECK(question_tile_beer.get_position().x == question_tile_beer.get_mob_ptr()->GetPosition().x);
-        CHECK(question_tile_beer.get_position().y+32.f == question_tile_beer.get_mob_ptr()->GetPosition().y);
+        CHECK(question_tile_beer.get_mob_ptr()->get_type()==1);
+        CHECK(question_tile_beer.get_position().x == question_tile_beer.get_mob_ptr()->get_position().x);
+        CHECK(question_tile_beer.get_position().y+32.f == question_tile_beer.get_mob_ptr()->get_position().y);
         question_tile_beer.activate_tile();
         CHECK(question_tile_beer.get_activated() == true);
         CHECK(question_tile_beer.get_mob_ptr() == nullptr);
@@ -102,9 +102,9 @@ TEST_CASE("Question tile with coin tests", "[question_tile_coin]")
         question_tile_coin.activate_tile();
         CHECK(question_tile_coin.get_activated() == true);
         CHECK(question_tile_coin.get_mob_ptr() != nullptr);
-        CHECK(question_tile_coin.get_mob_ptr()->GetType()==2);
-        CHECK(question_tile_coin.get_position().x == question_tile_coin.get_mob_ptr()->GetPosition().x);
-        CHECK(question_tile_coin.get_position().y+32.f == question_tile_coin.get_mob_ptr()->GetPosition().y);
+        CHECK(question_tile_coin.get_mob_ptr()->get_type()==2);
+        CHECK(question_tile_coin.get_position().x == question_tile_coin.get_mob_ptr()->get_position().x);
+        CHECK(question_tile_coin.get_position().y+32.f == question_tile_coin.get_mob_ptr()->get_position().y);
         question_tile_coin.activate_tile();
         CHECK(question_tile_coin.get_activated() == true);
         CHECK(question_tile_coin.get_mob_ptr() == nullptr);

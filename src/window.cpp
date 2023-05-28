@@ -55,11 +55,11 @@ sf::Vector2u Window::get_window_size() const
 {
     return window_size;
 }
-void Window::begin_draw(sf::Color color) // Clears the window
+void Window::begin_draw(sf::Color color)
 {
     render_window.clear(color);
 }
-void Window::end_draw() //Shows result
+void Window::end_draw()
 {
     render_window.display();
 }
@@ -69,7 +69,6 @@ void Window::update()
     while(render_window.pollEvent(event)){
     if(event.type == sf::Event::Closed){
         is_done = true;
-        //std::cout<<"ZAMKNIETO OKNO!\n";
     }
     else if(event.type == sf::Event::KeyPressed &&
     event.key.code == sf::Keyboard::F5)
@@ -124,9 +123,9 @@ void Window::draw_mobs(const std::vector<std::shared_ptr<Mob>>& mobs, float ferd
     int n = mobs.size();
     for(int i = 0; i<n;i++)
     {
-        if (abs(ferdek_position_x-mobs[i]->GetPosition().x)/32 < 24)
+        if (abs(ferdek_position_x-mobs[i]->get_position().x)/32 < 24)
         {
-            draw(mobs[i]->GetSprite());
+            draw(mobs[i]->get_sprite());
 
         }
     }
@@ -180,7 +179,6 @@ bool Window::start_window()
     sf::Texture start_image_texture;
     start_image_texture.loadFromFile("src/imgs/start.png");
     start_image.setTexture(start_image_texture);
-    //render_window.display();
     while(true)
     {
         begin_draw();
@@ -190,7 +188,6 @@ bool Window::start_window()
         if(event.type == sf::Event::Closed){
             is_done = true;
             return false;
-            //std::cout<<"ZAMKNIETO OKNO!\n";
         }
         else if(event.type == sf::Event::KeyPressed &&
         event.key.code == sf::Keyboard::F5)
@@ -231,7 +228,6 @@ void Window::end_window_after_lost()
     Title.setPosition(360, 80);
     Title.setFillColor(sf::Color::Red);
 
-    //render_window.display();
     while(true)
     {
         begin_draw(sf::Color::Black);
@@ -243,7 +239,6 @@ void Window::end_window_after_lost()
         if(event.type == sf::Event::Closed){
             is_done = true;
             return;
-            //std::cout<<"ZAMKNIETO OKNO!\n";
         }
         else if(event.type == sf::Event::KeyPressed &&
         event.key.code == sf::Keyboard::F5)
@@ -292,7 +287,6 @@ void Window::end_window_after_win(int result, int highscore)
     sf::Text result_hs(std::to_wstring(highscore)+L"zł", comic_sans, 40);
     result_hs.setPosition(360, 250);
     result_hs.setFillColor(sf::Color::Green);
-    //render_window.display();
     while(true)
     {
         begin_draw(sf::Color::Yellow);
@@ -307,7 +301,6 @@ void Window::end_window_after_win(int result, int highscore)
         if(event.type == sf::Event::Closed){
             is_done = true;
             return;
-            //std::cout<<"ZAMKNIETO OKNO!\n";
         }
         else if(event.type == sf::Event::KeyPressed &&
         event.key.code == sf::Keyboard::F5)

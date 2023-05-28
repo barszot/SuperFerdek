@@ -5,12 +5,12 @@ class Spark : public Mob
 {
     private:
         float lifespan;
-        void Setup();
+        void setup();
     public:
         Spark();
         Spark(sf::Vector2f position);
         ~Spark();
-        virtual void Update(float delta_time);
+        virtual void update(float delta_time);
 
 };
 

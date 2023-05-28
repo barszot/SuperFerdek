@@ -5,12 +5,12 @@
 class Beer : public Mob
 {
     private:
-        void Setup();
+        void setup();
     public:
         Beer();
         Beer(sf::Vector2f position);
         ~Beer();
-        virtual void MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_big);
+        virtual void mark_for_death_if_necessary(sf::Vector2f ferdek_position, bool is_ferdek_big);
 
 };
 #endif

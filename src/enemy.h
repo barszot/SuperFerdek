@@ -11,7 +11,7 @@ class Enemy : public Mob
     public:
         Enemy();
         ~Enemy();
-        virtual void Update(float delta_time);
+        virtual void update(float delta_time);
         bool get_can_kill_ferdek() const;
         virtual void check_if_kills_ferdek(sf::Vector2f ferdek_position);
 };

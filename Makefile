@@ -32,6 +32,9 @@ window_tests:
 managers_tests:
 	${CXX} ${CXX_FLAGS} ${SRC} tests/managers_tests.cpp -o build/managers_tests ${LIBS}
 
+mob_tests:
+	${CXX} ${CXX_FLAGS} ${SRC} tests/mob_tests.cpp -o build/mob_tests ${LIBS}
+
 clean: ${OBJ}
 	@echo "Removing ${OBJ}"
 	rm -f ${OBJ}
