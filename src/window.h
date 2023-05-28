@@ -41,7 +41,7 @@ class Window
         bool start_window();
         void draw_ferdek(Ferdek& ferdek);
         void end_window_after_lost();
-        void end_window_after_win(const int& result, const int& highscore);
+        void end_window_after_win(int result, int highscore);
 
 };
 

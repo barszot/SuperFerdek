@@ -261,7 +261,7 @@ void Window::end_window_after_lost()
     }
 }
 
-void Window::end_window_after_win(const int& result, const int& highscore)
+void Window::end_window_after_win(int result, int highscore)
 {
     this->in_lobby = true;
     
@@ -278,6 +278,7 @@ void Window::end_window_after_win(const int& result, const int& highscore)
     if(highscore<result)
     {
         Title.setString("NOWY REKORD");
+        highscore = result;
     }
     Title.setPosition(360, 80);
     Title.setFillColor(sf::Color::Black);

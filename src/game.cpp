@@ -282,7 +282,24 @@ void Game::load_next_level()
         std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
     }
     else
-    {      
+    {   
+        nlohmann::json prev_data;
+        std::ifstream read_highscore_to_update_stream("data.json");
+        read_highscore_to_update_stream>>prev_data;
+        int highscore = prev_data["highscore"];
+        if(coins_earned_earlier>highscore)
+        {
+            nlohmann::json new_data;
+            new_data["coins_earned_earlier"] = prev_data["coins_earned_earlier"];
+            new_data["is_big"] = prev_data["is_big"];
+            new_data["level"] = prev_data["level"];
+            new_data["lives"] = prev_data["lives"];
+            new_data["highscore"] = coins_earned_earlier;
+            std::ofstream save_highscore_to_update_stream("data.json");
+            save_highscore_to_update_stream << new_data << std::endl;
+        }
+
+        
         is_done = true;
         is_won = true;
     }

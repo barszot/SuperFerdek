@@ -22,6 +22,11 @@ int main()
 
     int max_level = 3;
 
+
+
+// Access a value that does not exist in the JSON data
+    while(!window.get_is_done()){
+    bool is_loading_saved_game = window.start_window();
     std::ifstream f("data.json");
     nlohmann::json data;
     f>>data;
@@ -31,10 +36,6 @@ int main()
     bool is_big = data["is_big"];
     int highscore = data["highscore"];
     std::cout<<"json test: "<<level<<" "<<lives<<" "<<coins_earned_earlier<<" "<<is_big<<" "<<highscore<<"\n";
-
-// Access a value that does not exist in the JSON data
-    while(!window.get_is_done()){
-    bool is_loading_saved_game = window.start_window();
     std::cout<<"czy wczytujemy: "<<is_loading_saved_game<<"\n";
     Game game(window, max_level);
     if(is_loading_saved_game)
@@ -51,9 +52,7 @@ int main()
     if(game.get_is_won())
     {
         int result = game.get_coins_earned_earlier();
-        std::ifstream read_highscore_stream("data.json");
-        read_highscore_stream>>data;
-        highscore = data["highscore"];
+
         window.end_window_after_win(result, highscore);
     }
     else
