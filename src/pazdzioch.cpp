@@ -29,7 +29,7 @@ void Pazdzioch::setup()
 void Pazdzioch::MarkForDeathIfNecessary(sf::Vector2f ferdek_position, bool is_ferdek_big)
 {
 
-    if(abs(ferdek_position.x - position.x)<16.f && (abs(ferdek_position.y-position.y)<=40.f && abs(ferdek_position.y-position.y) > 24.f))
+    if(abs(ferdek_position.x - position.x)<=24.f && (abs(ferdek_position.y-position.y)<=36.f && abs(ferdek_position.y-position.y) > 28.f))
     {
         marked_for_death = true;
     }
