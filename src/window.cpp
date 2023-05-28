@@ -165,7 +165,7 @@ void Window::draw_stats(const unsigned int& coins, const int& lives, const int& 
 
 }
 
-void Window::start_window()
+bool Window::start_window()
 {
     this->in_lobby = true;
   
@@ -182,7 +182,7 @@ void Window::start_window()
         while(render_window.pollEvent(event)){
         if(event.type == sf::Event::Closed){
             is_done = true;
-            return;
+            return false;
             //std::cout<<"ZAMKNIETO OKNO!\n";
         }
         else if(event.type == sf::Event::KeyPressed &&
@@ -194,7 +194,13 @@ void Window::start_window()
         event.key.code == sf::Keyboard::Enter)
         {
             this->in_lobby = false;
-            return;
+            return false;
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+        event.key.code == sf::Keyboard::Z)
+        {
+            this->in_lobby = false;
+            return true;
         }
         }
         end_draw();

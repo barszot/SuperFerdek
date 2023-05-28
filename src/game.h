@@ -25,6 +25,7 @@ class Game
         bool is_won;
     public:
         Game(Window& window, int max_level);
+        Game(Window& window, int max_level, int current_level, int lives, unsigned int coins_earned_earlier, bool is_ferdek_big);
         ~Game();
         void GameAfterDeath();
         void GameUpdate(float time_warp);

@@ -5,7 +5,8 @@
 #include "enemy.h"
 #include "pazdzioch.h"
 #include <memory>
-Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(0),  level(1), lives(3), max_level(max_level), is_won(false)
+Game::Game(Window& window, int max_level): window(window), is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(0),  level(1),
+lives(3), max_level(max_level), is_won(false)
 {
     //sf::Time duration = sf::seconds(0.5f); // Tworzenie obiektu sf::Time o długości 0.5 sekundy
     //::sleep(duration); // Użycie sf::sleep do zatrzymania programu na określony czas
@@ -15,6 +16,20 @@ Game::Game(Window& window, int max_level): window(window), is_done(false), gravi
 
     //mobs.push_back(std::make_shared<Pazdzioch>(sf::Vector2f(420.f, 480.f)));
 }
+
+Game::Game(Window& window, int max_level, int current_level, int lives, unsigned int coins_earned_earlier, bool is_ferdek_big): window(window),
+is_done(false), gravity_speed(250.f), coins(0), coins_earned_earlier(coins_earned_earlier), level(current_level), lives(lives), max_level(max_level), is_won(false)
+{
+    tile_manager.Setup(level);
+    mob_manager.setup(level);
+    ferdek.set_is_big(true);
+    std::cout<<"cyz ferdek jest wielki? "<<ferdek.get_is_big()<<"\n";
+    mobs.clear();
+    const std::vector<std::shared_ptr<Mob>>& primary_mobs = mob_manager.get_mobs();
+    std::copy(primary_mobs.begin(), primary_mobs.end(), std::back_inserter(mobs));
+
+}
+
 
 Game::~Game() {}
 
