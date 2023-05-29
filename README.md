@@ -1,5 +1,7 @@
 Dokumentacja gry.
 
+Autor: Bartosz Jaźwiec
+
 Przy tworzeniu gry wykorzystałem bibliotekę SFML do stworzenia klasy Window odpowiadającej za wyświetlanie gry. Gra składa się domyślnie z trzech poziomów, ale kod jest tak skonstruowany, że utworzenie nowych poziomów to żaden problem. Gra oferuje możliwość zapisania / wczytania stanu gry, oraz przechowuje rekordowy wynik. Jeśli rekord zostanie pobity, na ekranie wygranej pojawi się napis "NOWY REKORD" i rekord zostanie uaktualniony w pliku data.json przechowującym jednocześnie rekordowy wynik oraz zapisany stan gry.
 
 By uruchomić grę, wystarczy pobrać repozytorium, wpisać w terminal komendę make (w celu skompilowania gry), po czym wystarczy wpisać
