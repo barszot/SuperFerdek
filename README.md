@@ -17,21 +17,36 @@ ENTER - (będąc w ekranie startowym) - włączanie gry
 (po wygranej/przegranej) - powrót do ekranu startowego
 
 Klasy:
-    Window - reprezentuje okno gry
-    Game - reprezentuje grę, ma metody odpowiadające za aktualizowanie gry w czasie, przełączanie na kolejne poziomy itp.
-    Tile - reprezentuje kafelek na mapie. Dziedziczą po niej następujące klasy:
-        Coin - reprezentuje monetę. Można je zbierać
-        QuestionTile - reprezentuje kafelki ze znakiem zapytania, które reagują jeśli gracz uderzy je od dołu głową. Dziedziczą po niej
-        następujące klasy:
-            QuestionTileBeer - tworzy obiekt Beer po aktywacji.
-            QuestionTileCoin - po aktywacji daje graczowi monetę.
-    Mob - reprezentuje "moby". Dziedziczą po niej następujące klasy:
-        Beer - reprezentuje piwo. Daje graczowi doładowanie po tym jak go dotknie.
-        Spark - reprezentuje iskierkę która pojawia się przy aktywacji QuestionTileCoin. Jedyna rola Spark to pojawić się i szybko zniknąć, oraz dać
-        graczowi +1 monetę.
-        Enemy - reprezentuje wrogów. Dziedziczą po niej klasy:
-            Pazdzioch - reprezentuje wroga-Paździocha
-            Boczek - reprezentuje wroga-Boczka
-    TileManager - klasa wczytujące rozmieszczenie kafelków i zarządzająca nim. Ma dwuwymiarowy wektor przechowujący unique-pointery wskazujące na poszczególne obiekty typu Tile.
-    MobManager - klasa wczytujące rozmieszczenie mobów i zarządzająca nim. Ma jednowymiariow wektor przechowujący shared-pointery wskazujące na poszczególne obiekty typu Mob (generowane na samym początku rozpoczęcia poziomu).
-    Ferdek - reprezentuje gracza - pana Ferdynanda.
+
+Window - reprezentuje okno gry
+
+Game - reprezentuje grę, ma metody odpowiadające za aktualizowanie gry w czasie, przełączanie na kolejne poziomy itp.
+
+Tile - reprezentuje kafelek na mapie. Dziedziczą po niej następujące klasy:
+    
+Coin (Tile) - reprezentuje monetę. Można je zbierać
+
+QuestionTile (Tile) - reprezentuje kafelki ze znakiem zapytania, które reagują jeśli gracz uderzy je od dołu głową. Dziedziczą po niej następujące klasy:
+
+QuestionTileBeer (QuestionTile) - tworzy obiekt Beer po aktywacji.
+
+QuestionTileCoin (QuestionTile) - po aktywacji daje graczowi monetę.
+
+Mob - reprezentuje "moby". Dziedziczą po niej następujące klasy:
+
+Beer (Mob) - reprezentuje piwo. Daje graczowi doładowanie po tym jak go dotknie.
+
+Spark (Mob) - reprezentuje iskierkę która pojawia się przy aktywacji QuestionTileCoin. Jedyna rola Spark to pojawić się i szybko zniknąć, oraz dać graczowi +1 monetę.
+
+Enemy (Mob) - reprezentuje wrogów. Dziedziczą po niej klasy:
+
+Pazdzioch (Enemy) - reprezentuje wroga-Paździocha.
+
+Boczek (Enemy) - reprezentuje wroga-Boczka.
+
+
+TileManager - klasa wczytujące rozmieszczenie kafelków i zarządzająca nim. Ma dwuwymiarowy wektor przechowujący unique-pointery wskazujące na poszczególne obiekty typu Tile.
+
+MobManager - klasa wczytujące rozmieszczenie mobów i zarządzająca nim. Ma jednowymiariow wektor przechowujący shared-pointery wskazujące na poszczególne obiekty typu Mob (generowane na samym początku rozpoczęcia poziomu).
+
+Ferdek - reprezentuje gracza - pana Ferdynanda.
