@@ -58,8 +58,8 @@ Klasy Tile i Mob mają dziedziczony (protected) atrybut int type. Należy dodać
 
 Coin -> 100,
 QuestionTileBeer -> 10,
-QuestioTileCoin -> 11
+QuestioTileCoin -> 11,
 Beer -> 1,
 Spark -> 2,
-Pazdzioch -> -1
-Boczek -> -2
+Pazdzioch -> -1,
+Boczek -> -2.
