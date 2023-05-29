@@ -50,3 +50,16 @@ TileManager - klasa wczytujące rozmieszczenie kafelków i zarządzająca nim. M
 MobManager - klasa wczytujące rozmieszczenie mobów i zarządzająca nim. Ma jednowymiariow wektor przechowujący shared-pointery wskazujące na poszczególne obiekty typu Mob (generowane na samym początku rozpoczęcia poziomu).
 
 Ferdek - reprezentuje gracza - pana Ferdynanda.
+
+
+Klasy Tile i Mob mają dziedziczony (protected) atrybut int type. Należy dodać że niektóre typy są zarezerwowane dla poszczególnych klas:
+(wrogowie (klasy dziedziczące po Enemy) muszą mieć ujemne wartości atrybutu type):
+
+
+Coin -> 100,
+QuestionTileBeer -> 10,
+QuestioTileCoin -> 11
+Beer -> 1,
+Spark -> 2,
+Pazdzioch -> -1
+Boczek -> -2
